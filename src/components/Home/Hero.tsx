@@ -88,23 +88,27 @@ const Hero: React.FC = () => {
             </motion.div>
 
               <motion.h1 
+                className="text-4xl md:text-6xl lg:text-7xl font-bold text-center mb-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-4xl xs:text-5xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-8 leading-tight"
+                transition={{ duration: 0.6 }}
               >
-                Design that
-                <br />
-                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                  Drives Growth
-                </span>
-                <br />
+                UI Meets Trust, UX Meets Mitra
               </motion.h1>
+
+              <motion.h2
+                className="text-2xl md:text-3xl lg:text-4xl text-center mb-8"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                Design that Drives Growth
+              </motion.h2>
 
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
                 className="text-base xs:text-lg sm:text-xl md:text-2xl text-gray-600 max-w-md sm:max-w-3xl mx-auto mb-6 sm:mb-12"
               >
                 We're a creative tech studio crafting standout digital experiences through smart design and modern development for bold, ambitious brands.
@@ -113,7 +117,7 @@ const Hero: React.FC = () => {
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
                 className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 w-full max-w-xs sm:max-w-none mx-auto"
               >
                   <motion.button
