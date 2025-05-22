@@ -6,6 +6,7 @@ import {
   Facebook, Twitter, Instagram, Linkedin,
   ArrowRight, MessageCircle, Calendar
 } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 
 const LetsConnectPage: React.FC = () => {
   const contactMethods = [
@@ -120,83 +121,126 @@ const LetsConnectPage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-light">
-      {/* Hero Section */}
-      <div className="relative pt-32 pb-20 overflow-hidden">
-        <motion.div 
-          className="absolute inset-0"
-          style={{
-            background: 'linear-gradient(135deg, #ED184F 0%, #D1002E 100%)',
-          }}
-        />
-        <motion.div
-          className="absolute inset-0 bg-white/10 backdrop-blur-sm"
-        />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <>
+      <Helmet>
+        <title>Let's Connect | Get in Touch with Uimitra | Contact Us</title>
+        <meta name="description" content="Connect with Uimitra for your digital needs. Reach out to discuss your project, get expert consultation, or explore collaboration opportunities. We're here to help transform your digital vision into reality." />
+        <meta name="keywords" content="contact Uimitra, get in touch, project consultation, digital services, collaboration, business inquiry, professional services, digital transformation, Uimitra contact" />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://uimitra.com/connect" />
+        <meta property="og:title" content="Let's Connect | Get in Touch with Uimitra | Contact Us" />
+        <meta property="og:description" content="Connect with Uimitra for your digital needs. Reach out to discuss your project, get expert consultation, or explore collaboration opportunities. We're here to help transform your digital vision into reality." />
+        <meta property="og:image" content="https://uimitra.com/favicon-uimitra.svg" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://uimitra.com/connect" />
+        <meta name="twitter:title" content="Let's Connect | Get in Touch with Uimitra | Contact Us" />
+        <meta name="twitter:description" content="Connect with Uimitra for your digital needs. Reach out to discuss your project, get expert consultation, or explore collaboration opportunities. We're here to help transform your digital vision into reality." />
+        <meta name="twitter:image" content="https://uimitra.com/favicon-uimitra.svg" />
+        
+        {/* Additional SEO */}
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://uimitra.com/connect" />
+      </Helmet>
+      
+      <div className="min-h-screen bg-gradient-to-b from-white to-light">
+        {/* Hero Section */}
+        <div className="relative pt-32 pb-20 overflow-hidden">
+          <motion.div 
+            className="absolute inset-0"
+            style={{
+              background: 'linear-gradient(135deg, #ED184F 0%, #D1002E 100%)',
+            }}
+          />
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-white">
-              Let's <span className="text-white">Connect</span>
-            </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              Ready to start your next project? We're here to help bring your ideas to life.
-              Choose your preferred way to reach out.
-            </p>
-          </motion.div>
-        </div>
-      </div>
+            className="absolute inset-0 bg-white/10 backdrop-blur-sm"
+          />
 
-      {/* Contact Methods */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {contactMethods.map((method, index) => (
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <motion.div
-              key={method.title}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow"
+              transition={{ duration: 0.6 }}
+              className="text-center"
             >
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
-                {method.icon}
-              </div>
-              <h3 className="text-xl font-bold mb-2">{method.title}</h3>
-              <p className="text-gray-600 mb-4">{method.description}</p>
-              <a 
-                href={method.link}
-                className="text-primary hover:text-primary/80 transition-colors flex items-center gap-2 group"
-              >
-                {method.value}
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-white">
+                Let's <span className="text-white">Connect</span>
+              </h1>
+              <p className="text-xl text-white/90 max-w-3xl mx-auto">
+                Ready to start your next project? We're here to help bring your ideas to life.
+                Choose your preferred way to reach out.
+              </p>
             </motion.div>
-          ))}
+          </div>
         </div>
-      </div>
 
-      {/* Social Connect */}
-      <div className="bg-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl font-bold mb-4">Connect on Social Media</h2>
-            <p className="text-gray-600">
-              Follow us for the latest updates, insights, and creative inspiration.
-            </p>
-          </motion.div>
+        {/* Contact Methods */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {contactMethods.map((method, index) => (
+              <motion.div
+                key={method.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow"
+              >
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
+                  {method.icon}
+                </div>
+                <h3 className="text-xl font-bold mb-2">{method.title}</h3>
+                <p className="text-gray-600 mb-4">{method.description}</p>
+                <a 
+                  href={method.link}
+                  className="text-primary hover:text-primary/80 transition-colors flex items-center gap-2 group"
+                >
+                  {method.value}
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </motion.div>
+            ))}
+          </div>
+        </div>
 
-          <div className="flex flex-col items-center gap-6">
+        {/* Social Connect */}
+        <div className="bg-white py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl font-bold mb-4">Connect on Social Media</h2>
+              <p className="text-gray-600">
+                Follow us for the latest updates, insights, and creative inspiration.
+              </p>
+            </motion.div>
+
+            <div className="flex flex-col items-center gap-6">
+              <div className="flex flex-wrap justify-center gap-6">
+                {socialIconsRow1.map((social, index) => (
+                  <motion.a
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`w-16 h-16 rounded-2xl flex items-center justify-center text-white ${social.className} transition-all duration-300`}
+                    whileHover={{ scale: 1.05, rotate: 5 }}
+                    whileTap={{ scale: 0.95 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                  >
+                    {social.icon}
+                  </motion.a>
+                ))}
+              </div>
             <div className="flex flex-wrap justify-center gap-6">
-              {socialIconsRow1.map((social, index) => (
+                {socialIconsRow2.map((social, index) => (
                 <motion.a
                   key={social.name}
                   href={social.href}
@@ -212,86 +256,69 @@ const LetsConnectPage: React.FC = () => {
                   {social.icon}
                 </motion.a>
               ))}
-            </div>
-          <div className="flex flex-wrap justify-center gap-6">
-              {socialIconsRow2.map((social, index) => (
-              <motion.a
-                key={social.name}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`w-16 h-16 rounded-2xl flex items-center justify-center text-white ${social.className} transition-all duration-300`}
-                whileHover={{ scale: 1.05, rotate: 5 }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-              >
-                {social.icon}
-              </motion.a>
-            ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Quick Actions */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="bg-white rounded-2xl p-8 shadow-lg"
-          >
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-                <MessageCircle className="w-6 h-6" />
-              </div>
-              <h3 className="text-2xl font-bold">Start a Conversation</h3>
-            </div>
-            <p className="text-gray-600 mb-6">
-              Have questions about our services? Want to discuss your project? 
-              Our team is ready to help you bring your vision to life.
-            </p>
-            <Link 
-              to="/contact"
-              className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-medium hover:bg-primary/90 transition-colors"
+        {/* Quick Actions */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="bg-white rounded-2xl p-8 shadow-lg"
             >
-              Contact Us
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-          </motion.div>
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                  <MessageCircle className="w-6 h-6" />
+                </div>
+                <h3 className="text-2xl font-bold">Start a Conversation</h3>
+              </div>
+              <p className="text-gray-600 mb-6">
+                Have questions about our services? Want to discuss your project? 
+                Our team is ready to help you bring your vision to life.
+              </p>
+              <Link 
+                to="/contact"
+                className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-medium hover:bg-primary/90 transition-colors"
+              >
+                Contact Us
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="bg-white rounded-2xl p-8 shadow-lg"
-          >
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-                <Calendar className="w-6 h-6" />
-              </div>
-              <h3 className="text-2xl font-bold">Schedule a Meeting</h3>
-            </div>
-            <p className="text-gray-600 mb-6">
-              Book a consultation with our experts. We'll discuss your project 
-              requirements and explore how we can help you achieve your goals.
-            </p>
-            <a 
-              href="https://outlook.office.com/owa/calendar/MeetwithTeamUimitra@yatricloud.com/bookings/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-medium hover:bg-primary/90 transition-colors"
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="bg-white rounded-2xl p-8 shadow-lg"
             >
-              Book a Meeting
-              <ArrowRight className="w-5 h-5" />
-            </a>
-          </motion.div>
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                  <Calendar className="w-6 h-6" />
+                </div>
+                <h3 className="text-2xl font-bold">Schedule a Meeting</h3>
+              </div>
+              <p className="text-gray-600 mb-6">
+                Book a consultation with our experts. We'll discuss your project 
+                requirements and explore how we can help you achieve your goals.
+              </p>
+              <a 
+                href="https://outlook.office.com/owa/calendar/MeetwithTeamUimitra@yatricloud.com/bookings/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-medium hover:bg-primary/90 transition-colors"
+              >
+                Book a Meeting
+                <ArrowRight className="w-5 h-5" />
+              </a>
+            </motion.div>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

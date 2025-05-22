@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   FileText, User, Lock, AlertTriangle, Book, Mail, Info, ChevronDown, ChevronUp, ArrowUp
 } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 
 const faqs = [
   {
@@ -77,92 +78,118 @@ const TermsPage: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white via-light to-white">
-      <div className="bg-gradient-to-r from-primary to-secondary text-white py-12 px-4 text-center shadow-lg">
-        <h1 className="text-4xl md:text-5xl font-bold mb-2">Terms & Conditions</h1>
-        <p className="text-lg md:text-xl mb-2">Please read these terms and conditions carefully before using Uimitra</p>
-        <p className="text-sm md:text-base">Last updated: {new Date().toLocaleDateString()}</p>
-      </div>
-      <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-16 py-16">
-        {/* Search Bar */}
-        <div className="mb-10 flex items-center gap-2">
-          <input
-            type="text"
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            placeholder="Search terms or questions..."
-            className="w-full px-4 py-3 border border-primary/20 rounded-lg focus:outline-none focus:border-primary/40 text-base bg-white/60"
-          />
+    <>
+      <Helmet>
+        <title>Terms of Service | Legal Terms & Conditions | Uimitra</title>
+        <meta name="description" content="Read Uimitra's terms of service and legal conditions. Understand your rights, responsibilities, and our service agreements when using our digital services and solutions." />
+        <meta name="keywords" content="terms of service, legal terms, conditions of use, service agreement, user agreement, legal policy, Uimitra terms, usage policy, service conditions, legal requirements" />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://uimitra.com/terms" />
+        <meta property="og:title" content="Terms of Service | Legal Terms & Conditions | Uimitra" />
+        <meta property="og:description" content="Read Uimitra's terms of service and legal conditions. Understand your rights, responsibilities, and our service agreements when using our digital services and solutions." />
+        <meta property="og:image" content="https://uimitra.com/favicon-uimitra.svg" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://uimitra.com/terms" />
+        <meta name="twitter:title" content="Terms of Service | Legal Terms & Conditions | Uimitra" />
+        <meta name="twitter:description" content="Read Uimitra's terms of service and legal conditions. Understand your rights, responsibilities, and our service agreements when using our digital services and solutions." />
+        <meta name="twitter:image" content="https://uimitra.com/favicon-uimitra.svg" />
+        
+        {/* Additional SEO */}
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://uimitra.com/terms" />
+      </Helmet>
+      
+      <div className="min-h-screen bg-gradient-to-b from-white via-light to-white">
+        <div className="bg-gradient-to-r from-primary to-secondary text-white py-12 px-4 text-center shadow-lg">
+          <h1 className="text-4xl md:text-5xl font-bold mb-2">Terms & Conditions</h1>
+          <p className="text-lg md:text-xl mb-2">Please read these terms and conditions carefully before using Uimitra</p>
+          <p className="text-sm md:text-base">Last updated: {new Date().toLocaleDateString()}</p>
         </div>
-        {/* FAQ List */}
-        <div className="space-y-10">
-          {filteredFaqs.length === 0 && (
-            <div className="text-center text-gray-400 py-8">No results found.</div>
-          )}
-          {filteredFaqs.map((faq, idx) => (
-            <motion.div
-              key={faq.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4 }}
-              className={`rounded-2xl shadow bg-white/80 overflow-hidden border-l-4 ${open === faq.id ? 'border-primary/40 bg-gray-50' : 'border-transparent'} transition-all duration-300 px-8 py-8`}
-            >
-              <button
-                className={`w-full flex items-center justify-between gap-4 px-2 py-6 text-left focus:outline-none transition-colors ${open === faq.id ? 'bg-gray-50' : 'hover:bg-gray-50'}`}
-                onClick={() => setOpen(open === faq.id ? null : faq.id)}
-                aria-expanded={open === faq.id}
-                aria-controls={`faq-${faq.id}`}
+        <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-16 py-16">
+          {/* Search Bar */}
+          <div className="mb-10 flex items-center gap-2">
+            <input
+              type="text"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="Search terms or questions..."
+              className="w-full px-4 py-3 border border-primary/20 rounded-lg focus:outline-none focus:border-primary/40 text-base bg-white/60"
+            />
+          </div>
+          {/* FAQ List */}
+          <div className="space-y-10">
+            {filteredFaqs.length === 0 && (
+              <div className="text-center text-gray-400 py-8">No results found.</div>
+            )}
+            {filteredFaqs.map((faq, idx) => (
+              <motion.div
+                key={faq.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4 }}
+                className={`rounded-2xl shadow bg-white/80 overflow-hidden border-l-4 ${open === faq.id ? 'border-primary/40 bg-gray-50' : 'border-transparent'} transition-all duration-300 px-8 py-8`}
               >
-                <motion.div
-                  className="flex items-center gap-4"
-                  animate={open === faq.id ? { scale: 1.05 } : { scale: 1 }}
-                  transition={{ duration: 0.2 }}
+                <button
+                  className={`w-full flex items-center justify-between gap-4 px-2 py-6 text-left focus:outline-none transition-colors ${open === faq.id ? 'bg-gray-50' : 'hover:bg-gray-50'}`}
+                  onClick={() => setOpen(open === faq.id ? null : faq.id)}
+                  aria-expanded={open === faq.id}
+                  aria-controls={`faq-${faq.id}`}
                 >
-                  <motion.span
-                    animate={open === faq.id ? { rotate: 8 } : { rotate: 0 }}
+                  <motion.div
+                    className="flex items-center gap-4"
+                    animate={open === faq.id ? { scale: 1.05 } : { scale: 1 }}
                     transition={{ duration: 0.2 }}
                   >
-                    {faq.icon}
-                  </motion.span>
-                  <span className="font-semibold text-lg text-primary/80">{faq.question}</span>
-                </motion.div>
-                {open === faq.id ? (
-                  <ChevronUp className="w-5 h-5 text-primary/70" />
-                ) : (
-                  <ChevronDown className="w-5 h-5 text-primary/70" />
-                )}
-              </button>
-              <AnimatePresence initial={false}>
-                {open === faq.id && (
-                  <motion.div
-                    id={`faq-${faq.id}`}
-                    key={faq.id}
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1, boxShadow: '0 8px 32px rgba(237,24,79,0.04)' }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="px-2 pt-4 pb-2 text-gray-600 text-base leading-relaxed"
-                  >
-                    {faq.answer}
+                    <motion.span
+                      animate={open === faq.id ? { rotate: 8 } : { rotate: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {faq.icon}
+                    </motion.span>
+                    <span className="font-semibold text-lg text-primary/80">{faq.question}</span>
                   </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
-          ))}
+                  {open === faq.id ? (
+                    <ChevronUp className="w-5 h-5 text-primary/70" />
+                  ) : (
+                    <ChevronDown className="w-5 h-5 text-primary/70" />
+                  )}
+                </button>
+                <AnimatePresence initial={false}>
+                  {open === faq.id && (
+                    <motion.div
+                      id={`faq-${faq.id}`}
+                      key={faq.id}
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1, boxShadow: '0 8px 32px rgba(237,24,79,0.04)' }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="px-2 pt-4 pb-2 text-gray-600 text-base leading-relaxed"
+                    >
+                      {faq.answer}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            ))}
+          </div>
         </div>
+        {/* Back to Top Button */}
+        {showTop && (
+          <button
+            onClick={handleBackToTop}
+            className="fixed bottom-6 right-6 z-50 bg-primary/80 text-white p-3 rounded-full shadow-lg hover:bg-secondary/80 transition-colors"
+            aria-label="Back to top"
+          >
+            <ArrowUp className="w-6 h-6" />
+          </button>
+        )}
       </div>
-      {/* Back to Top Button */}
-      {showTop && (
-        <button
-          onClick={handleBackToTop}
-          className="fixed bottom-6 right-6 z-50 bg-primary/80 text-white p-3 rounded-full shadow-lg hover:bg-secondary/80 transition-colors"
-          aria-label="Back to top"
-        >
-          <ArrowUp className="w-6 h-6" />
-        </button>
-      )}
-    </div>
+    </>
   );
 };
 

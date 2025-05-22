@@ -7,7 +7,7 @@ import {
   Lightbulb, Megaphone, LineChart, PieChart, UserCircle, Code2
 } from 'lucide-react';
 import AnimatedText from '../../AnimatedText';
-
+import { Helmet } from 'react-helmet-async';
 interface StatCardProps {
   icon: React.ReactNode;
   value: string;
@@ -407,6 +407,30 @@ const TwitterMarketingPage: React.FC = () => {
   };
 
   return (
+    <>
+    <Helmet>
+        <title>Twitter Marketing Services | Social Media Growth | Uimitra</title>
+        <meta name="description" content="Amplify your brand's voice on Twitter with Uimitra's expert marketing services. We help businesses build engaging communities, drive conversations, and increase brand visibility through strategic content and engagement." />
+        <meta name="keywords" content="twitter marketing, social media marketing, twitter strategy, twitter growth, twitter engagement, twitter ads, content strategy, community management, twitter analytics, brand visibility, Uimitra" />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://uimitra.com/services/social-media/twitter" />
+        <meta property="og:title" content="Twitter Marketing Services | Social Media Growth | Uimitra" />
+        <meta property="og:description" content="Amplify your brand's voice on Twitter with Uimitra's expert marketing services. We help businesses build engaging communities, drive conversations, and increase brand visibility through strategic content and engagement." />
+        <meta property="og:image" content="https://uimitra.com/favicon-uimitra.svg" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://uimitra.com/services/social-media/twitter" />
+        <meta name="twitter:title" content="Twitter Marketing Services | Social Media Growth | Uimitra" />
+        <meta name="twitter:description" content="Amplify your brand's voice on Twitter with Uimitra's expert marketing services. We help businesses build engaging communities, drive conversations, and increase brand visibility through strategic content and engagement." />
+        <meta name="twitter:image" content="https://uimitra.com/favicon-uimitra.svg" />
+        
+        {/* Additional SEO */}
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://uimitra.com/services/social-media/twitter" />
+      </Helmet>
     <div className="min-h-screen pb-20 relative overflow-hidden" ref={sectionRef}>
       {/* Hero Section */}
       <div className="relative overflow-hidden py-20">
@@ -1349,6 +1373,7 @@ const TwitterMarketingPage: React.FC = () => {
         transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
       />
     </div>
+    </>
   );
 };
 

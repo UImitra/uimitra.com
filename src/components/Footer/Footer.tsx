@@ -5,6 +5,7 @@ import {
   Mail, Phone, MapPin, 
   Facebook, Twitter, Instagram, Linkedin, Youtube, ArrowRight
 } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import UimitraLightLogo from '../../assets/Uimitra-light.svg';
 import { subscribeToNewsletter } from '../../lib/newsletter';
 
@@ -158,324 +159,350 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="bg-[#000F23] text-white pt-20 pb-8 relative overflow-hidden">
-      {/* Animated background gradients */}
-      <motion.div 
-        className="absolute inset-0 opacity-10"
-        animate={{
-          background: [
-            "radial-gradient(circle at 0% 0%, var(--gradient-1) 0%, transparent 50%)",
-            "radial-gradient(circle at 100% 100%, var(--gradient-2) 0%, transparent 50%)",
-            "radial-gradient(circle at 0% 100%, var(--gradient-3) 0%, transparent 50%)",
-            "radial-gradient(circle at 100% 0%, var(--gradient-4) 0%, transparent 50%)"
-          ]
-        }}
-        transition={{ 
-          duration: 10, 
-          repeat: Infinity, 
-          repeatType: "reverse",
-          ease: "linear"
-        }}
-      />
+    <>
+      <Helmet>
+        <title>Uimitra | UI Meets Trust. UX Meets Mitra.</title>
+        <meta name="description" content="Connect with Uimitra - Your trusted partner for UI/UX design, brand development, digital marketing, and social media services. Subscribe to our newsletter for the latest updates." />
+        <meta name="keywords" content="Uimitra footer, contact information, newsletter signup, social media links, company information, UI/UX design, digital marketing, brand development" />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://uimitra.com" />
+        <meta property="og:title" content="Uimitra | UI Meets Trust. UX Meets Mitra." />
+        <meta property="og:description" content="Connect with Uimitra - Your trusted partner for UI/UX design, brand development, digital marketing, and social media services. Subscribe to our newsletter for the latest updates." />
+        <meta property="og:image" content="https://uimitra.com/favicon-uimitra.svg" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://uimitra.com" />
+        <meta name="twitter:title" content="Uimitra | UI Meets Trust. UX Meets Mitra." />
+        <meta name="twitter:description" content="Connect with Uimitra - Your trusted partner for UI/UX design, brand development, digital marketing, and social media services. Subscribe to our newsletter for the latest updates." />
+        <meta name="twitter:image" content="https://uimitra.com/favicon-uimitra.svg" />
+        
+        {/* Additional SEO */}
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://uimitra.com" />
+      </Helmet>
+      
+      <footer className="bg-[#000F23] text-white pt-20 pb-8 relative overflow-hidden">
+        {/* Animated background gradients */}
+        <motion.div 
+          className="absolute inset-0 opacity-10"
+          animate={{
+            background: [
+              "radial-gradient(circle at 0% 0%, var(--gradient-1) 0%, transparent 50%)",
+              "radial-gradient(circle at 100% 100%, var(--gradient-2) 0%, transparent 50%)",
+              "radial-gradient(circle at 0% 100%, var(--gradient-3) 0%, transparent 50%)",
+              "radial-gradient(circle at 100% 0%, var(--gradient-4) 0%, transparent 50%)"
+            ]
+          }}
+          transition={{ 
+            duration: 10, 
+            repeat: Infinity, 
+            repeatType: "reverse",
+            ease: "linear"
+          }}
+        />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-          {/* Company Info */}
+        <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+            {/* Company Info */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className="space-y-6"
+            >
+              <Link to="/" className="flex items-center gap-2 group">
+                <motion.div
+                  className="flex items-center -mt-10"
+                >
+                  <img 
+                    src={UimitraLightLogo} 
+                    alt="Uimitra Logo" 
+                    className="w-16 h-16 msm:w-20 msm:h-20 lsm:w-24 lsm:h-24 md:w-20 md:h-20 lg:w-24 lg:h-24 xl:w-28 xl:h-28 4k:w-36 4k:h-36 group-hover:opacity-80 transition-opacity"
+                  />
+                </motion.div>
+              </Link>
+              <p className="text-gray-400 mt-0">
+                UI Meets Trust. UX Meets Mitra.
+              </p>
+              <div className="space-y-4">
+                <motion.a
+                  href={`tel:${contactInfo.phone}`}
+                  className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors group"
+                  whileHover={{ x: 5 }}
+                >
+                  <Phone className="w-5 h-5 text-primary group-hover:text-white transition-colors"/>
+                  <span>{contactInfo.phone}</span>
+                </motion.a>
+                <motion.a
+                  href={`mailto:${contactInfo.email}`}
+                  className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors group"
+                  whileHover={{ x: 5 }}
+                >
+                  <Mail className="w-5 h-5 text-primary group-hover:text-white transition-colors"/>
+                  <span>{contactInfo.email}</span>
+                </motion.a>
+                <motion.a
+                  href="https://www.google.com/maps/search/?api=1&query=E10+Green+Glen+Layout+Outer+Ring+Road+Bellandur+Bengaluru+Karnataka+India+560103"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-3 text-gray-400 group hover:text-white transition-colors"
+                  whileHover={{ x: 5 }}
+                >
+                  <MapPin className="w-5 h-5 mt-1 flex-shrink-0 text-primary group-hover:text-white transition-colors" />
+                  <span className="group-hover:text-white transition-colors">{contactInfo.address}</span>
+                </motion.a>
+              </div>
+            </motion.div>
+
+            {/* Quick Links */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="mt-16 md:mt-0"
+            >
+              <h3 className="text-lg font-semibold mb-6 relative">
+                Quick Links
+                <motion.span 
+                  className="absolute -bottom-2 left-0 w-12 h-0.5 bg-primary"
+                  initial={{ width: 0 }}
+                  whileInView={{ width: 48 }}
+                  transition={{ duration: 0.5 }}
+                />
+              </h3>
+              <ul className="space-y-3">
+                {quickLinks.map((link, index) => (
+                  <motion.li
+                    key={link.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                  >
+                    <Link
+                      to={link.href}
+                      className="text-gray-400 hover:text-white transition-colors flex items-center gap-2 group"
+                    >
+                      <motion.span
+                        className="w-0 h-0.5 bg-primary"
+                        whileHover={{ width: 20 }}
+                        transition={{ duration: 0.2 }}
+                      />
+                      {link.name}
+                    </Link>
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Services */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="mt-16 md:mt-0"
+            >
+              <h3 className="text-lg font-semibold mb-6 relative">
+                Services
+                <motion.span 
+                  className="absolute -bottom-2 left-0 w-12 h-0.5 bg-primary"
+                  initial={{ width: 0 }}
+                  whileInView={{ width: 48 }}
+                  transition={{ duration: 0.5 }}
+                />
+              </h3>
+              <ul className="space-y-3">
+                {services.map((solution, index) => (
+                  <motion.li
+                    key={solution.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                  >
+                    <Link
+                      to={solution.href}
+                      className="text-gray-400 hover:text-white transition-colors flex items-center gap-2 group"
+                    >
+                      <motion.span
+                        className="w-0 h-0.5 bg-primary"
+                        whileHover={{ width: 20 }}
+                        transition={{ duration: 0.2 }}
+                      />
+                      {solution.name}
+                    </Link>
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Newsletter and Social */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="mt-16 md:mt-0"
+            >
+              <h3 className="text-lg font-semibold mb-6 relative">
+                Newsletter
+                <motion.span 
+                  className="absolute -bottom-2 left-0 w-12 h-0.5 bg-primary"
+                  initial={{ width: 0 }}
+                  whileInView={{ width: 48 }}
+                  transition={{ duration: 0.5 }}
+                />
+              </h3>
+              <p className="text-gray-400 mb-6">
+                Subscribe to our newsletter for the latest updates and insights.
+              </p>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="relative overflow-hidden rounded-lg">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email"
+                    className="w-full px-4 py-3 bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-primary rounded-lg pr-12"
+                    required
+                    disabled={isSubmitting}
+                  />
+                  <motion.button
+                    type="submit"
+                    className="absolute right-2 top-2 text-primary p-2 rounded-md hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    whileTap={{ scale: 0.9 }}
+                    disabled={isSubmitting}
+                  >
+                    <ArrowRight className="w-5 h-5" />
+                  </motion.button>
+                </div>
+                {status.message && (
+                  <motion.p
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={`text-sm ${
+                      status.type === 'success' ? 'text-green-400' : 'text-red-400'
+                    }`}
+                  >
+                    {status.message}
+                  </motion.p>
+                )}
+              </form>
+
+              {/* Social Links */}
+              <div className="mt-8 flex flex-col items-center">
+                <h4 className="text-sm font-semibold mb-6 relative inline-block text-center">
+                  Follow Us
+                </h4>
+                <div className="grid grid-cols-4 gap-6 mb-6 max-w-md mx-auto">
+                  {socialIconsRow1.map((social, index) => (
+                    <motion.a
+                      key={social.name}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center group relative overflow-hidden"
+                      whileHover={{ 
+                        scale: 1.1,
+                        backgroundColor: "rgba(255, 255, 255, 0.2)"
+                      }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ 
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 10
+                      }}
+                    >
+                      <div className="absolute inset-0 flex items-center justify-center p-2.5">
+                        <div className="w-full h-full flex items-center justify-center">
+                          {social.icon}
+                        </div>
+                      </div>
+                    </motion.a>
+                  ))}
+                </div>
+                <div className="grid grid-cols-4 gap-6 max-w-md mx-auto">
+                  {socialIconsRow2.map((social, index) => (
+                  <motion.a
+                      key={social.name}
+                      href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                      className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center group relative overflow-hidden"
+                      whileHover={{ 
+                        scale: 1.1,
+                        backgroundColor: "rgba(255, 255, 255, 0.2)"
+                      }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ 
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 10
+                      }}
+                    >
+                      <div className="absolute inset-0 flex items-center justify-center p-2.5">
+                        <div className="w-full h-full flex items-center justify-center">
+                      {social.icon}
+                        </div>
+                      </div>
+                  </motion.a>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Footer Bottom */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            className="pt-8 border-t border-white/10"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="space-y-6"
           >
-            <Link to="/" className="flex items-center gap-2 group">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <motion.div
-                className="flex items-center -mt-10"
+                transition={{ duration: 0.6 }}
               >
                 <img 
                   src={UimitraLightLogo} 
                   alt="Uimitra Logo" 
-                  className="w-16 h-16 msm:w-20 msm:h-20 lsm:w-24 lsm:h-24 md:w-20 md:h-20 lg:w-24 lg:h-24 xl:w-28 xl:h-28 4k:w-36 4k:h-36 group-hover:opacity-80 transition-opacity"
+                  className="w-16 h-16 msm:w-20 msm:h-20 lsm:w-24 lsm:h-24 md:w-20 md:h-20 lg:w-24 lg:h-24 xl:w-28 xl:h-28 4k:w-36 4k:h-36"
                 />
               </motion.div>
-            </Link>
-            <p className="text-gray-400 mt-0">
-              UI Meets Trust. UX Meets Mitra.
-            </p>
-            <div className="space-y-4">
-              <motion.a
-                href={`tel:${contactInfo.phone}`}
-                className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors group"
-                whileHover={{ x: 5 }}
-              >
-                <Phone className="w-5 h-5 text-primary group-hover:text-white transition-colors"/>
-                <span>{contactInfo.phone}</span>
-              </motion.a>
-              <motion.a
-                href={`mailto:${contactInfo.email}`}
-                className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors group"
-                whileHover={{ x: 5 }}
-              >
-                <Mail className="w-5 h-5 text-primary group-hover:text-white transition-colors"/>
-                <span>{contactInfo.email}</span>
-              </motion.a>
-              <motion.a
-                href="https://www.google.com/maps/search/?api=1&query=E10+Green+Glen+Layout+Outer+Ring+Road+Bellandur+Bengaluru+Karnataka+India+560103"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-start gap-3 text-gray-400 group hover:text-white transition-colors"
-                whileHover={{ x: 5 }}
-              >
-                <MapPin className="w-5 h-5 mt-1 flex-shrink-0 text-primary group-hover:text-white transition-colors" />
-                <span className="group-hover:text-white transition-colors">{contactInfo.address}</span>
-              </motion.a>
-            </div>
-          </motion.div>
-
-          {/* Quick Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="mt-16 md:mt-0"
-          >
-            <h3 className="text-lg font-semibold mb-6 relative">
-              Quick Links
-              <motion.span 
-                className="absolute -bottom-2 left-0 w-12 h-0.5 bg-primary"
-                initial={{ width: 0 }}
-                whileInView={{ width: 48 }}
-                transition={{ duration: 0.5 }}
-              />
-            </h3>
-            <ul className="space-y-3">
-              {quickLinks.map((link, index) => (
-                <motion.li
-                  key={link.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <Link
-                    to={link.href}
-                    className="text-gray-400 hover:text-white transition-colors flex items-center gap-2 group"
+              <p className="text-gray-400 text-sm text-center md:text-left">
+                © {currentYear} Uimitra. All rights reserved.
+              </p>
+              <div className="flex flex-wrap justify-center md:justify-end items-center gap-4 md:gap-6">
+                {footerLinks.map((link, index) => (
+                  <motion.div
+                    key={link.name}
+                    whileHover={{ scale: 1.05 }}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
                   >
-                    <motion.span
-                      className="w-0 h-0.5 bg-primary"
-                      whileHover={{ width: 20 }}
-                      transition={{ duration: 0.2 }}
-                    />
-                    {link.name}
-                  </Link>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Services */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="mt-16 md:mt-0"
-          >
-            <h3 className="text-lg font-semibold mb-6 relative">
-              Services
-              <motion.span 
-                className="absolute -bottom-2 left-0 w-12 h-0.5 bg-primary"
-                initial={{ width: 0 }}
-                whileInView={{ width: 48 }}
-                transition={{ duration: 0.5 }}
-              />
-            </h3>
-            <ul className="space-y-3">
-              {services.map((solution, index) => (
-                <motion.li
-                  key={solution.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <Link
-                    to={solution.href}
-                    className="text-gray-400 hover:text-white transition-colors flex items-center gap-2 group"
-                  >
-                    <motion.span
-                      className="w-0 h-0.5 bg-primary"
-                      whileHover={{ width: 20 }}
-                      transition={{ duration: 0.2 }}
-                    />
-                    {solution.name}
-                  </Link>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Newsletter and Social */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            viewport={{ once: true }}
-            className="mt-16 md:mt-0"
-          >
-            <h3 className="text-lg font-semibold mb-6 relative">
-              Newsletter
-              <motion.span 
-                className="absolute -bottom-2 left-0 w-12 h-0.5 bg-primary"
-                initial={{ width: 0 }}
-                whileInView={{ width: 48 }}
-                transition={{ duration: 0.5 }}
-              />
-            </h3>
-            <p className="text-gray-400 mb-6">
-              Subscribe to our newsletter for the latest updates and insights.
-            </p>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="relative overflow-hidden rounded-lg">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-primary rounded-lg pr-12"
-                  required
-                  disabled={isSubmitting}
-                />
-                <motion.button
-                  type="submit"
-                  className="absolute right-2 top-2 text-primary p-2 rounded-md hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  whileTap={{ scale: 0.9 }}
-                  disabled={isSubmitting}
-                >
-                  <ArrowRight className="w-5 h-5" />
-                </motion.button>
-              </div>
-              {status.message && (
-                <motion.p
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={`text-sm ${
-                    status.type === 'success' ? 'text-green-400' : 'text-red-400'
-                  }`}
-                >
-                  {status.message}
-                </motion.p>
-              )}
-            </form>
-
-            {/* Social Links */}
-            <div className="mt-8 flex flex-col items-center">
-              <h4 className="text-sm font-semibold mb-6 relative inline-block text-center">
-                Follow Us
-              </h4>
-              <div className="grid grid-cols-4 gap-6 mb-6 max-w-md mx-auto">
-                {socialIconsRow1.map((social, index) => (
-                  <motion.a
-                    key={social.name}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center group relative overflow-hidden"
-                    whileHover={{ 
-                      scale: 1.1,
-                      backgroundColor: "rgba(255, 255, 255, 0.2)"
-                    }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ 
-                      type: "spring",
-                      stiffness: 400,
-                      damping: 10
-                    }}
-                  >
-                    <div className="absolute inset-0 flex items-center justify-center p-2.5">
-                      <div className="w-full h-full flex items-center justify-center">
-                        {social.icon}
-                      </div>
-                    </div>
-                  </motion.a>
-                ))}
-              </div>
-              <div className="grid grid-cols-4 gap-6 max-w-md mx-auto">
-                {socialIconsRow2.map((social, index) => (
-                <motion.a
-                    key={social.name}
-                    href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center group relative overflow-hidden"
-                    whileHover={{ 
-                      scale: 1.1,
-                      backgroundColor: "rgba(255, 255, 255, 0.2)"
-                    }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ 
-                      type: "spring",
-                      stiffness: 400,
-                      damping: 10
-                    }}
-                  >
-                    <div className="absolute inset-0 flex items-center justify-center p-2.5">
-                      <div className="w-full h-full flex items-center justify-center">
-                    {social.icon}
-                      </div>
-                    </div>
-                </motion.a>
+                    <Link
+                      to={link.href}
+                      className="text-sm text-gray-400 hover:text-white transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  </motion.div>
                 ))}
               </div>
             </div>
           </motion.div>
         </div>
-
-        {/* Footer Bottom */}
-        <motion.div
-          className="pt-8 border-t border-white/10"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-        >
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <motion.div
-              transition={{ duration: 0.6 }}
-            >
-              <img 
-                src={UimitraLightLogo} 
-                alt="Uimitra Logo" 
-                className="w-16 h-16 msm:w-20 msm:h-20 lsm:w-24 lsm:h-24 md:w-20 md:h-20 lg:w-24 lg:h-24 xl:w-28 xl:h-28 4k:w-36 4k:h-36"
-              />
-            </motion.div>
-            <p className="text-gray-400 text-sm text-center md:text-left">
-              © {currentYear} Uimitra. All rights reserved.
-            </p>
-            <div className="flex flex-wrap justify-center md:justify-end items-center gap-4 md:gap-6">
-              {footerLinks.map((link, index) => (
-                <motion.div
-                  key={link.name}
-                  whileHover={{ scale: 1.05 }}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <Link
-                    to={link.href}
-                    className="text-sm text-gray-400 hover:text-white transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </footer>
+      </footer>
+    </>
   );
 };
 

@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import { 
   Palette, PenTool, MessageSquare, Layout, FileText, 
   Image, Type, Grid, Layers, Users, Target, Sparkles,
@@ -134,6 +135,31 @@ const BrandIdentityPage: React.FC = () => {
   ];
 
   return (
+    <>
+      <Helmet>
+        <title>Brand Identity Design Services | Visual Brand Development | Uimitra</title>
+        <meta name="description" content="Create a cohesive and memorable brand identity with Uimitra. Our comprehensive brand identity design services help you build a strong, consistent visual presence across all platforms." />
+        <meta name="keywords" content="brand identity design, visual identity, brand development, corporate identity, brand elements, visual branding, brand consistency, brand aesthetics, brand style, design system, brand assets, Uimitra" />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://uimitra.com/services/brand-identity" />
+        <meta property="og:title" content="Brand Identity Design Services | Visual Brand Development | Uimitra" />
+        <meta property="og:description" content="Create a cohesive and memorable brand identity with Uimitra. Our comprehensive brand identity design services help you build a strong, consistent visual presence across all platforms." />
+        <meta property="og:image" content="https://uimitra.com/favicon-uimitra.svg" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://uimitra.com/services/brand-identity" />
+        <meta name="twitter:title" content="Brand Identity Design Services | Visual Brand Development | Uimitra" />
+        <meta name="twitter:description" content="Create a cohesive and memorable brand identity with Uimitra. Our comprehensive brand identity design services help you build a strong, consistent visual presence across all platforms." />
+        <meta name="twitter:image" content="https://uimitra.com/favicon-uimitra.svg" />
+        
+        {/* Additional SEO */}
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://uimitra.com/services/brand-identity" />
+      </Helmet>
+      
     <div className="min-h-screen pb-20 relative overflow-hidden" ref={sectionRef}>
       {/* Hero Section */}
       <div className="relative overflow-hidden py-20">
@@ -468,6 +494,7 @@ const BrandIdentityPage: React.FC = () => {
         transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
       />
     </div>
+    </>
   );
 };
 

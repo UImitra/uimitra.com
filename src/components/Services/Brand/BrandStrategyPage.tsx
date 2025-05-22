@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import { 
   Target, Lightbulb, MessageSquare, Palette, 
   Globe, Users, Rocket, Heart, Sparkles,
@@ -234,6 +235,31 @@ const BrandStrategyPage: React.FC = () => {
   ];
 
   return (
+    <>
+      <Helmet>
+        <title>Brand Strategy Services | Strategic Brand Development | Uimitra</title>
+        <meta name="description" content="Transform your business with Uimitra's expert brand strategy services. We create compelling brand positioning, market analysis, and strategic foundations for lasting success." />
+        <meta name="keywords" content="brand strategy, brand positioning, market analysis, brand foundation, target audience analysis, brand messaging, competitive analysis, brand values, brand mission, brand vision, Uimitra" />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://uimitra.com/services/brand-strategy" />
+        <meta property="og:title" content="Brand Strategy Services | Strategic Brand Development | Uimitra" />
+        <meta property="og:description" content="Transform your business with Uimitra's expert brand strategy services. We create compelling brand positioning, market analysis, and strategic foundations for lasting success." />
+        <meta property="og:image" content="https://uimitra.com/favicon-uimitra.svg" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://uimitra.com/services/brand-strategy" />
+        <meta name="twitter:title" content="Brand Strategy Services | Strategic Brand Development | Uimitra" />
+        <meta name="twitter:description" content="Transform your business with Uimitra's expert brand strategy services. We create compelling brand positioning, market analysis, and strategic foundations for lasting success." />
+        <meta name="twitter:image" content="https://uimitra.com/favicon-uimitra.svg" />
+        
+        {/* Additional SEO */}
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://uimitra.com/services/brand-strategy" />
+      </Helmet>
+      
     <div className="min-h-screen pb-20 relative overflow-hidden" ref={sectionRef}>
       {/* Hero Section */}
       <div className="relative overflow-hidden py-20">
@@ -548,6 +574,7 @@ const BrandStrategyPage: React.FC = () => {
         transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
       />
     </div>
+    </>
   );
 };
 

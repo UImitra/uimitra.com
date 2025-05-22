@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import { 
   Layout, Code, Smartphone, Globe, Palette, 
   Zap, Monitor, Layers, ArrowRight, CheckCircle,
@@ -247,6 +248,31 @@ const WebDesignPage: React.FC = () => {
   ];
 
   return (
+    <>
+      <Helmet>
+        <title>Professional Web Design Services | Uimitra</title>
+        <meta name="description" content="Transform your online presence with Uimitra's professional web design services. We create beautiful, responsive, and user-friendly websites that drive results." />
+        <meta name="keywords" content="web design, website development, responsive design, UI/UX design, custom website, business website, Uimitra" />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://uimitra.com/services/uiux-graphics/web-design" />
+        <meta property="og:title" content="Professional Web Design Services | Uimitra" />
+        <meta property="og:description" content="Transform your online presence with Uimitra's professional web design services. We create beautiful, responsive, and user-friendly websites that drive results." />
+        <meta property="og:image" content="https://uimitra.com/favicon-uimitra.svg" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://uimitra.com/services/uiux-graphics/web-design" />
+        <meta name="twitter:title" content="Professional Web Design Services | Uimitra" />
+        <meta name="twitter:description" content="Transform your online presence with Uimitra's professional web design services. We create beautiful, responsive, and user-friendly websites that drive results." />
+        <meta name="twitter:image" content="https://uimitra.com/favicon-uimitra.svg" />
+        
+        {/* Additional SEO */}
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://uimitra.com/services/uiux-graphics/web-design" />
+      </Helmet>
+      
     <div className="min-h-screen pb-20 relative overflow-hidden" ref={sectionRef}>
       {/* Hero Section */}
       <div className="relative overflow-hidden py-20">
@@ -1077,6 +1103,7 @@ const WebDesignPage: React.FC = () => {
         transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
       />
     </div>
+    </>
   );
 };
 

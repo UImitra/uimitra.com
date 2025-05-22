@@ -10,6 +10,7 @@ import {
   PenTool, Award
 } from 'lucide-react';
 import AnimatedText from '../../AnimatedText';
+import { Helmet } from 'react-helmet-async';
 
 interface PlatformCardProps {
   title: string;
@@ -427,6 +428,31 @@ const OtherPlatformsPage: React.FC = () => {
   ];
 
   return (
+  <>
+     <Helmet>
+      <title>Emerging Social Media Marketing Services | Uimitra</title>
+      <meta name="description" content="Expand your brand's reach on emerging social platforms with Uimitra's expert marketing services. We help businesses establish presence on Pinterest, Reddit, Spotify, Twitch, and other growing platforms." />
+      <meta name="keywords" content="emerging social media, pinterest marketing, reddit marketing, spotify branding, twitch marketing, social media growth, platform expansion, niche marketing, community building, Uimitra" />
+      
+      {/* Open Graph / Facebook */}
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://uimitra.com/services/social-media/other-platforms" />
+      <meta property="og:title" content="Emerging Social Media Marketing Services | Uimitra" />
+      <meta property="og:description" content="Expand your brand's reach on emerging social platforms with Uimitra's expert marketing services. We help businesses establish presence on Pinterest, Reddit, Spotify, Twitch, and other growing platforms." />
+      <meta property="og:image" content="https://uimitra.com/favicon-uimitra.svg" />
+      
+      {/* Twitter */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:url" content="https://uimitra.com/services/social-media/other-platforms" />
+      <meta name="twitter:title" content="Emerging Social Media Marketing Services | Uimitra" />
+      <meta name="twitter:description" content="Expand your brand's reach on emerging social platforms with Uimitra's expert marketing services. We help businesses establish presence on Pinterest, Reddit, Spotify, Twitch, and other growing platforms." />
+      <meta name="twitter:image" content="https://uimitra.com/favicon-uimitra.svg" />
+      
+      {/* Additional SEO */}
+      <meta name="robots" content="index, follow" />
+      <link rel="canonical" href="https://uimitra.com/services/social-media/other-platforms" />
+    </Helmet>
+
     <div className="min-h-screen pb-20 relative overflow-hidden" ref={sectionRef}>
       {/* Hero Section */}
       <div className="relative overflow-hidden py-20">
@@ -1547,6 +1573,7 @@ const OtherPlatformsPage: React.FC = () => {
         transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
       />
     </div>
+    </>
   );
 };
 

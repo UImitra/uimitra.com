@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Infinity, ChevronDown, Menu, X, MessageCircle } from 'lucide-react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import UimitraLogo from '../../assets/Uimitra..svg';
 
 interface MenuItem {
@@ -578,90 +579,116 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <motion.nav
-      animate={{ y: showNavbar ? 0 : -100 }}
-      transition={{ duration: 0.3 }}
-      className={
-        'sticky top-0 z-50 transition-all duration-300 bg-white/30 backdrop-blur-md backdrop-saturate-150'
-      }
-    >
-      <div className="max-w-7xl mx-auto px-2 msm:px-3 lsm:px-4 md:px-6 lg:px-8 xl:px-16 4k:px-32">
-        <div className="flex items-center justify-between h-14 msm:h-16 lsm:h-18 md:h-20 lg:h-24 xl:h-28 4k:h-32">
-          {/* Logo */}
-          <div className="flex items-center pl-4 md:pl-0">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={handleLogoClick}
-              className="cursor-pointer"
-            >
-              <div className="flex items-center gap-1 msm:gap-2 lsm:gap-3 md:gap-4">
-                <img 
-                  src={UimitraLogo} 
-                  alt="Uimitra Logo" 
-                  className="w-16 h-16 msm:w-20 msm:h-20 lsm:w-24 lsm:h-24 md:w-20 md:h-20 lg:w-24 lg:h-24 xl:w-28 xl:h-28 4k:w-36 4k:h-36 group-hover:opacity-80 transition-opacity"
-                />
-              </div>
-            </motion.div>
-          </div>
+    <>
+      <Helmet>
+        <title>Uimitra | Professional UI/UX Design & Digital Services</title>
+        <meta name="description" content="Explore Uimitra's comprehensive services in UI/UX design, brand development, digital marketing, and social media management. Transform your digital presence with our expert solutions." />
+        <meta name="keywords" content="Uimitra navigation, UI/UX design services, brand development, digital marketing, social media services, professional design services" />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://uimitra.com" />
+        <meta property="og:title" content="Uimitra | Professional UI/UX Design & Digital Services" />
+        <meta property="og:description" content="Explore Uimitra's comprehensive services in UI/UX design, brand development, digital marketing, and social media management. Transform your digital presence with our expert solutions." />
+        <meta property="og:image" content="https://uimitra.com/favicon-uimitra.svg" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://uimitra.com" />
+        <meta name="twitter:title" content="Uimitra | Professional UI/UX Design & Digital Services" />
+        <meta name="twitter:description" content="Explore Uimitra's comprehensive services in UI/UX design, brand development, digital marketing, and social media management. Transform your digital presence with our expert solutions." />
+        <meta name="twitter:image" content="https://uimitra.com/favicon-uimitra.svg" />
+        
+        {/* Additional SEO */}
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://uimitra.com" />
+      </Helmet>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-4 lsm:space-x-6 md:space-x-8 lg:space-x-10 xl:space-x-12 4k:space-x-16">
-            {navItems.map((item) => (
-              <NavItem
-                key={item.name}
-                item={item}
-                isActive={activeItem === item.name}
-                onClick={() => setActiveItem(item.name)}
-              />
-            ))}
-            <GetInTouchButton />
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
-          >
-            {isOpen ? (
-              <X className="h-5 w-5 msm:h-6 msm:w-6 text-gray-700" />
-            ) : (
-              <Menu className="h-5 w-5 msm:h-6 msm:w-6 text-gray-700" />
-            )}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Navigation */}
-          <AnimatePresence>
-        {isOpen && (
+      <motion.nav
+        animate={{ y: showNavbar ? 0 : -100 }}
+        transition={{ duration: 0.3 }}
+        className={
+          'sticky top-0 z-50 transition-all duration-300 bg-white/30 backdrop-blur-md backdrop-saturate-150'
+        }
+      >
+        <div className="max-w-7xl mx-auto px-2 msm:px-3 lsm:px-4 md:px-6 lg:px-8 xl:px-16 4k:px-32">
+          <div className="flex items-center justify-between h-14 msm:h-16 lsm:h-18 md:h-20 lg:h-24 xl:h-28 4k:h-32">
+            {/* Logo */}
+            <div className="flex items-center pl-4 md:pl-0">
               <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'calc(100vh - 3.5rem)' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-[#000F23] text-white fixed left-0 top-14 w-full z-50 overflow-y-auto"
-          >
-            <div className="px-4 py-4 space-y-4">
-                      {navItems.map((item) => (
-                        <NavItem
-                          key={item.name}
-                          item={item}
-                          isActive={activeItem === item.name}
-                          onClick={() => {
-                            setActiveItem(item.name);
-                    setIsOpen(false);
-                          }}
-                          isMobile
-                        />
-                      ))}
-              <div className="px-8 pt-4 pb-8">
-                <GetInTouchButton isMobile onClick={() => setIsOpen(false)} />
-              </div>
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleLogoClick}
+                className="cursor-pointer"
+              >
+                <div className="flex items-center gap-1 msm:gap-2 lsm:gap-3 md:gap-4">
+                  <img 
+                    src={UimitraLogo} 
+                    alt="Uimitra Logo" 
+                    className="w-16 h-16 msm:w-20 msm:h-20 lsm:w-24 lsm:h-24 md:w-20 md:h-20 lg:w-24 lg:h-24 xl:w-28 xl:h-28 4k:w-36 4k:h-36 group-hover:opacity-80 transition-opacity"
+                  />
                 </div>
               </motion.div>
-            )}
-          </AnimatePresence>
-    </motion.nav>
+            </div>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-4 lsm:space-x-6 md:space-x-8 lg:space-x-10 xl:space-x-12 4k:space-x-16">
+              {navItems.map((item) => (
+                <NavItem
+                  key={item.name}
+                  item={item}
+                  isActive={activeItem === item.name}
+                  onClick={() => setActiveItem(item.name)}
+                />
+              ))}
+              <GetInTouchButton />
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+            >
+              {isOpen ? (
+                <X className="h-5 w-5 msm:h-6 msm:w-6 text-gray-700" />
+              ) : (
+                <Menu className="h-5 w-5 msm:h-6 msm:w-6 text-gray-700" />
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'calc(100vh - 3.5rem)' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden bg-[#000F23] text-white fixed left-0 top-14 w-full z-50 overflow-y-auto"
+            >
+              <div className="px-4 py-4 space-y-4">
+                {navItems.map((item) => (
+                  <NavItem
+                    key={item.name}
+                    item={item}
+                    isActive={activeItem === item.name}
+                    onClick={() => {
+                      setActiveItem(item.name);
+                      setIsOpen(false);
+                    }}
+                    isMobile
+                  />
+                ))}
+                <div className="px-8 pt-4 pb-8">
+                  <GetInTouchButton isMobile onClick={() => setIsOpen(false)} />
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.nav>
+    </>
   );
 };
 

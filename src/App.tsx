@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { motion, useAnimation } from 'framer-motion';
+import { HelmetProvider } from 'react-helmet-async';
 import Navbar from './components/Navbar/Navbar';
 import Hero from './components/Home/Hero';
 import AboutSection from './components/Home/AboutSection';
@@ -67,6 +68,7 @@ function App() {
   }, [controls]);
 
   return (
+    <HelmetProvider>
     <Router>
       <ScrollToTop />
       <FloatingParticles />
@@ -300,6 +302,7 @@ function App() {
         } />
       </Routes>
     </Router>
+    </HelmetProvider>
   );
 }
 
