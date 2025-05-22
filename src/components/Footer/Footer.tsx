@@ -92,7 +92,7 @@ const Footer: React.FC = () => {
     },
     { 
       name: 'LinkedIn', 
-      href: 'https://linkedin.com', 
+      href: 'https://www.linkedin.com/company/uimitra/about/', 
       icon: (
         <svg width="24" height="24" viewBox="0 0 448 512" fill="currentColor" className="text-primary group-hover:text-white transition-colors duration-300">
           <path d="M100.28 448H7.4V148.9h92.88zm-46.44-340.7C24.12 107.3 0 83.2 0 53.6A53.6 53.6 0 0 1 53.6 0c29.6 0 53.6 24.12 53.6 53.6 0 29.6-24.12 53.6-53.6 53.6zM447.8 448h-92.68V302.4c0-34.7-12.4-58.4-43.4-58.4-23.7 0-37.8 16-44 31.4-2.3 5.6-2.8 13.4-2.8 21.2V448h-92.68s1.2-242.1 0-267.1h92.68v37.9c12.3-19 34.3-46.1 83.5-46.1 60.9 0 106.6 39.8 106.6 125.4V448z"/>

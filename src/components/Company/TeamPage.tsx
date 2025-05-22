@@ -24,7 +24,7 @@ const TeamPage: React.FC = () => {
     {
       name: "Dhiraj T H",
       role: "Chief Operating Officer",
-      image: "src/assets/Dhiraj_uimitra.jpg",
+      image: "src/assets/Dhiraj_uimitra.webp",
       bio: "Tech innovator and startup strategist with expertise in AI, automation, full-stack development, and mechanical design. Has contributed to high-impact research projects with ISRO (IIA), DRDO, and IISc, holding a patent for an AI-powered assistive device. Passionate about merging technology with R&D and building scalable, human-centered solutions.",
       expertise: [
         "AI & Automation",
@@ -46,7 +46,7 @@ const TeamPage: React.FC = () => {
     {
       name: "Dharmesh Vadher",
       role: "Co-Founder & Chief Design Officer",
-      image: "src/assets/Dharmesh_uimitra.jpg",
+      image: "src/assets/Dharmesh_uimitra.webp",
       bio: "Design innovator focused on creating user-first digital experiences that drive business impact. Leads UImitra's design vision with a focus on solving real problems through thoughtful, innovative solutions. Combines aesthetic excellence with functional design to create intuitive, effective, and impactful experiences for businesses.",
       expertise: [
         "User Experience Design",
