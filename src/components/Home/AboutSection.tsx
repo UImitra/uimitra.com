@@ -91,7 +91,7 @@ const AboutSection: React.FC = () => {
               transition={{ duration: 0.8, delay: 0.8 }}
               className="pt-4"
             >
-              <Link to="/join">
+              <a href="mailto:hr@uimitra.com">
                 <motion.button
                   className="bg-primary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium text-base sm:text-lg relative overflow-hidden group w-full sm:w-auto"
                   whileHover={{ 
@@ -108,7 +108,7 @@ const AboutSection: React.FC = () => {
                     transition={{ duration: 0.4 }}
                   />
                 </motion.button>
-              </Link>
+              </a>
             </motion.div>
           </motion.div>
 

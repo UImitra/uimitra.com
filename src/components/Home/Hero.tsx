@@ -8,7 +8,7 @@ import AboutSection from './AboutSection';
 import ServicesSection from './ServicesSection';
 import ContactSection from './ContactSection';
 import AnimatedSection from '../AnimatedSection';
-
+import AnimatedText from '../AnimatedText';
 const Hero: React.FC = () => {
   const location = useLocation();
 
@@ -87,23 +87,16 @@ const Hero: React.FC = () => {
                 </span>
             </motion.div>
 
-              <motion.h1 
-                className="text-4xl md:text-6xl lg:text-7xl font-bold text-center mb-6"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                UI Meets Trust, UX Meets Mitra
-              </motion.h1>
-
-              <motion.h2
-                className="text-2xl md:text-3xl lg:text-4xl text-center mb-8"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                Design that Drives Growth
-              </motion.h2>
+               <motion.h1 
+              className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-6"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <AnimatedText text="Design that" type="highlight" />
+              <br />
+              <AnimatedText text="Drives Growth" className="text-gradient" delay={0.2} />
+            </motion.h1>
 
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
