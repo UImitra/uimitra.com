@@ -36,14 +36,14 @@ const Hero: React.FC = () => {
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://uimitra.com/" />
-        <meta property="og:title" content="Uimitra - UI Meets Trust | Creative Tech Studio" />
+        <meta property="og:title" content="Uimitra - UI Meets Trust, UX Meets Mitra | Creative Tech Studio" />
         <meta property="og:description" content="We're a creative tech studio crafting standout digital experiences through smart design and modern development for bold, ambitious brands." />
         <meta property="og:image" content="https://uimitra.com/favicon-uimitra.svg" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content="https://uimitra.com/" />
-        <meta name="twitter:title" content="Uimitra - UI Meets Trust | Creative Tech Studio" />
+        <meta name="twitter:title" content="Uimitra - UI Meets Trust, UX Meets Mitra | Creative Tech Studio" />
         <meta name="twitter:description" content="We're a creative tech studio crafting standout digital experiences through smart design and modern development for bold, ambitious brands." />
         <meta name="twitter:image" content="https://uimitra.com/favicon-uimitra.svg" />
       </Helmet>

@@ -1,5 +1,5 @@
 import React, { useEffect, Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { motion, useAnimation } from 'framer-motion';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Navbar from './components/Navbar/Navbar';
@@ -44,13 +44,6 @@ const BrandDesignBuildPage = lazy(() => import('./components/mainservice/BrandDe
 const DigitalMarketing = lazy(() => import('./components/mainservice/DigitalMarketing'));
 const SocialMedia = lazy(() => import('./components/mainservice/SocialMedia'));
 
-// Loading component
-const LoadingSpinner = () => (
-  <div className="loading">
-    <img src="/favicon-uimitra.svg" alt="Loading..." width="50" height="50" />
-  </div>
-);
-
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -77,7 +70,7 @@ const App: React.FC = () => {
       <>
         <Helmet>
           {/* Primary Meta Tags - Optimized length */}
-          <title>UI Meets Trust, UX Meets Mitra | Professional Design Services</title>
+          <title>Uimitra | UI Meets Trust, UX Meets Mitra | Professional Design Services</title>
           <meta name="description" content="Transform your digital presence with Uimitra's expert UI/UX design, brand development, and digital marketing services. Innovative solutions for modern businesses." />
           
           {/* Language */}
@@ -89,14 +82,14 @@ const App: React.FC = () => {
           {/* Open Graph / Facebook */}
           <meta property="og:type" content="website" />
           <meta property="og:url" content="https://uimitra.com" />
-          <meta property="og:title" content="UI Meets Trust, UX Meets Mitra | Professional Design Services" />
+          <meta property="og:title" content="Uimitra | UI Meets Trust, UX Meets Mitra | Professional Design Services" />
           <meta property="og:description" content="Transform your digital presence with Uimitra's expert UI/UX design, brand development, and digital marketing services. Innovative solutions for modern businesses." />
           <meta property="og:image" content="https://uimitra.com/og-image.jpg" />
           
           {/* Twitter */}
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:url" content="https://uimitra.com" />
-          <meta name="twitter:title" content="UI Meets Trust, UX Meets Mitra | Professional Design Services" />
+          <meta name="twitter:title" content="Uimitra | UI Meets Trust, UX Meets Mitra | Professional Design Services" />
           <meta name="twitter:description" content="Transform your digital presence with Uimitra's expert UI/UX design, brand development, and digital marketing services. Innovative solutions for modern businesses." />
           <meta name="twitter:image" content="https://uimitra.com/og-image.jpg" />
           
@@ -145,241 +138,237 @@ const App: React.FC = () => {
           </script>
         </Helmet>
         
-        <Router>
-          <ScrollToTop />
-          <FloatingParticles />
-          <Suspense fallback={<LoadingSpinner />}>
-            <Routes>
-              <Route path="/" element={
-                <>
-                  <Navbar />
-                  <Hero />
-                  <Footer />
-                </>
-              } />
-              <Route path="/about" element={
-                <>
-                  <Navbar />
-                  <AboutPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/success-stories" element={
-                <>
-                  <Navbar />
-                  <SuccessStoriesPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/team" element={
-                <>
-                  <Navbar />
-                  <TeamPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/services" element={
-                <>
-                  <Navbar />
-                  <ServicesPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/services/web-design" element={
-                <>
-                  <Navbar />
-                  <WebDesignPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/services/logo-design" element={
-                <>
-                  <Navbar />
-                  <LogoDesignPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/services/app-design" element={
-                <>
-                  <Navbar />
-                  <AppDesignPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/services/graphics-design" element={
-                <>
-                  <Navbar />
-                  <GraphicsDesignPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/services/ai-design" element={
-                <>
-                  <Navbar />
-                  <AIEnhancedDesignPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/services/ui-ux-design" element={
-                <>
-                  <Navbar />
-                  <UIUXSection />
-                  <Footer />
-                </>
-              } />
-              <Route path="/services/ui-ux-graphic-design" element={
-                <>
-                  <Navbar />
-                  <UIUXGraphicDesignPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/services/brand-design-build" element={
-                <>
-                  <Navbar />
-                  <BrandDesignBuildPage />
-                  <Footer />
-                </>
-              } />        
-              <Route path="/services/digital-marketing" element={
-                <>
-                  <Navbar />
-                  <DigitalMarketing />
-                  <Footer />
-                </>
-              } /> 
-              <Route path="/services/social-media" element={
-                <>
-                  <Navbar />
-                  <SocialMedia />
-                  <Footer />
-                </>
-              } />
-              <Route path="/services/brand-strategy" element={
-                <>
-                  <Navbar />
-                  <BrandStrategyPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/services/brand-guidelines" element={
-                <>
-                  <Navbar />
-                  <BrandGuidelinesPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/services/brand-identity" element={
-                <>
-                  <Navbar />
-                  <BrandIdentityPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/services/brand-development" element={
-                <>
-                  <Navbar />
-                  <BrandDevelopmentPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/services/digital-marketing-page" element={
-                <>
-                  <Navbar />
-                  <DigitalMarketingPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/services/seo" element={
-                <>
-                  <Navbar />
-                  <SEOServicesPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/services/social-media-page" element={
-                <>
-                  <Navbar />
-                  <SocialMediaMarketingPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/services/youtube-marketing" element={
-                <>
-                  <Navbar />
-                  <YouTubeMarketingPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/services/linkedin-marketing" element={
-                <>
-                  <Navbar />
-                  <LinkedInMarketingPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/services/twitter-marketing" element={
-                <>
-                  <Navbar />
-                  <TwitterMarketingPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/services/instagram-marketing" element={
-                <>
-                  <Navbar />
-                  <InstagramMarketingPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/services/other-platforms" element={
-                <>
-                  <Navbar />
-                  <OtherPlatformsPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/services/email-marketing" element={
-                <>
-                  <Navbar />
-                  <EmailMarketingPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/services/analytics" element={
-                <>
-                  <Navbar />
-                  <AnalyticsReportingPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/contact" element={
-                <>
-                  <Navbar />
-                  <ContactPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/technology" element={
-                <>
-                  <Navbar />
-                  <TechnologiesPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-              <Route path="/lets-connect" element={
-                <>
-                  <Navbar />
-                  <LetsConnectPage />
-                  <Footer />
-                </>
-              } />
-              <Route path="/cookie-policy" element={<CookiePolicyPage />} />
-              <Route path="/terms" element={<TermsPage />} />
-            </Routes>
-          </Suspense>
-        </Router>
+        <Suspense fallback={null}>
+          <Routes>
+            <Route path="/" element={
+              <>
+                <Navbar />
+                <Hero />
+                <Footer />
+              </>
+            } />
+            <Route path="/about" element={
+              <>
+                <Navbar />
+                <AboutPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/success-stories" element={
+              <>
+                <Navbar />
+                <SuccessStoriesPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/team" element={
+              <>
+                <Navbar />
+                <TeamPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/services" element={
+              <>
+                <Navbar />
+                <ServicesPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/services/web-design" element={
+              <>
+                <Navbar />
+                <WebDesignPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/services/logo-design" element={
+              <>
+                <Navbar />
+                <LogoDesignPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/services/app-design" element={
+              <>
+                <Navbar />
+                <AppDesignPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/services/graphics-design" element={
+              <>
+                <Navbar />
+                <GraphicsDesignPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/services/ai-design" element={
+              <>
+                <Navbar />
+                <AIEnhancedDesignPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/services/ui-ux-design" element={
+              <>
+                <Navbar />
+                <UIUXSection />
+                <Footer />
+              </>
+            } />
+            <Route path="/services/ui-ux-graphic-design" element={
+              <>
+                <Navbar />
+                <UIUXGraphicDesignPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/services/brand-design-build" element={
+              <>
+                <Navbar />
+                <BrandDesignBuildPage />
+                <Footer />
+              </>
+            } />        
+            <Route path="/services/digital-marketing" element={
+              <>
+                <Navbar />
+                <DigitalMarketing />
+                <Footer />
+              </>
+            } /> 
+            <Route path="/services/social-media" element={
+              <>
+                <Navbar />
+                <SocialMedia />
+                <Footer />
+              </>
+            } />
+            <Route path="/services/brand-strategy" element={
+              <>
+                <Navbar />
+                <BrandStrategyPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/services/brand-guidelines" element={
+              <>
+                <Navbar />
+                <BrandGuidelinesPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/services/brand-identity" element={
+              <>
+                <Navbar />
+                <BrandIdentityPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/services/brand-development" element={
+              <>
+                <Navbar />
+                <BrandDevelopmentPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/services/digital-marketing-page" element={
+              <>
+                <Navbar />
+                <DigitalMarketingPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/services/seo" element={
+              <>
+                <Navbar />
+                <SEOServicesPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/services/social-media-page" element={
+              <>
+                <Navbar />
+                <SocialMediaMarketingPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/services/youtube-marketing" element={
+              <>
+                <Navbar />
+                <YouTubeMarketingPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/services/linkedin-marketing" element={
+              <>
+                <Navbar />
+                <LinkedInMarketingPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/services/twitter-marketing" element={
+              <>
+                <Navbar />
+                <TwitterMarketingPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/services/instagram-marketing" element={
+              <>
+                <Navbar />
+                <InstagramMarketingPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/services/other-platforms" element={
+              <>
+                <Navbar />
+                <OtherPlatformsPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/services/email-marketing" element={
+              <>
+                <Navbar />
+                <EmailMarketingPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/services/analytics" element={
+              <>
+                <Navbar />
+                <AnalyticsReportingPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/contact" element={
+              <>
+                <Navbar />
+                <ContactPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/technology" element={
+              <>
+                <Navbar />
+                <TechnologiesPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+            <Route path="/lets-connect" element={
+              <>
+                <Navbar />
+                <LetsConnectPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/cookie-policy" element={<CookiePolicyPage />} />
+            <Route path="/terms" element={<TermsPage />} />
+          </Routes>
+        </Suspense>
       </>
     </HelmetProvider>
   );

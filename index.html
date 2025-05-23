@@ -8,8 +8,6 @@
     <!-- Resource Hints -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="/favicon-uimitra.svg" as="image" type="image/svg+xml">
-    <link rel="preload" href="/src/main.tsx" as="script" type="module">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon-uimitra.svg" />
@@ -19,15 +17,15 @@
     <link rel="manifest" href="/site.webmanifest">
     
     <!-- Default meta tags (will be overridden by Helmet) -->
-    <title>UI Meets Trust, UX Meets Mitra | Professional Design Services</title>
+    <title>Uimitra | UI Meets Trust, UX Meets Mitra | Professional Design Services</title>
     <meta name="description" content="Transform your digital presence with Uimitra's expert UI/UX design, brand development, and digital marketing services. Innovative solutions for modern businesses." />
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://uimitra.com" />
-    <meta property="og:title" content="UI Meets Trust, UX Meets Mitra | Professional Design Services" />
+    <meta property="og:title" content="Uimitra | UI Meets Trust, UX Meets Mitra | Professional Design Services" />
     <meta property="og:description" content="Transform your digital presence with Uimitra's expert UI/UX design, brand development, and digital marketing services. Innovative solutions for modern businesses." />
-    <meta property="og:image" content="https://uimitra.com/og-image.jpg" />
+    <meta property="og:image" content="https://uimitra.com/public/favicon-uimitra.svg" />
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -35,9 +33,9 @@
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://uimitra.com" />
-    <meta name="twitter:title" content="UI Meets Trust, UX Meets Mitra | Professional Design Services" />
+    <meta name="twitter:title" content="Uimitra | UI Meets Trust, UX Meets Mitra | Professional Design Services" />
     <meta name="twitter:description" content="Transform your digital presence with Uimitra's expert UI/UX design, brand development, and digital marketing services. Innovative solutions for modern businesses." />
-    <meta name="twitter:image" content="https://uimitra.com/og-image.jpg" />
+    <meta name="twitter:image" content="https://uimitra.com/public/favicon-uimitra.svg" />
     
     <!-- Canonical -->
     <link rel="canonical" href="https://uimitra.com" />
@@ -47,26 +45,10 @@
       /* Critical CSS for above-the-fold content */
       body { margin: 0; font-family: system-ui, -apple-system, sans-serif; }
       #root { min-height: 100vh; }
-      .loading { 
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #fff;
-      }
     </style>
   </head>
   <body>
-    <div id="root">
-      <!-- Loading state -->
-      <div class="loading">
-        <img src="/favicon-uimitra.svg" alt="Loading..." width="50" height="50" />
-      </div>
-    </div>
+    <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

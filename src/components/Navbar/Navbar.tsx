@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Infinity, ChevronDown, Menu, X, MessageCircle } from 'lucide-react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import UimitraLogo from '../../assets/Uimitra..svg';
 
 interface MenuItem {
@@ -23,6 +22,15 @@ interface NavItemProps {
   categories?: Category[];
   dropdownWidth?: string;
   dropdownStyle?: 'company' | 'services';
+}
+
+interface NavItemComponentProps {
+  item: NavItemProps;
+  isActive: boolean;
+  onClick: () => void;
+  isMobile?: boolean;
+  onNavigate?: (href: string) => void;
+  onClose?: () => void;
 }
 
 const companyCategories: Category[] = [
@@ -200,38 +208,40 @@ function scrollToHero() {
   }
 }
 
-const NavItem: React.FC<{ 
-  item: NavItemProps; 
-  isActive: boolean; 
-  onClick: () => void;
-  isMobile?: boolean;
-}> = ({ 
+const NavItem: React.FC<NavItemComponentProps> = ({ 
   item, 
   isActive,
   onClick,
-  isMobile = false
+  isMobile = false,
+  onNavigate,
+  onClose
 }) => {
-  const [isHovered, setIsHovered] = useState(false);
   const [expandedCategory, setExpandedCategory] = useState<number | null>(null);
   const [expandedSubheading, setExpandedSubheading] = useState<number | null>(null);
+  const [isClosing, setIsClosing] = useState(false);
+  const [isTapped, setIsTapped] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const handleClick = (e: React.FormEvent, href: string) => {
+  const isServicesSection = item.name === 'Services';
+
+  const handleClick = (e: React.MouseEvent, href: string) => {
     e.preventDefault();
-    if (item.name === 'Home') {
-      if (location.pathname === '/') {
-      scrollToHero();
+    setIsTapped(true);
+    setIsClosing(true);
+    
+    setTimeout(() => {
+      if (onClose) onClose();
+      if (onNavigate) {
+        onNavigate(href);
       } else {
-        navigate('/');
+        navigate(href);
       }
-    } else {
-    navigate(href);
-    }
-    onClick();
-    setIsHovered(false);
-    setExpandedCategory(null);
-    setExpandedSubheading(null);
+      onClick();
+      setExpandedCategory(null);
+      setExpandedSubheading(null);
+      setIsClosing(false);
+      setIsTapped(false);
+    }, 300);
   };
 
   const getDropdownStyles = () => {
@@ -245,68 +255,6 @@ const NavItem: React.FC<{
   };
 
   if (isMobile) {
-    // Special case for 'Company' to show links directly in dropdown (expand/collapse)
-    if (item.name === 'Company' && item.categories && item.categories.length > 0) {
-      return (
-        <motion.div 
-          className="w-full border-b border-white/10"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -20 }}
-        >
-          <motion.button
-            className={`w-full flex items-center justify-between px-8 py-5 text-lg font-medium ${
-              isActive ? 'text-primary' : 'text-white/90'
-            } hover:text-primary transition-colors`}
-            onClick={(e) => {
-              if (expandedCategory === 0) {
-                setExpandedCategory(null);
-              } else {
-                setExpandedCategory(0);
-              }
-            }}
-            whileTap={{ scale: 0.98 }}
-          >
-            {item.name}
-            <ChevronDown 
-              size={20} 
-              className={`transition-transform duration-300 ${expandedCategory === 0 ? 'rotate-180' : ''}`} 
-            />
-          </motion.button>
-          <AnimatePresence>
-            {expandedCategory === 0 && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="bg-white/5"
-              >
-                <div className="py-4">
-                  {item.categories[0].items.map((menuItem, itemIndex) => (
-                    <motion.a
-                      key={itemIndex}
-                      href={menuItem.href}
-                      className="block text-white/70 hover:text-white pl-12 py-2"
-                      onClick={(e) => handleClick(e, menuItem.href)}
-                      whileHover={{ x: 5 }}
-                    >
-                      <div className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-white/50" />
-                        <div className="flex flex-col">
-                          <span className="font-medium">{menuItem.name}</span>
-                          <span className="text-xs opacity-70 mt-1 ml-0">{menuItem.description}</span>
-                        </div>
-                      </div>
-                    </motion.a>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.div>
-      );
-    }
     return (
       <motion.div 
         className="w-full border-b border-white/10"
@@ -315,9 +263,9 @@ const NavItem: React.FC<{
         exit={{ opacity: 0, x: -20 }}
       >
         <motion.button
-          className={`w-full flex items-center justify-between px-8 py-5 text-lg font-medium ${
-            item.name === 'Home' ? 'text-white/90' : isActive ? 'text-primary' : 'text-white/90'
-          } hover:text-primary transition-colors`}
+          className={`w-full flex items-center justify-between px-8 py-10 text-[18px] font-medium ${
+            isTapped ? 'text-primary' : 'text-white'
+          } hover:text-white transition-colors`}
           onClick={(e) => {
             if (item.categories) {
               setExpandedCategory(expandedCategory === 0 ? null : 0);
@@ -325,12 +273,14 @@ const NavItem: React.FC<{
               handleClick(e, item.href);
             }
           }}
+          onTapStart={() => setIsTapped(true)}
+          onTapCancel={() => setIsTapped(false)}
           whileTap={{ scale: 0.98 }}
         >
           {item.name}
           {item.categories && (
             <ChevronDown 
-              size={20} 
+              size={24} 
               className={`transition-transform duration-300 ${expandedCategory === 0 ? 'rotate-180' : ''}`} 
             />
           )}
@@ -340,57 +290,89 @@ const NavItem: React.FC<{
           {item.categories && expandedCategory === 0 && (
             <motion.div
               initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
+              animate={{ 
+                height: isClosing ? 0 : 'auto',
+                opacity: isClosing ? 0 : 1
+              }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="bg-white/5"
+              className="bg-[#0A1624] overflow-hidden"
             >
-              <div className="py-4">
+              <motion.div 
+                className="py-2"
+                animate={{ 
+                  y: isClosing ? -20 : 0,
+                  opacity: isClosing ? 0 : 1
+                }}
+                transition={{ duration: 0.3 }}
+              >
                 {item.categories.map((category, index) => (
-                  <div key={index} className="px-8 py-2">
-                    {index !== 0 && <div className="h-2" />}
-                    <button
-                      className="flex items-center justify-between w-full text-white/80 font-semibold text-sm whitespace-normal break-words py-2 focus:outline-none"
-                      onClick={() => setExpandedSubheading(expandedSubheading === index ? null : index)}
-                    >
-                      {category.title}
-                      <ChevronDown
-                        size={16}
-                        className={`transition-transform duration-300 ${expandedSubheading === index ? 'rotate-180' : ''}`}
-                      />
-                    </button>
-                    <AnimatePresence>
-                      {expandedSubheading === index && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.2 }}
-                          className="space-y-3 mt-2"
-                        >
-                          {category.items.map((menuItem, itemIndex) => (
-                            <motion.a
-                              key={itemIndex}
-                              href={menuItem.href}
-                              className="block text-white/70 hover:text-white pl-4"
-                              onClick={(e) => handleClick(e, menuItem.href)}
-                              whileHover={{ x: 5 }}
+                  <div key={index} className="border-b border-white/10 last:border-b-0">
+                    <div className="px-8 py-4">
+                      <motion.button
+                        className={`flex items-center justify-between w-full text-white/90 font-semibold text-medium whitespace-normal break-words py-2 focus:outline-none hover:text-white transition-colors ${
+                          isTapped && expandedSubheading === index ? 'text-primary' : ''
+                        }`}
+                        onClick={() => {
+                          setIsTapped(true);
+                          setExpandedSubheading(expandedSubheading === index ? null : index);
+                          setTimeout(() => setIsTapped(false), 300);
+                        }}
+                        onTapStart={() => setIsTapped(true)}
+                        onTapCancel={() => setIsTapped(false)}
+                      >
+                        {category.title}
+                        <ChevronDown
+                          size={20}
+                          className={`transition-transform duration-300 ${expandedSubheading === index ? 'rotate-180' : ''}`}
+                        />
+                      </motion.button>
+                      <AnimatePresence>
+                        {expandedSubheading === index && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ 
+                              height: isClosing ? 0 : 'auto',
+                              opacity: isClosing ? 0 : 1
+                            }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="overflow-hidden"
+                          >
+                            <motion.div
+                              className="space-y-5 mt-3"
+                              animate={{ 
+                                y: isClosing ? -20 : 0,
+                                opacity: isClosing ? 0 : 1
+                              }}
+                              transition={{ duration: 0.2 }}
                             >
-                              <div className="flex items-center gap-2">
-                                <div className="w-1.5 h-1.5 rounded-full bg-white/50" />
-                                <div className="flex flex-col">
-                                  <span className="font-medium">{menuItem.name}</span>
-                                  <span className="text-xs opacity-70 mt-1 ml-0">{menuItem.description}</span>
-                                </div>
-                              </div>
-                            </motion.a>
-                          ))}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                              {category.items.map((menuItem, itemIndex) => (
+                                <motion.a
+                                  key={itemIndex}
+                                  href={menuItem.href}
+                                  className={`block hover:text-white pl-6 transition-colors ${
+                                    isTapped && menuItem.href === item.href ? 'text-primary' : 'text-white/80'
+                                  }`}
+                                  onClick={(e) => handleClick(e, menuItem.href)}
+                                  onTapStart={() => setIsTapped(true)}
+                                  onTapCancel={() => setIsTapped(false)}
+                                  whileHover={{ x: 5 }}
+                                >
+                                  <div className="flex flex-col">
+                                    <span className="font-medium text-[17px]">{menuItem.name}</span>
+                                    <span className="text-[14px] text-white/60 mt-1">{menuItem.description}</span>
+                                  </div>
+                                </motion.a>
+                              ))}
+                            </motion.div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
                   </div>
                 ))}
-              </div>
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -401,13 +383,13 @@ const NavItem: React.FC<{
   return (
     <div 
       className="relative"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => setExpandedCategory(0)}
+      onMouseLeave={() => setExpandedCategory(null)}
     >
       <motion.button
         className={`text-sm md:text-xs lsm:text-xs lg:text-sm font-medium flex items-center gap-1 py-2 ${
-          item.name === 'Home' ? 'text-gray-800' : isActive ? 'text-primary' : 'text-gray-800'
-        } hover:text-primary transition-colors`}
+          isTapped ? 'text-primary' : 'text-gray-800'
+        } hover:text-gray-600 transition-colors`}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={(e) => {
@@ -420,28 +402,31 @@ const NavItem: React.FC<{
         {item.categories && (
           <ChevronDown 
             size={16} 
-            className={`transition-transform duration-300 ${isHovered ? 'rotate-180' : ''}`} 
+            className={`transition-transform duration-300 ${expandedCategory === 0 ? 'rotate-180' : ''}`} 
           />
         )}
       </motion.button>
 
       {item.categories && (
         <AnimatePresence>
-          {isHovered && (
+          {expandedCategory === 0 && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
               transition={{ duration: 0.2 }}
-              className={`fixed left-1/2 -translate-x-1/2 bg-white rounded-lg shadow-lg overflow-hidden z-50 ${item.dropdownWidth || 'w-[1000px]'}`}
-              style={{ top: '60px' }}
+              className={`fixed left-1/2 -translate-x-1/2 bg-white rounded-lg shadow-lg overflow-y-auto z-50 ${item.dropdownWidth || 'w-[1000px]'}`}
+              style={{ 
+                top: '60px',
+                maxHeight: 'calc(100vh - 80px)'
+              }}
             >
               <div className="p-4 md:p-6 lg:p-8">
                 <div className={getDropdownStyles()}>
                   {item.categories.map((category, index) => (
                     <div key={index} className="space-y-4 md:space-y-6">
                       {category.title && (
-                        <h4 className="font-semibold text-gray-900 text-sm md:text-base lg:text-base mb-4 md:mb-6">{category.title}</h4>
+                        <h4 className="font-semibold text-gray-900 text-sm md:text-base lg:text-base mb-4 md:mb-6 sticky top-0 bg-white py-2">{category.title}</h4>
                       )}
                       <div className="space-y-4 md:space-y-6">
                         {category.items.map((menuItem, itemIndex) => (
@@ -485,12 +470,21 @@ const NavItem: React.FC<{
   );
 };
 
-const GetInTouchButton: React.FC<{ isMobile?: boolean; onClick?: () => void }> = ({ isMobile = false, onClick }) => {
+const GetInTouchButton: React.FC<{ 
+  isMobile?: boolean; 
+  onClick?: () => void 
+}> = ({ 
+  isMobile = false, 
+  onClick 
+}) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    if (onClick) onClick();
-    navigate('/contact');
+    if (onClick) {
+      onClick();
+    } else {
+      navigate('/contact');
+    }
   };
 
   return (
@@ -498,7 +492,7 @@ const GetInTouchButton: React.FC<{ isMobile?: boolean; onClick?: () => void }> =
       onClick={handleClick}
       className={`
         ${isMobile ? 'w-full bg-white text-primary mt-6' : 'bg-primary text-white'} 
-        px-6 py-3 rounded-full font-medium flex items-center justify-center gap-2 relative overflow-hidden group
+        px-6 py-3.5 rounded-full font-medium flex items-center justify-center gap-2 relative overflow-hidden group text-[17px]
       `}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
@@ -511,24 +505,40 @@ const GetInTouchButton: React.FC<{ isMobile?: boolean; onClick?: () => void }> =
       />
       <span className="relative z-10 flex items-center gap-2">
         Get In Touch
-        <MessageCircle size={18} className="group-hover:rotate-12 transition-transform" />
+        <MessageCircle size={20} className="group-hover:rotate-12 transition-transform" />
       </span>
     </motion.button>
   );
 };
 
 const Navbar: React.FC = () => {
-  const [activeItem, setActiveItem] = useState('Home');
+  const [activeItem, setActiveItem] = useState<string>('Home');
   const [isOpen, setIsOpen] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [isClosing, setIsClosing] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Add effect to scroll to top on route change
+  const handleNavigation = (href: string) => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsOpen(false);
+      setIsClosing(false);
+      navigate(href);
+    }, 300); // Match this with your animation duration
+  };
+
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
 
   useEffect(() => {
     let ticking = false;
@@ -550,14 +560,6 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-  }, [isOpen]);
-
   // Add effect to handle navigation and scrolling
   useEffect(() => {
     if (location.pathname === '/') {
@@ -569,127 +571,157 @@ const Navbar: React.FC = () => {
     }
   }, [location.pathname]);
 
-  const handleLogoClick = () => {
-    setIsOpen(false);
-    if (location.pathname === '/') {
-      scrollToHero();
-    } else {
-    navigate('/');
-    }
-  };
-
   return (
-    <>
-      <Helmet>
-        <title>Uimitra | Professional UI/UX Design & Digital Services</title>
-        <meta name="description" content="Explore Uimitra's comprehensive services in UI/UX design, brand development, digital marketing, and social media management. Transform your digital presence with our expert solutions." />
-        <meta name="keywords" content="Uimitra navigation, UI/UX design services, brand development, digital marketing, social media services, professional design services" />
-        
-        {/* Open Graph / Facebook */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://uimitra.com" />
-        <meta property="og:title" content="Uimitra | Professional UI/UX Design & Digital Services" />
-        <meta property="og:description" content="Explore Uimitra's comprehensive services in UI/UX design, brand development, digital marketing, and social media management. Transform your digital presence with our expert solutions." />
-        <meta property="og:image" content="https://uimitra.com/favicon-uimitra.svg" />
-        
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content="https://uimitra.com" />
-        <meta name="twitter:title" content="Uimitra | Professional UI/UX Design & Digital Services" />
-        <meta name="twitter:description" content="Explore Uimitra's comprehensive services in UI/UX design, brand development, digital marketing, and social media management. Transform your digital presence with our expert solutions." />
-        <meta name="twitter:image" content="https://uimitra.com/favicon-uimitra.svg" />
-        
-        {/* Additional SEO */}
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://uimitra.com" />
-      </Helmet>
-
-      <motion.nav
-        animate={{ y: showNavbar ? 0 : -100 }}
-        transition={{ duration: 0.3 }}
-        className={
-          'sticky top-0 z-50 transition-all duration-300 bg-white/30 backdrop-blur-md backdrop-saturate-150'
-        }
-      >
-        <div className="max-w-7xl mx-auto px-2 msm:px-3 lsm:px-4 md:px-6 lg:px-8 xl:px-16 4k:px-32">
-          <div className="flex items-center justify-between h-14 msm:h-16 lsm:h-18 md:h-20 lg:h-24 xl:h-28 4k:h-32">
-            {/* Logo */}
-            <div className="flex items-center pl-4 md:pl-0">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={handleLogoClick}
-                className="cursor-pointer"
-              >
-                <div className="flex items-center gap-1 msm:gap-2 lsm:gap-3 md:gap-4">
-                  <img 
-                    src={UimitraLogo} 
-                    alt="Uimitra Logo" 
-                    className="w-16 h-16 msm:w-20 msm:h-20 lsm:w-24 lsm:h-24 md:w-20 md:h-20 lg:w-24 lg:h-24 xl:w-28 xl:h-28 4k:w-36 4k:h-36 group-hover:opacity-80 transition-opacity"
-                  />
-                </div>
-              </motion.div>
-            </div>
-
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-4 lsm:space-x-6 md:space-x-8 lg:space-x-10 xl:space-x-12 4k:space-x-16">
-              {navItems.map((item) => (
-                <NavItem
-                  key={item.name}
-                  item={item}
-                  isActive={activeItem === item.name}
-                  onClick={() => setActiveItem(item.name)}
-                />
-              ))}
-              <GetInTouchButton />
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
-            >
-              {isOpen ? (
-                <X className="h-5 w-5 msm:h-6 msm:w-6 text-gray-700" />
-              ) : (
-                <Menu className="h-5 w-5 msm:h-6 msm:w-6 text-gray-700" />
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation */}
-        <AnimatePresence>
-          {isOpen && (
+    <motion.nav
+      animate={{ y: showNavbar ? 0 : -100 }}
+      transition={{ duration: 0.3 }}
+      className={
+        'sticky top-0 z-50 transition-all duration-300 bg-white/30 backdrop-blur-md backdrop-saturate-150'
+      }
+    >
+      <div className="max-w-7xl mx-auto px-2 msm:px-3 lsm:px-4 md:px-6 lg:px-8 xl:px-16 4k:px-32">
+        <div className="flex items-center justify-between h-14 msm:h-16 lsm:h-18 md:h-20 lg:h-24 xl:h-28 4k:h-32">
+          {/* Logo */}
+          <div className="flex items-center pl-4 md:pl-0">
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'calc(100vh - 3.5rem)' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-[#000F23] text-white fixed left-0 top-14 w-full z-50 overflow-y-auto"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                if (isOpen) {
+                  handleNavigation('/');
+                } else {
+                  navigate('/');
+                }
+              }}
+              className="cursor-pointer"
             >
-              <div className="px-4 py-4 space-y-4">
+              <div className="flex items-center gap-1 msm:gap-2 lsm:gap-3 md:gap-4">
+                <img 
+                  src={UimitraLogo} 
+                  alt="Uimitra Logo" 
+                  className="w-16 h-16 msm:w-20 msm:h-20 lsm:w-24 lsm:h-24 md:w-20 md:h-20 lg:w-24 lg:h-24 xl:w-28 xl:h-28 4k:w-36 4k:h-36 group-hover:opacity-80 transition-opacity"
+                />
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-4 lsm:space-x-6 md:space-x-8 lg:space-x-10 xl:space-x-12 4k:space-x-16">
+            {navItems.map((item) => (
+              <NavItem
+                key={item.name}
+                item={item}
+                isActive={activeItem === item.name}
+                onClick={() => setActiveItem(item.name)}
+                onNavigate={(href) => navigate(href)}
+              />
+            ))}
+            <GetInTouchButton />
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+          >
+            <AnimatePresence mode="wait">
+              {isOpen ? (
+                <motion.div
+                  key="close"
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: 180 }}
+                  exit={{ rotate: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <X className="h-5 w-5 msm:h-6 msm:w-6 text-gray-700" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="menu"
+                  initial={{ rotate: 180 }}
+                  animate={{ rotate: 0 }}
+                  exit={{ rotate: 180 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Menu className="h-5 w-5 msm:h-6 msm:w-6 text-gray-700" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Navigation */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ 
+              opacity: isClosing ? 0 : 1, 
+              height: isClosing ? 0 : 'calc(100vh - 3.5rem)'
+            }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-[#000F23] text-white fixed left-0 top-[3.5rem] msm:top-16 lsm:top-[4.5rem] w-full z-50 overflow-hidden"
+          >
+            <motion.div 
+              className="h-full flex flex-col justify-between"
+              animate={{ opacity: isClosing ? 0 : 1, y: isClosing ? 20 : 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="flex-1 py-4 overflow-y-auto">
                 {navItems.map((item) => (
                   <NavItem
                     key={item.name}
                     item={item}
                     isActive={activeItem === item.name}
-                    onClick={() => {
-                      setActiveItem(item.name);
-                      setIsOpen(false);
-                    }}
+                    onClick={() => setActiveItem(item.name)}
+                    onClose={() => setIsClosing(true)}
+                    onNavigate={handleNavigation}
                     isMobile
                   />
                 ))}
-                <div className="px-8 pt-4 pb-8">
-                  <GetInTouchButton isMobile onClick={() => setIsOpen(false)} />
-                </div>
+              </div>
+              <div className="px-8 py-8 border-t border-white/10">
+                <GetInTouchButton 
+                  isMobile 
+                  onClick={() => handleNavigation('/contact')} 
+                />
               </div>
             </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.nav>
-    </>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
   );
 };
+
+// Add this CSS class to your global styles or in the appropriate CSS file
+const customScrollbarStyles = `
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+  }
+`;
+
+// Add the styles to the document
+if (typeof document !== 'undefined') {
+  const style = document.createElement('style');
+  style.textContent = customScrollbarStyles;
+  document.head.appendChild(style);
+}
 
 export default Navbar;

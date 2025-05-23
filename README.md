@@ -199,7 +199,7 @@ npm run dev
 ### Project Structure
 ```
 uimitra/
-├── src/ 
+├── src/
 │   ├── components/
 │   │   ├── Services/
 │   │   │   ├── Marketing/      # Marketing components
