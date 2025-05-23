@@ -716,7 +716,7 @@ const Navbar: React.FC = () => {
             }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-[#0A1624] text-white fixed left-0 top-[3.5rem] msm:top-16 lsm:top-[4.5rem] w-full z-50 overflow-y-auto"
+            className="md:hidden bg-[#0A1624] text-white fixed left-0 top-[3.5rem] msm:top-16 lsm:top-[4.5rem] w-full z-50 overflow-y-auto pb-safe"
             onAnimationComplete={() => {
               if (isClosing) {
                 setIsOpen(false);
@@ -725,7 +725,7 @@ const Navbar: React.FC = () => {
             }}
           >
             <motion.div 
-              className="min-h-[calc(100vh-3.5rem)] msm:min-h-[calc(100vh-4rem)] lsm:min-h-[calc(100vh-4.5rem)] flex flex-col"
+              className="flex flex-col h-[calc(100vh-3.5rem)] msm:h-[calc(100vh-4rem)] lsm:h-[calc(100vh-4.5rem)]"
               animate={{ opacity: isClosing ? 0 : 1, y: isClosing ? 20 : 0 }}
               transition={{ duration: 0.3 }}
             >
@@ -742,11 +742,12 @@ const Navbar: React.FC = () => {
                   />
                 ))}
               </div>
-              <div className="sticky bottom-0 px-8 py-4 border-t border-white/10 bg-[#0A1624] mt-auto">
+              <div className="px-8 py-6 border-t border-white/10 bg-[#0A1624]">
                 <GetInTouchButton 
                   isMobile 
                   onClick={() => handleNavigation('/contact')} 
                 />
+                <div className="h-6"></div>
               </div>
             </motion.div>
           </motion.div>
