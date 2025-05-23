@@ -204,9 +204,9 @@ const SEOServicesPage: React.FC = () => {
         <link rel="canonical" href="https://uimitra.com/services/digital-marketing/seo" />
       </Helmet>
       
-    <div className="min-h-screen pt-24 pb-20 relative overflow-hidden" ref={sectionRef}>
+    <div className="min-h-screen pb-20 relative overflow-hidden" ref={sectionRef}>
       {/* Hero Section */}
-      <div className="relative overflow-hidden py-20">
+      <div className="relative overflow-hidden py-12">
         <motion.div 
           className="absolute inset-0"
           style={{
