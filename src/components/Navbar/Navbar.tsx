@@ -556,17 +556,29 @@ const Navbar: React.FC = () => {
 
   const handleNavigation = (href: string) => {
     setIsClosing(true);
+    setIsOpen(false); // Immediately start closing the menu
     setTimeout(() => {
-      setIsOpen(false);
       setIsClosing(false);
       navigate(href);
     }, 300);
   };
 
-  // Close mobile menu on route change
+  // Reset menu state on route change and component mount
   useEffect(() => {
-    setIsOpen(false);
-    setIsClosing(false);
+    const resetMenuState = () => {
+      setIsOpen(false);
+      setIsClosing(false);
+    };
+
+    // Reset on mount and route change
+    resetMenuState();
+
+    // Add event listener for page visibility changes
+    document.addEventListener('visibilitychange', resetMenuState);
+
+    return () => {
+      document.removeEventListener('visibilitychange', resetMenuState);
+    };
   }, [location.pathname]);
 
   useEffect(() => {
@@ -666,7 +678,7 @@ const Navbar: React.FC = () => {
             className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
             initial={false}
           >
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait" initial={false}>
             {isOpen ? (
                 <motion.div
                   key="close"
@@ -675,7 +687,7 @@ const Navbar: React.FC = () => {
                   exit={{ rotate: 0, opacity: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-              <X className="h-5 w-5 msm:h-6 msm:w-6 text-gray-700" />
+                  <X className="h-5 w-5 msm:h-6 msm:w-6 text-gray-700" />
                 </motion.div>
               ) : (
                 <motion.div
@@ -685,7 +697,7 @@ const Navbar: React.FC = () => {
                   exit={{ rotate: -180, opacity: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-              <Menu className="h-5 w-5 msm:h-6 msm:w-6 text-gray-700" />
+                  <Menu className="h-5 w-5 msm:h-6 msm:w-6 text-gray-700" />
                 </motion.div>
             )}
             </AnimatePresence>
