@@ -222,12 +222,13 @@ const NavItem: React.FC<NavItemComponentProps> = ({
   const [isTapped, setIsTapped] = useState(false);
   const navigate = useNavigate();
 
-  const isServicesSection = item.name === 'Services';
+  const isCompanySection = item.name === 'Company';
 
   const handleClick = (e: React.MouseEvent, href: string) => {
     e.preventDefault();
     setIsTapped(true);
     setIsClosing(true);
+    setExpandedCategory(null); // Immediately close dropdown
     
     setTimeout(() => {
       if (onClose) onClose();
@@ -237,7 +238,6 @@ const NavItem: React.FC<NavItemComponentProps> = ({
         navigate(href);
       }
       onClick();
-      setExpandedCategory(null);
       setExpandedSubheading(null);
       setIsClosing(false);
       setIsTapped(false);
@@ -254,59 +254,182 @@ const NavItem: React.FC<NavItemComponentProps> = ({
     return 'grid grid-cols-1 md:grid-cols-4 gap-12';
   };
 
-  if (isMobile) {
+  if (!isMobile) {
     return (
-      <motion.div 
-        className="w-full border-b border-white/10"
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: -20 }}
+      <div 
+        className="relative"
+        onMouseEnter={() => !isClosing && setExpandedCategory(0)}
+        onMouseLeave={() => setExpandedCategory(null)}
       >
         <motion.button
-          className={`w-full flex items-center justify-between px-8 py-10 text-[18px] font-medium ${
-            isTapped ? 'text-primary' : 'text-white'
-          } hover:text-white transition-colors`}
+          className={`text-sm md:text-xs lsm:text-xs lg:text-sm font-medium flex items-center gap-1 py-2 ${
+            isTapped ? 'text-primary' : 'text-gray-800'
+          } hover:text-gray-600 transition-colors`}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={(e) => {
-            if (item.categories) {
-              setExpandedCategory(expandedCategory === 0 ? null : 0);
-            } else {
+            if (!item.categories) {
               handleClick(e, item.href);
             }
           }}
-          onTapStart={() => setIsTapped(true)}
-          onTapCancel={() => setIsTapped(false)}
-          whileTap={{ scale: 0.98 }}
         >
           {item.name}
           {item.categories && (
             <ChevronDown 
-              size={24} 
+              size={16} 
               className={`transition-transform duration-300 ${expandedCategory === 0 ? 'rotate-180' : ''}`} 
             />
           )}
         </motion.button>
 
-        <AnimatePresence>
-          {item.categories && expandedCategory === 0 && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
+        {item.categories && (
+          <AnimatePresence>
+            {expandedCategory === 0 && !isClosing && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ duration: 0.2 }}
+                className={`fixed left-1/2 -translate-x-1/2 bg-white rounded-lg shadow-lg overflow-y-auto z-50 ${item.dropdownWidth || 'w-[1000px]'}`}
+                style={{ 
+                  top: '60px',
+                  maxHeight: 'calc(100vh - 80px)'
+                }}
+              >
+                <div className="p-4 md:p-6 lg:p-8">
+                  <div className={getDropdownStyles()}>
+                    {item.categories.map((category, index) => (
+                      <div key={index} className="space-y-4 md:space-y-6">
+                        {category.title && (
+                          <h4 className="font-semibold text-gray-900 text-sm md:text-base lg:text-base mb-4 md:mb-6 sticky top-0 bg-white py-2">{category.title}</h4>
+                        )}
+                        <div className="space-y-4 md:space-y-6">
+                          {category.items.map((menuItem, itemIndex) => (
+                            <motion.a
+                              key={itemIndex}
+                              href={menuItem.href}
+                              className="block group"
+                              onClick={(e) => handleClick(e, menuItem.href)}
+                              whileHover={{ x: 5 }}
+                            >
+                              {menuItem.image && (
+                                <div className="mb-3 md:mb-4 rounded-lg overflow-hidden">
+                                  <img 
+                                    src={menuItem.image} 
+                                    alt={menuItem.name}
+                                    className="w-full h-32 md:h-40 lg:h-48 object-cover transform transition-transform duration-300 group-hover:scale-105"
+                                  />
+                                </div>
+                              )}
+                              <div className="flex items-center gap-2">
+                                <div className="w-1.5 h-1.5 rounded-full bg-primary/50 group-hover:bg-primary transition-colors" />
+                                <div className="font-medium text-gray-900 group-hover:text-primary text-sm md:text-base lg:text-base">
+                                  {menuItem.name}
+                                </div>
+                              </div>
+                              <div className="text-xs md:text-sm lg:text-sm text-gray-500 ml-3.5">
+                                {menuItem.description}
+                              </div>
+                            </motion.a>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <motion.div 
+      className="w-full border-b border-white/10"
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -20 }}
+    >
+      <motion.button
+        className={`w-full flex items-center justify-between px-8 py-10 text-[18px] font-medium ${
+          isTapped ? 'text-primary' : 'text-white'
+        } hover:text-white transition-colors`}
+        onClick={(e) => {
+          if (item.categories) {
+            setExpandedCategory(expandedCategory === 0 ? null : 0);
+          } else {
+            handleClick(e, item.href);
+          }
+        }}
+        onTapStart={() => setIsTapped(true)}
+        onTapCancel={() => setIsTapped(false)}
+        whileTap={{ scale: 0.98 }}
+      >
+        {item.name}
+        {item.categories && (
+          <ChevronDown 
+            size={24} 
+            className={`transition-transform duration-300 ${expandedCategory === 0 ? 'rotate-180' : ''}`} 
+          />
+        )}
+      </motion.button>
+
+      <AnimatePresence>
+        {item.categories && expandedCategory === 0 && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ 
+              height: isClosing ? 0 : 'auto',
+              opacity: isClosing ? 0 : 1
+            }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="bg-[#0A1624] overflow-hidden"
+          >
+            <motion.div 
+              className="py-2"
               animate={{ 
-                height: isClosing ? 0 : 'auto',
+                y: isClosing ? -20 : 0,
                 opacity: isClosing ? 0 : 1
               }}
-              exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="bg-[#0A1624] overflow-hidden"
             >
-              <motion.div 
-                className="py-2"
-                animate={{ 
-                  y: isClosing ? -20 : 0,
-                  opacity: isClosing ? 0 : 1
-                }}
-                transition={{ duration: 0.3 }}
-              >
-                {item.categories.map((category, index) => (
+              {isCompanySection ? (
+                // Company section - single dropdown
+                <div className="px-8 py-4">
+                  <motion.div
+                    className="space-y-5"
+                    animate={{ 
+                      y: isClosing ? -20 : 0,
+                      opacity: isClosing ? 0 : 1
+                    }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {item.categories[0].items.map((menuItem, itemIndex) => (
+                      <motion.a
+                        key={itemIndex}
+                        href={menuItem.href}
+                        className={`block hover:text-white pl-6 transition-colors ${
+                          isTapped && menuItem.href === item.href ? 'text-primary' : 'text-white/80'
+                        }`}
+                        onClick={(e) => handleClick(e, menuItem.href)}
+                        onTapStart={() => setIsTapped(true)}
+                        onTapCancel={() => setIsTapped(false)}
+                        whileHover={{ x: 5 }}
+                      >
+                        <div className="flex flex-col">
+                          <span className="font-medium text-[17px]">{menuItem.name}</span>
+                          <span className="text-[14px] text-white/60 mt-1">{menuItem.description}</span>
+                        </div>
+                      </motion.a>
+                    ))}
+                  </motion.div>
+                </div>
+              ) : (
+                // Other sections with category headers
+                item.categories.map((category, index) => (
                   <div key={index} className="border-b border-white/10 last:border-b-0">
                     <div className="px-8 py-4">
                       <motion.button
@@ -371,102 +494,13 @@ const NavItem: React.FC<NavItemComponentProps> = ({
                       </AnimatePresence>
                     </div>
                   </div>
-                ))}
-              </motion.div>
+                ))
+              )}
             </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
-    );
-  }
-
-  return (
-    <div 
-      className="relative"
-      onMouseEnter={() => setExpandedCategory(0)}
-      onMouseLeave={() => setExpandedCategory(null)}
-    >
-      <motion.button
-        className={`text-sm md:text-xs lsm:text-xs lg:text-sm font-medium flex items-center gap-1 py-2 ${
-          isTapped ? 'text-primary' : 'text-gray-800'
-        } hover:text-gray-600 transition-colors`}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={(e) => {
-          if (!item.categories) {
-            handleClick(e, item.href);
-          }
-        }}
-      >
-        {item.name}
-        {item.categories && (
-          <ChevronDown 
-            size={16} 
-            className={`transition-transform duration-300 ${expandedCategory === 0 ? 'rotate-180' : ''}`} 
-          />
+          </motion.div>
         )}
-      </motion.button>
-
-      {item.categories && (
-        <AnimatePresence>
-          {expandedCategory === 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 10 }}
-              transition={{ duration: 0.2 }}
-              className={`fixed left-1/2 -translate-x-1/2 bg-white rounded-lg shadow-lg overflow-y-auto z-50 ${item.dropdownWidth || 'w-[1000px]'}`}
-              style={{ 
-                top: '60px',
-                maxHeight: 'calc(100vh - 80px)'
-              }}
-            >
-              <div className="p-4 md:p-6 lg:p-8">
-                <div className={getDropdownStyles()}>
-                  {item.categories.map((category, index) => (
-                    <div key={index} className="space-y-4 md:space-y-6">
-                      {category.title && (
-                        <h4 className="font-semibold text-gray-900 text-sm md:text-base lg:text-base mb-4 md:mb-6 sticky top-0 bg-white py-2">{category.title}</h4>
-                      )}
-                      <div className="space-y-4 md:space-y-6">
-                        {category.items.map((menuItem, itemIndex) => (
-                          <motion.a
-                            key={itemIndex}
-                            href={menuItem.href}
-                            className="block group"
-                            onClick={(e) => handleClick(e, menuItem.href)}
-                            whileHover={{ x: 5 }}
-                          >
-                            {menuItem.image && (
-                              <div className="mb-3 md:mb-4 rounded-lg overflow-hidden">
-                                <img 
-                                  src={menuItem.image} 
-                                  alt={menuItem.name}
-                                  className="w-full h-32 md:h-40 lg:h-48 object-cover transform transition-transform duration-300 group-hover:scale-105"
-                                />
-                              </div>
-                            )}
-                            <div className="flex items-center gap-2">
-                              <div className="w-1.5 h-1.5 rounded-full bg-primary/50 group-hover:bg-primary transition-colors" />
-                              <div className="font-medium text-gray-900 group-hover:text-primary text-sm md:text-base lg:text-base">
-                                {menuItem.name}
-                              </div>
-                            </div>
-                            <div className="text-xs md:text-sm lg:text-sm text-gray-500 ml-3.5">
-                              {menuItem.description}
-                            </div>
-                          </motion.a>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      )}
-    </div>
+      </AnimatePresence>
+    </motion.div>
   );
 };
 
@@ -526,7 +560,7 @@ const Navbar: React.FC = () => {
       setIsOpen(false);
       setIsClosing(false);
       navigate(href);
-    }, 300); // Match this with your animation duration
+    }, 300);
   };
 
   useEffect(() => {
@@ -575,9 +609,7 @@ const Navbar: React.FC = () => {
     <motion.nav
       animate={{ y: showNavbar ? 0 : -100 }}
       transition={{ duration: 0.3 }}
-      className={
-        'sticky top-0 z-50 transition-all duration-300 bg-white/30 backdrop-blur-md backdrop-saturate-150'
-      }
+      className="sticky top-0 z-50 transition-all duration-300 bg-white/30 backdrop-blur-md backdrop-saturate-150"
     >
       <div className="max-w-7xl mx-auto px-2 msm:px-3 lsm:px-4 md:px-6 lg:px-8 xl:px-16 4k:px-32">
         <div className="flex items-center justify-between h-14 msm:h-16 lsm:h-18 md:h-20 lg:h-24 xl:h-28 4k:h-32">
@@ -620,17 +652,21 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
+          <motion.button
+            onClick={() => {
+              if (isClosing) return; // Prevent clicking during closing animation
+              setIsOpen(!isOpen);
+            }}
             className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+            initial={false}
           >
             <AnimatePresence mode="wait">
               {isOpen ? (
                 <motion.div
                   key="close"
-                  initial={{ rotate: 0 }}
-                  animate={{ rotate: 180 }}
-                  exit={{ rotate: 0 }}
+                  initial={{ rotate: 0, opacity: 0 }}
+                  animate={{ rotate: 180, opacity: 1 }}
+                  exit={{ rotate: 0, opacity: 0 }}
                   transition={{ duration: 0.3 }}
                 >
                   <X className="h-5 w-5 msm:h-6 msm:w-6 text-gray-700" />
@@ -638,16 +674,16 @@ const Navbar: React.FC = () => {
               ) : (
                 <motion.div
                   key="menu"
-                  initial={{ rotate: 180 }}
-                  animate={{ rotate: 0 }}
-                  exit={{ rotate: 180 }}
+                  initial={{ rotate: -180, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -180, opacity: 0 }}
                   transition={{ duration: 0.3 }}
                 >
                   <Menu className="h-5 w-5 msm:h-6 msm:w-6 text-gray-700" />
                 </motion.div>
               )}
             </AnimatePresence>
-          </button>
+          </motion.button>
         </div>
       </div>
 
@@ -662,7 +698,13 @@ const Navbar: React.FC = () => {
             }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-[#000F23] text-white fixed left-0 top-[3.5rem] msm:top-16 lsm:top-[4.5rem] w-full z-50 overflow-hidden"
+            className="md:hidden bg-[#0A1624] text-white fixed left-0 top-[3.5rem] msm:top-16 lsm:top-[4.5rem] w-full z-50 overflow-hidden"
+            onAnimationComplete={() => {
+              if (isClosing) {
+                setIsOpen(false);
+                setIsClosing(false);
+              }
+            }}
           >
             <motion.div 
               className="h-full flex flex-col justify-between"
