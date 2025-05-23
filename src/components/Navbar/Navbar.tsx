@@ -236,8 +236,8 @@ const NavItem: React.FC<NavItemComponentProps> = ({
         onNavigate(href);
       } else {
         navigate(href);
-      }
-      onClick();
+    }
+    onClick();
       setExpandedSubheading(null);
       setIsClosing(false);
       setIsTapped(false);
@@ -260,88 +260,88 @@ const NavItem: React.FC<NavItemComponentProps> = ({
         className="relative"
         onMouseEnter={() => !isClosing && setExpandedCategory(0)}
         onMouseLeave={() => setExpandedCategory(null)}
-      >
-        <motion.button
-          className={`text-sm md:text-xs lsm:text-xs lg:text-sm font-medium flex items-center gap-1 py-2 ${
+    >
+      <motion.button
+        className={`text-sm md:text-xs lsm:text-xs lg:text-sm font-medium flex items-center gap-1 py-2 ${
             isTapped ? 'text-primary' : 'text-gray-800'
           } hover:text-gray-600 transition-colors`}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={(e) => {
-            if (!item.categories) {
-              handleClick(e, item.href);
-            }
-          }}
-        >
-          {item.name}
-          {item.categories && (
-            <ChevronDown 
-              size={16} 
-              className={`transition-transform duration-300 ${expandedCategory === 0 ? 'rotate-180' : ''}`} 
-            />
-          )}
-        </motion.button>
-
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={(e) => {
+          if (!item.categories) {
+            handleClick(e, item.href);
+          }
+        }}
+      >
+        {item.name}
         {item.categories && (
-          <AnimatePresence>
+          <ChevronDown 
+            size={16} 
+              className={`transition-transform duration-300 ${expandedCategory === 0 ? 'rotate-180' : ''}`} 
+          />
+        )}
+      </motion.button>
+
+      {item.categories && (
+        <AnimatePresence>
             {expandedCategory === 0 && !isClosing && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                transition={{ duration: 0.2 }}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.2 }}
                 className={`fixed left-1/2 -translate-x-1/2 bg-white rounded-lg shadow-lg overflow-y-auto z-50 ${item.dropdownWidth || 'w-[1000px]'}`}
                 style={{ 
                   top: '60px',
                   maxHeight: 'calc(100vh - 80px)'
                 }}
-              >
-                <div className="p-4 md:p-6 lg:p-8">
-                  <div className={getDropdownStyles()}>
-                    {item.categories.map((category, index) => (
-                      <div key={index} className="space-y-4 md:space-y-6">
-                        {category.title && (
+            >
+              <div className="p-4 md:p-6 lg:p-8">
+                <div className={getDropdownStyles()}>
+                  {item.categories.map((category, index) => (
+                    <div key={index} className="space-y-4 md:space-y-6">
+                      {category.title && (
                           <h4 className="font-semibold text-gray-900 text-sm md:text-base lg:text-base mb-4 md:mb-6 sticky top-0 bg-white py-2">{category.title}</h4>
-                        )}
-                        <div className="space-y-4 md:space-y-6">
-                          {category.items.map((menuItem, itemIndex) => (
-                            <motion.a
-                              key={itemIndex}
-                              href={menuItem.href}
-                              className="block group"
-                              onClick={(e) => handleClick(e, menuItem.href)}
-                              whileHover={{ x: 5 }}
-                            >
-                              {menuItem.image && (
-                                <div className="mb-3 md:mb-4 rounded-lg overflow-hidden">
-                                  <img 
-                                    src={menuItem.image} 
-                                    alt={menuItem.name}
-                                    className="w-full h-32 md:h-40 lg:h-48 object-cover transform transition-transform duration-300 group-hover:scale-105"
-                                  />
-                                </div>
-                              )}
-                              <div className="flex items-center gap-2">
-                                <div className="w-1.5 h-1.5 rounded-full bg-primary/50 group-hover:bg-primary transition-colors" />
-                                <div className="font-medium text-gray-900 group-hover:text-primary text-sm md:text-base lg:text-base">
-                                  {menuItem.name}
-                                </div>
+                      )}
+                      <div className="space-y-4 md:space-y-6">
+                        {category.items.map((menuItem, itemIndex) => (
+                          <motion.a
+                            key={itemIndex}
+                            href={menuItem.href}
+                            className="block group"
+                            onClick={(e) => handleClick(e, menuItem.href)}
+                            whileHover={{ x: 5 }}
+                          >
+                            {menuItem.image && (
+                              <div className="mb-3 md:mb-4 rounded-lg overflow-hidden">
+                                <img 
+                                  src={menuItem.image} 
+                                  alt={menuItem.name}
+                                  className="w-full h-32 md:h-40 lg:h-48 object-cover transform transition-transform duration-300 group-hover:scale-105"
+                                />
                               </div>
-                              <div className="text-xs md:text-sm lg:text-sm text-gray-500 ml-3.5">
-                                {menuItem.description}
+                            )}
+                            <div className="flex items-center gap-2">
+                              <div className="w-1.5 h-1.5 rounded-full bg-primary/50 group-hover:bg-primary transition-colors" />
+                              <div className="font-medium text-gray-900 group-hover:text-primary text-sm md:text-base lg:text-base">
+                                {menuItem.name}
                               </div>
-                            </motion.a>
-                          ))}
-                        </div>
+                            </div>
+                            <div className="text-xs md:text-sm lg:text-sm text-gray-500 ml-3.5">
+                              {menuItem.description}
+                            </div>
+                          </motion.a>
+                        ))}
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        )}
-      </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
+    </div>
     );
   }
 
@@ -517,7 +517,7 @@ const GetInTouchButton: React.FC<{
     if (onClick) {
       onClick();
     } else {
-      navigate('/contact');
+    navigate('/contact');
     }
   };
 
@@ -525,8 +525,8 @@ const GetInTouchButton: React.FC<{
     <motion.button
       onClick={handleClick}
       className={`
-        ${isMobile ? 'w-full bg-white text-primary mt-6' : 'bg-primary text-white'} 
-        px-6 py-3.5 rounded-full font-medium flex items-center justify-center gap-2 relative overflow-hidden group text-[17px]
+        ${isMobile ? 'w-full bg-white text-primary my-5' : 'bg-primary text-white'} 
+        px-6 py-3.5 rounded-full font-medium flex items-center justify-center gap-2 relative overflow-hidden group text-[18px]
       `}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
@@ -609,7 +609,7 @@ const Navbar: React.FC = () => {
     <motion.nav
       animate={{ y: showNavbar ? 0 : -100 }}
       transition={{ duration: 0.3 }}
-      className="sticky top-0 z-50 transition-all duration-300 bg-white/30 backdrop-blur-md backdrop-saturate-150"
+        className="sticky top-0 z-50 transition-all duration-300 bg-white/30 backdrop-blur-md backdrop-saturate-150"
     >
       <div className="max-w-7xl mx-auto px-2 msm:px-3 lsm:px-4 md:px-6 lg:px-8 xl:px-16 4k:px-32">
         <div className="flex items-center justify-between h-14 msm:h-16 lsm:h-18 md:h-20 lg:h-24 xl:h-28 4k:h-32">
@@ -618,13 +618,13 @@ const Navbar: React.FC = () => {
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => {
+                onClick={() => {
                 if (isOpen) {
                   handleNavigation('/');
-                } else {
-                  navigate('/');
-                }
-              }}
+                  } else {
+                    navigate('/');
+                  }
+                }}
               className="cursor-pointer"
             >
               <div className="flex items-center gap-1 msm:gap-2 lsm:gap-3 md:gap-4">
@@ -661,7 +661,7 @@ const Navbar: React.FC = () => {
             initial={false}
           >
             <AnimatePresence mode="wait">
-              {isOpen ? (
+            {isOpen ? (
                 <motion.div
                   key="close"
                   initial={{ rotate: 0, opacity: 0 }}
@@ -669,7 +669,7 @@ const Navbar: React.FC = () => {
                   exit={{ rotate: 0, opacity: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <X className="h-5 w-5 msm:h-6 msm:w-6 text-gray-700" />
+              <X className="h-5 w-5 msm:h-6 msm:w-6 text-gray-700" />
                 </motion.div>
               ) : (
                 <motion.div
@@ -679,9 +679,9 @@ const Navbar: React.FC = () => {
                   exit={{ rotate: -180, opacity: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <Menu className="h-5 w-5 msm:h-6 msm:w-6 text-gray-700" />
+              <Menu className="h-5 w-5 msm:h-6 msm:w-6 text-gray-700" />
                 </motion.div>
-              )}
+            )}
             </AnimatePresence>
           </motion.button>
         </div>
@@ -690,50 +690,50 @@ const Navbar: React.FC = () => {
       {/* Mobile Navigation */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+              <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ 
               opacity: isClosing ? 0 : 1, 
-              height: isClosing ? 0 : 'calc(100vh - 3.5rem)'
+              height: isClosing ? 0 : '100vh'
             }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-[#0A1624] text-white fixed left-0 top-[3.5rem] msm:top-16 lsm:top-[4.5rem] w-full z-50 overflow-hidden"
+            className="md:hidden bg-[#0A1624] text-white fixed left-0 top-[3.5rem] msm:top-16 lsm:top-[4.5rem] w-full z-50 overflow-y-auto"
             onAnimationComplete={() => {
               if (isClosing) {
                 setIsOpen(false);
                 setIsClosing(false);
               }
             }}
-          >
-            <motion.div 
-              className="h-full flex flex-col justify-between"
+            >
+              <motion.div 
+              className="min-h-[calc(100vh-3.5rem)] msm:min-h-[calc(100vh-4rem)] lsm:min-h-[calc(100vh-4.5rem)] flex flex-col justify-between"
               animate={{ opacity: isClosing ? 0 : 1, y: isClosing ? 20 : 0 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="flex-1 py-4 overflow-y-auto">
-                {navItems.map((item) => (
-                  <NavItem
-                    key={item.name}
-                    item={item}
-                    isActive={activeItem === item.name}
+              <div className="flex-1 py-4">
+                      {navItems.map((item) => (
+                        <NavItem
+                          key={item.name}
+                          item={item}
+                          isActive={activeItem === item.name}
                     onClick={() => setActiveItem(item.name)}
                     onClose={() => setIsClosing(true)}
                     onNavigate={handleNavigation}
-                    isMobile
-                  />
-                ))}
+                          isMobile
+                        />
+                      ))}
               </div>
-              <div className="px-8 py-8 border-t border-white/10">
-                <GetInTouchButton 
-                  isMobile 
-                  onClick={() => handleNavigation('/contact')} 
-                />
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              <div className="sticky bottom-0 px-8 py-8 border-t border-white/10 bg-[#0A1624]">
+                    <GetInTouchButton 
+                      isMobile 
+                      onClick={() => handleNavigation('/contact')} 
+                    />
+                </div>
+              </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
     </motion.nav>
   );
 };
