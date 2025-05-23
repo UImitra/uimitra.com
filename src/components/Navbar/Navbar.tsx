@@ -563,6 +563,12 @@ const Navbar: React.FC = () => {
     }, 300);
   };
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsOpen(false);
+    setIsClosing(false);
+  }, [location.pathname]);
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
