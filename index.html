@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#ED184F">
     
+    <!-- SEO Meta Tags -->
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Uimitra">
+    <meta name="keywords" content="UI/UX design, web design, app design, brand strategy, digital marketing, social media marketing, professional design services">
+    
     <!-- Resource Hints -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,28 +22,88 @@
     <link rel="manifest" href="/site.webmanifest">
     
     <!-- Default meta tags (will be overridden by Helmet) -->
-    <title>Uimitra | UI Meets Trust, UX Meets Mitra | Professional Design Services</title>
+    <title>Uimitra | UI Meets Trust, UX Meets Mitra | Professional UI/UX & Digital Design Services</title>
     <meta name="description" content="Transform your digital presence with Uimitra's expert UI/UX design, brand development, and digital marketing services. Innovative solutions for modern businesses." />
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Uimitra" />
     <meta property="og:url" content="https://uimitra.com" />
-    <meta property="og:title" content="Uimitra | UI Meets Trust, UX Meets Mitra | Professional Design Services" />
+    <meta property="og:title" content="Uimitra | UI Meets Trust, UX Meets Mitra | Professional UI/UX & Digital Design Services" />
     <meta property="og:description" content="Transform your digital presence with Uimitra's expert UI/UX design, brand development, and digital marketing services. Innovative solutions for modern businesses." />
     <meta property="og:image" content="https://uimitra.com/public/favicon-uimitra.svg" />
     <meta property="og:image:type" content="image/svg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Uimitra - Professional Design Services" />
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@uimitra" />
     <meta name="twitter:url" content="https://uimitra.com" />
-    <meta name="twitter:title" content="Uimitra | UI Meets Trust, UX Meets Mitra | Professional Design Services" />
+    <meta name="twitter:title" content="Uimitra | UI Meets Trust, UX Meets Mitra | Professional UI/UX & Digital Design Services" />
     <meta name="twitter:description" content="Transform your digital presence with Uimitra's expert UI/UX design, brand development, and digital marketing services. Innovative solutions for modern businesses." />
     <meta name="twitter:image" content="https://uimitra.com/public/favicon-uimitra.svg" />
+    <meta name="twitter:image:alt" content="Uimitra - Professional Design Services" />
     
     <!-- Canonical -->
     <link rel="canonical" href="https://uimitra.com" />
+
+    <!-- Structured Data for Google Search -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Uimitra",
+        "url": "https://uimitra.com",
+        "logo": "https://uimitra.com/favicon-uimitra.svg",
+        "description": "Transform your digital presence with Uimitra's expert UI/UX design, brand development, and digital marketing services.",
+        "sameAs": [
+          "https://twitter.com/uimitra",
+          "https://www.linkedin.com/company/uimitra",
+          "https://www.instagram.com/uimitra"
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "IN"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "email": "contact@uimitra.com"
+        },
+        "offers": {
+          "@type": "AggregateOffer",
+          "offerCount": "5",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "UI/UX Design Services",
+                "description": "Create exceptional user experiences"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Brand Strategy",
+                "description": "Strategic brand foundation & positioning"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Digital Marketing",
+                "description": "Comprehensive online marketing"
+              }
+            }
+          ]
+        }
+      }
+    </script>
 
     <!-- Inline critical CSS -->
     <style>
