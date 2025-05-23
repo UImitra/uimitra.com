@@ -517,7 +517,7 @@ const GetInTouchButton: React.FC<{
     if (onClick) {
       onClick();
     } else {
-    navigate('/contact');
+      navigate('/contact');
     }
   };
 
@@ -525,8 +525,8 @@ const GetInTouchButton: React.FC<{
     <motion.button
       onClick={handleClick}
       className={`
-        ${isMobile ? 'w-full bg-white text-primary my-5' : 'bg-primary text-white'} 
-        px-6 py-3.5 rounded-full font-medium flex items-center justify-center gap-2 relative overflow-hidden group text-[18px]
+        ${isMobile ? 'w-full bg-white text-primary my-2' : 'bg-primary text-white'} 
+        px-6 py-3.5 rounded-full font-medium flex items-center justify-center gap-2 relative overflow-hidden group text-[16px]
       `}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
@@ -708,7 +708,7 @@ const Navbar: React.FC = () => {
       {/* Mobile Navigation */}
       <AnimatePresence>
         {isOpen && (
-              <motion.div
+          <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ 
               opacity: isClosing ? 0 : 1, 
@@ -723,35 +723,35 @@ const Navbar: React.FC = () => {
                 setIsClosing(false);
               }
             }}
-            >
-              <motion.div 
-              className="min-h-[calc(100vh-3.5rem)] msm:min-h-[calc(100vh-4rem)] lsm:min-h-[calc(100vh-4.5rem)] flex flex-col justify-between"
+          >
+            <motion.div 
+              className="min-h-[calc(100vh-3.5rem)] msm:min-h-[calc(100vh-4rem)] lsm:min-h-[calc(100vh-4.5rem)] flex flex-col"
               animate={{ opacity: isClosing ? 0 : 1, y: isClosing ? 20 : 0 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="flex-1 py-4">
-                      {navItems.map((item) => (
-                        <NavItem
-                          key={item.name}
-                          item={item}
-                          isActive={activeItem === item.name}
+              <div className="flex-1 py-4 overflow-y-auto">
+                {navItems.map((item) => (
+                  <NavItem
+                    key={item.name}
+                    item={item}
+                    isActive={activeItem === item.name}
                     onClick={() => setActiveItem(item.name)}
                     onClose={() => setIsClosing(true)}
                     onNavigate={handleNavigation}
-                          isMobile
-                        />
-                      ))}
+                    isMobile
+                  />
+                ))}
               </div>
-              <div className="sticky bottom-0 px-8 py-8 border-t border-white/10 bg-[#0A1624]">
-                    <GetInTouchButton 
-                      isMobile 
-                      onClick={() => handleNavigation('/contact')} 
-                    />
-                </div>
-              </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              <div className="sticky bottom-0 px-8 py-4 border-t border-white/10 bg-[#0A1624] mt-auto">
+                <GetInTouchButton 
+                  isMobile 
+                  onClick={() => handleNavigation('/contact')} 
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 };
