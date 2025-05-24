@@ -125,7 +125,7 @@ const AboutSection: React.FC = () => {
                 className="bg-white/80 backdrop-blur-sm p-4 sm:p-6 rounded-2xl border border-primary/10 shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.8, delay: 0.8 + index * 0.2 }}
+                transition={{ duration: 0.8, delay: 0.1 + index * 0.2 }}
                 whileHover={{ y: -5, scale: 1.02 }}
               >
                 <div className="flex items-center gap-4">
