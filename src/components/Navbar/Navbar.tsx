@@ -419,9 +419,12 @@ const NavItem: React.FC<NavItemComponentProps> = ({
                         onTapCancel={() => setIsTapped(false)}
                         whileHover={{ x: 5 }}
                       >
-                        <div className="flex flex-col">
-                          <span className="font-medium text-[17px]">{menuItem.name}</span>
-                          <span className="text-[14px] text-white/60 mt-1">{menuItem.description}</span>
+                        <div className="flex items-start gap-2">
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary/50 mt-2.5" />
+                          <div className="flex flex-col">
+                            <span className="font-medium text-[17px]">{menuItem.name}</span>
+                            <span className="text-[14px] text-white/60 mt-1">{menuItem.description}</span>
+                          </div>
                         </div>
                       </motion.a>
                     ))}
@@ -482,9 +485,12 @@ const NavItem: React.FC<NavItemComponentProps> = ({
                                   onTapCancel={() => setIsTapped(false)}
                                   whileHover={{ x: 5 }}
                                 >
-                                  <div className="flex flex-col">
-                                    <span className="font-medium text-[17px]">{menuItem.name}</span>
-                                    <span className="text-[14px] text-white/60 mt-1">{menuItem.description}</span>
+                                  <div className="flex items-start gap-2">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-primary/50 mt-2.5" />
+                                    <div className="flex flex-col">
+                                      <span className="font-medium text-[17px]">{menuItem.name}</span>
+                                      <span className="text-[14px] text-white/60 mt-1">{menuItem.description}</span>
+                                    </div>
                                   </div>
                                 </motion.a>
                               ))}
@@ -725,11 +731,11 @@ const Navbar: React.FC = () => {
             }}
           >
             <motion.div 
-              className="flex flex-col min-h-[calc(100vh-3.5rem)] msm:min-h-[calc(100vh-4rem)] lsm:min-h-[calc(100vh-4.5rem)]"
+              className="flex flex-col"
               animate={{ opacity: isClosing ? 0 : 1, y: isClosing ? 20 : 0 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="flex-1 py-4 overflow-y-auto">
+              <div className="py-4">
                 {navItems.map((item) => (
                   <NavItem
                     key={item.name}
@@ -741,13 +747,12 @@ const Navbar: React.FC = () => {
                     isMobile
                   />
                 ))}
-              </div>
-              <div className="sticky bottom-0 left-0 right-0 px-8 py-6 border-t border-white/10 bg-[#0A1624]">
-                <GetInTouchButton 
-                  isMobile 
-                  onClick={() => handleNavigation('/contact')} 
-                />
-                <div className="h-6"></div>
+                <div className="px-8 py-6 border-t border-white/10">
+                  <GetInTouchButton 
+                    isMobile 
+                    onClick={() => handleNavigation('/contact')} 
+                  />
+                </div>
               </div>
             </motion.div>
           </motion.div>

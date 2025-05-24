@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { 
@@ -9,6 +9,11 @@ import {
 import { Helmet } from 'react-helmet-async';
 
 const LetsConnectPage: React.FC = () => {
+  // Add useEffect to scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const contactMethods = [
     {
       title: "Email Us",

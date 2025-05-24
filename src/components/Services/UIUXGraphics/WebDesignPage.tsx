@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { 
@@ -81,6 +81,11 @@ const WebDesignPage: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [openAccordion, setOpenAccordion] = useState<number | null>(0);
   const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
+
+  // Add useEffect to scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const benefits = [
     {

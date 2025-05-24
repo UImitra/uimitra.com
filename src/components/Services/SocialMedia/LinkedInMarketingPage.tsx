@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { 
   Linkedin, Users, Target, TrendingUp, MessageSquare, 
@@ -134,6 +134,11 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, features,
 const LinkedInMarketingPage: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
+
+  // Add useEffect to scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const stats = [
     { icon: <Users />, value: "50K+", label: "Community Members" },

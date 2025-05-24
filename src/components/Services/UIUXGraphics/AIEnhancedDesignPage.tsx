@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React, { useRef, useState, useEffect } from 'react';
+import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { 
   Brain, Zap, Users, BarChart, CheckCircle, 
   Layers, Code, Database, LineChart, Cpu,
@@ -21,6 +21,11 @@ interface WorkflowStep {
 const AIEnhancedDesignPage: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
+
+  // Add useEffect to scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const features = [
     {
