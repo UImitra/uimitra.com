@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { Shield, Lock, Eye, FileText, Globe, Database, Cookie, UserCheck, ChevronRight, Info, ArrowUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import Navbar from '../../Navbar/Navbar';
+import Footer from '../Footer';
 
 const sections = [
   { id: 'introduction', title: 'Introduction', icon: <FileText className="w-5 h-5 text-primary" /> },
@@ -21,11 +23,18 @@ const Divider = () => <div className="my-8 h-0.5 bg-gradient-to-r from-primary/1
 
 const PrivacyPolicyPage: React.FC = () => {
   const [showTop, setShowTop] = useState(false);
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => setShowTop(window.scrollY > 200);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
   const handleBackToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
@@ -53,35 +62,76 @@ const PrivacyPolicyPage: React.FC = () => {
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://uimitra.com/privacy-policy" />
       </Helmet>
-      
+      <Navbar />
       <div className="min-h-screen bg-gradient-to-b from-white via-light to-white">
-        {/* Header */}
-        <div className="bg-gradient-to-r from-primary to-secondary text-white py-12 px-4 text-center shadow-lg">
-          <h1 className="text-4xl md:text-5xl font-bold mb-2">Privacy Policy</h1>
-          <p className="text-lg md:text-xl mb-2">Your privacy is important to us at UI Mitra.</p>
-          <p className="text-sm md:text-base">Last updated: {new Date().toLocaleDateString()}</p>
-        </div>
+        <motion.div 
+          className="bg-gradient-to-r from-primary to-secondary text-white py-12 px-4 text-center shadow-lg"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <motion.h1 
+            className="text-4xl md:text-5xl font-bold mb-2"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            Privacy Policy
+          </motion.h1>
+          <motion.p 
+            className="text-lg md:text-xl mb-2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            Your privacy is important to us at Uimitra.
+          </motion.p>
+          <motion.p 
+            className="text-sm md:text-base"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            Last updated: {new Date().toLocaleDateString()}
+          </motion.p>
+        </motion.div>
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col md:flex-row gap-12">
           {/* Table of Contents */}
-          <aside className="md:w-1/3 mb-8 md:mb-0">
+          <motion.aside 
+            className="md:w-1/3 mb-8 md:mb-0"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
             <div className="bg-white rounded-xl shadow p-6 sticky top-24 border border-primary/10">
               <h2 className="text-lg font-semibold mb-4 text-gray-700">Table of Contents</h2>
               <ul className="space-y-3">
-                {sections.map((section) => (
-                  <li key={section.id} className="flex items-center gap-2">
+                {sections.map((section, index) => (
+                  <motion.li 
+                    key={section.id} 
+                    className="flex items-center gap-2"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: 0.6 + index * 0.1 }}
+                  >
                     {section.icon}
                     <a href={`#${section.id}`} className="text-primary hover:underline text-base">
                       {section.title}
                     </a>
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
             </div>
-          </aside>
+          </motion.aside>
 
           {/* Main Content */}
-          <main className="md:w-2/3 space-y-12">
+          <motion.main 
+            className="md:w-2/3 space-y-12"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+          >
             {/* Introduction */}
             <section id="introduction">
               <div className="flex items-center gap-3 mb-4">
@@ -89,7 +139,7 @@ const PrivacyPolicyPage: React.FC = () => {
                 <h2 className="text-2xl font-bold text-primary">Introduction</h2>
               </div>
               <p className="text-gray-700 mb-2">
-                At UI Mitra, we are committed to protecting your privacy and ensuring transparency about how your data is used. This Privacy Policy explains what information we collect, how we use it, and your rights regarding your data when you use our website and services.
+                At Uimitra, we are committed to protecting your privacy and ensuring transparency about how your data is used. This Privacy Policy explains what information we collect, how we use it, and your rights regarding your data when you use our website and services.
               </p>
               <p className="text-gray-700">
                 By using our services, you agree to the terms of this Privacy Policy. If you have any questions, please contact us at <a href="mailto:info@uimitra.com" className="text-primary underline">info@uimitra.com</a>.
@@ -263,18 +313,24 @@ const PrivacyPolicyPage: React.FC = () => {
                 <li><span className="font-semibold">Address:</span> E10, Green Glen Layout, Outer Ring Road, Bellandur, Bengaluru, Karnataka, India - 560103</li>
               </ul>
             </section>
-          </main>
+          </motion.main>
         </div>
         {showTop && (
-          <button
+          <motion.button
             onClick={handleBackToTop}
             className="fixed bottom-6 right-6 z-50 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-secondary transition-colors"
             aria-label="Back to top"
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
           >
             <ArrowUp className="w-6 h-6" />
-          </button>
+          </motion.button>
         )}
       </div>
+      <Footer />
     </>
   );
 };

@@ -1,8 +1,11 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, useInView, animate } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import { Users, Heart, Sparkles, Target, Circle, Square, Triangle, Code, Laptop, Server, LayoutDashboard, Pencil, MonitorSmartphone, TestTubes } from 'lucide-react';
+import { Users, Heart, Sparkles, Target, Circle, Square, Triangle, Code, Laptop, Server, LayoutDashboard, Pencil, MonitorSmartphone, TestTubes, ChevronRight } from 'lucide-react';
 import AnimatedText from '../AnimatedText';
+import { Link } from 'react-router-dom';
+import DhirajImage from '../../assets/Dhiraj_uimitra.webp';
+import DharmeshImage from '../../assets/Dharmesh_uimitra.webp';
 
 const Counter = ({ from, to, duration = 2 }: { from: number; to: number; duration?: number }) => {
   const nodeRef = useRef<HTMLSpanElement>(null);
@@ -32,6 +35,11 @@ const AboutPage: React.FC = () => {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [displayedSlides, setDisplayedSlides] = useState<typeof sliderContent>([]);
   const [slideOffset, setSlideOffset] = useState(0);
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const sliderContent = [
     {
@@ -200,9 +208,9 @@ const AboutPage: React.FC = () => {
               <motion.div
                 key={index}
                 className="absolute inset-0 w-full h-full"
-                initial={{ x: "100%" }}
+                initial={{ opacity: 0 }}
                 animate={{
-                  x: `${(index - currentSlide) * 100}%`,
+                  opacity: index === currentSlide ? 1 : 0,
                   transition: {
                     duration: 0.8,
                     ease: "easeInOut"
@@ -434,6 +442,88 @@ const AboutPage: React.FC = () => {
           </div>
         </div>
 
+         {/* Team Section */}
+         <div className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-6 md:px-12">
+            <motion.div 
+              className="text-center mb-16"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                Meet Our <AnimatedText text="Team" type="highlight" />
+              </h2>
+              <p className="text-dark/70 max-w-3xl mx-auto">
+                Our talented team of innovators and experts dedicated to delivering excellence
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+              <motion.div
+                className="relative group overflow-hidden rounded-2xl"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                whileHover={{ scale: 1.02 }}
+              >
+                <div className="relative h-[400px]">
+                  <img 
+                    src={DharmeshImage}
+                    alt="Dharmesh Vadher"
+                    className="w-full h-full object-cover object-[center_top]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/50 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                    <h3 className="text-2xl font-bold mb-2">Dharmesh Vadher</h3>
+                    <p className="text-white/90">Co-Founder & Chief Design Officer</p>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                className="relative group overflow-hidden rounded-2xl"
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                whileHover={{ scale: 1.02 }}
+              >
+                <div className="relative h-[400px]">
+                  <img 
+                    src={DhirajImage}
+                    alt="Dhiraj T H"
+                    className="w-full h-full object-cover object-[center_top]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/50 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                    <h3 className="text-2xl font-bold mb-2">Dhiraj T H</h3>
+                    <p className="text-white/90">Chief Operating Officer</p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+            <motion.div 
+              className="text-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <Link 
+                to="/team"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white rounded-full hover:bg-secondary transition-colors duration-300 font-semibold text-lg"
+              >
+                Meet Our Full Team
+                <ChevronRight className="w-5 h-5" />
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+
         {/* Methodology Section */}
         <div className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -488,6 +578,8 @@ const AboutPage: React.FC = () => {
             </div>
           </div>
         </div>
+
+       
 
         {/* Background Elements */}
         <motion.div 

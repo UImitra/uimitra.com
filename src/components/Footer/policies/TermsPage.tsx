@@ -4,6 +4,8 @@ import {
   FileText, User, Lock, AlertTriangle, Book, Mail, Info, ChevronDown, ChevronUp, ArrowUp
 } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
+import Navbar from '../../Navbar/Navbar';
+import Footer from '../Footer';
 
 const faqs = [
   {
@@ -63,6 +65,11 @@ const TermsPage: React.FC = () => {
   const [showTop, setShowTop] = useState(false);
   const [search, setSearch] = useState('');
 
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => setShowTop(window.scrollY > 200);
     window.addEventListener('scroll', handleScroll);
@@ -102,16 +109,52 @@ const TermsPage: React.FC = () => {
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://uimitra.com/terms" />
       </Helmet>
-      
+      <Navbar />
       <div className="min-h-screen bg-gradient-to-b from-white via-light to-white">
-        <div className="bg-gradient-to-r from-primary to-secondary text-white py-12 px-4 text-center shadow-lg">
-          <h1 className="text-4xl md:text-5xl font-bold mb-2">Terms & Conditions</h1>
-          <p className="text-lg md:text-xl mb-2">Please read these terms and conditions carefully before using Uimitra</p>
-          <p className="text-sm md:text-base">Last updated: {new Date().toLocaleDateString()}</p>
-        </div>
-        <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-16 py-16">
+        <motion.div 
+          className="bg-gradient-to-r from-primary to-secondary text-white py-12 px-4 text-center shadow-lg"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <motion.h1 
+            className="text-4xl md:text-5xl font-bold mb-2"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            Terms & Conditions
+          </motion.h1>
+          <motion.p 
+            className="text-lg md:text-xl mb-2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            Please read these terms and conditions carefully before using Uimitra
+          </motion.p>
+          <motion.p 
+            className="text-sm md:text-base"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            Last updated: {new Date().toLocaleDateString()}
+          </motion.p>
+        </motion.div>
+        <motion.div 
+          className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-16 py-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+        >
           {/* Search Bar */}
-          <div className="mb-10 flex items-center gap-2">
+          <motion.div 
+            className="mb-10 flex items-center gap-2"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          >
             <input
               type="text"
               value={search}
@@ -119,11 +162,18 @@ const TermsPage: React.FC = () => {
               placeholder="Search terms or questions..."
               className="w-full px-4 py-3 border border-primary/20 rounded-lg focus:outline-none focus:border-primary/40 text-base bg-white/60"
             />
-          </div>
+          </motion.div>
           {/* FAQ List */}
           <div className="space-y-10">
             {filteredFaqs.length === 0 && (
-              <div className="text-center text-gray-400 py-8">No results found.</div>
+              <motion.div 
+                className="text-center text-gray-400 py-8"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                No results found.
+              </motion.div>
             )}
             {filteredFaqs.map((faq, idx) => (
               <motion.div
@@ -131,7 +181,7 @@ const TermsPage: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4 }}
+                transition={{ duration: 0.4, delay: idx * 0.1 }}
                 className={`rounded-2xl shadow bg-white/80 overflow-hidden border-l-4 ${open === faq.id ? 'border-primary/40 bg-gray-50' : 'border-transparent'} transition-all duration-300 px-8 py-8`}
               >
                 <button
@@ -177,18 +227,24 @@ const TermsPage: React.FC = () => {
               </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
         {/* Back to Top Button */}
         {showTop && (
-          <button
+          <motion.button
             onClick={handleBackToTop}
             className="fixed bottom-6 right-6 z-50 bg-primary/80 text-white p-3 rounded-full shadow-lg hover:bg-secondary/80 transition-colors"
             aria-label="Back to top"
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
           >
             <ArrowUp className="w-6 h-6" />
-          </button>
+          </motion.button>
         )}
       </div>
+      <Footer />
     </>
   );
 };
