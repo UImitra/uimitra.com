@@ -55,7 +55,7 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, isOpen, onToggle, i
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -10, opacity: 0 }}
                 transition={{ duration: 0.3 }}
-                className="pb-6 px-4 text-dark/70"
+                className="pb-6 px-4 text-dark/70 whitespace-pre-line"
               >
                 {answer}
               </motion.p>
@@ -82,7 +82,7 @@ const FAQSection: React.FC = () => {
     },
     {
       question: "What is your design process?",
-      answer: "Our design process follows a user-centered approach: 1) Discovery & Research, 2) Strategy & Planning, 3) Design & Prototyping, 4) Development & Testing, 5) Launch & Support. We maintain clear communication and involve clients throughout the process."
+      answer: "Our design process follows a user-centered approach:\n1. Discovery & Research\n2. Strategy & Planning\n3. Design & Prototyping\n4. Development & Testing\n5. Launch & Support\nWe maintain clear communication and involve clients throughout the process."
     },
     {
       question: "Do you offer ongoing support?",
