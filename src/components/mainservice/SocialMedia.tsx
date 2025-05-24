@@ -209,11 +209,17 @@ const SocialMedia: React.FC = () => {
               ].map((service, index) => (
                 <motion.div
                   key={index}
-                  className={`relative p-6 bg-white rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow ${index === 4 ? 'sm:col-span-2' : ''}`}
+                  className={`relative p-6 bg-gradient-to-br from-primary/5 via-primary/10 to-transparent rounded-2xl border border-primary/20 ${index === 4 ? 'sm:col-span-2' : ''}`}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
+                  whileHover={{ 
+                    scale: 1.03, 
+                    boxShadow: "0 25px 50px rgba(237, 24, 79, 0.25)",
+                    borderColor: "rgba(237, 24, 79, 0.4)",
+                    transition: { duration: 0.2 }
+                  }}
                 >
                   <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${service.gradient} flex items-center justify-center mb-4`}>
                     {service.icon}
@@ -292,17 +298,23 @@ const SocialMedia: React.FC = () => {
               ].map((feature, index) => (
                 <motion.div
                   key={index}
-                  className="p-6 bg-white rounded-xl shadow-lg"
+                  className="p-6 bg-white rounded-xl shadow-lg border border-primary/10"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
+                  whileHover={{ 
+                    y: -15, 
+                    boxShadow: "0 25px 50px rgba(237, 24, 79, 0.25)",
+                    borderColor: "rgba(237, 24, 79, 0.4)",
+                    transition: { duration: 0.2 }
+                  }}
                 >
                   <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                     {React.cloneElement(feature.icon, { className: "w-6 h-6 text-primary" })}
                   </div>
                   <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-                  <p className="text-gray-600">{feature.description}</p>
+                  <p className="text-dark/70">{feature.description}</p>
                 </motion.div>
               ))}
             </div>

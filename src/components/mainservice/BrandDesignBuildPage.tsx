@@ -238,11 +238,17 @@ const BrandDesignBuildPage: React.FC = () => {
                 ].map((service, index) => (
                   <motion.div
                     key={index}
-                    className="relative p-6 bg-white rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow"
+                    className="relative p-6 bg-gradient-to-br from-primary/5 via-primary/10 to-transparent rounded-2xl border border-primary/20"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     viewport={{ once: true }}
+                    whileHover={{ 
+                      scale: 1.03, 
+                      boxShadow: "0 25px 50px rgba(237, 24, 79, 0.25)",
+                      borderColor: "rgba(237, 24, 79, 0.4)",
+                      transition: { duration: 0.2 }
+                    }}
                   >
                     <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${service.color} flex items-center justify-center mb-4`}>
                       {service.icon}
@@ -276,7 +282,7 @@ const BrandDesignBuildPage: React.FC = () => {
                 transition={{ duration: 0.5, delay: 0.4 }}
                 viewport={{ once: true }}
               >
-                <div className="relative p-6 bg-white rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow h-full">
+                <div className="relative p-6 bg-gradient-to-br from-primary/5 via-primary/10 to-transparent rounded-2xl border border-primary/20 hover:scale-[1.03] hover:shadow-[0_25px_50px_rgba(237,24,79,0.25)] hover:border-primary/40 transition-all duration-200 h-full">
                   <div className="flex flex-col h-full">
                     <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r from-[#60A5FA] to-[#3B82F6] flex items-center justify-center mb-4`}>
                       <TrendingUp className="w-8 h-8 text-white" />
@@ -328,39 +334,45 @@ const BrandDesignBuildPage: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
               {[
                 {
-                  title: "Research-Driven",
-                  description: "Brand Foundations built on solid research and insights",
                   icon: <Search className="w-6 h-6" />,
+                  title: "Research-Driven",
+                  description: "Brand Foundations built on solid research and insights"
                 },
                 {
-                  title: "Creative Design",
-                  description: "Strategic alignment with creative excellence",
                   icon: <Palette className="w-6 h-6" />,
+                  title: "Creative Design",
+                  description: "Strategic alignment with creative excellence"
                 },
                 {
-                  title: "Future-Proof",
-                  description: "Brand systems built to evolve and grow",
                   icon: <Layers className="w-6 h-6" />,
+                  title: "Future-Proof",
+                  description: "Brand systems built to evolve and grow"
                 },
                 {
-                  title: "Personalized",
-                  description: "Partnership throughout the journey",
                   icon: <Sparkles className="w-6 h-6" />,
+                  title: "Personalized",
+                  description: "Partnership throughout the journey"
                 }
               ].map((feature, index) => (
                 <motion.div
                   key={index}
-                  className="relative p-6 bg-white rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow"
+                  className="p-6 bg-white rounded-xl shadow-lg border border-primary/10"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
+                  whileHover={{ 
+                    y: -15, 
+                    boxShadow: "0 25px 50px rgba(237, 24, 79, 0.25)",
+                    borderColor: "rgba(237, 24, 79, 0.4)",
+                    transition: { duration: 0.2 }
+                  }}
                 >
                   <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                     {React.cloneElement(feature.icon, { className: "w-6 h-6 text-primary" })}
                   </div>
                   <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-                  <p className="text-gray-600">{feature.description}</p>
+                  <p className="text-dark/70">{feature.description}</p>
                 </motion.div>
               ))}
             </div>

@@ -241,47 +241,51 @@ const UIUXGraphicDesignPage: React.FC = () => {
                 ].map((service, index) => (
                   <motion.div
                     key={index}
-                    className="relative"
+                    className="relative p-6 bg-gradient-to-br from-primary/5 via-primary/10 to-transparent rounded-2xl border border-primary/20"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     viewport={{ once: true }}
+                    whileHover={{ 
+                      scale: 1.03, 
+                      boxShadow: "0 25px 50px rgba(237, 24, 79, 0.25)",
+                      borderColor: "rgba(237, 24, 79, 0.4)",
+                      transition: { duration: 0.2 }
+                    }}
                   >
-                    <div className="relative p-6 bg-white rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
-                      <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${service.color} flex items-center justify-center mb-4`}>
-                        {service.icon}
-                      </div>
-                      <h3 className="text-xl font-bold mb-3 text-dark">{service.title}</h3>
-                      <p className="text-gray-600 mb-4 text-sm">{service.description}</p>
-                      <div className="space-y-1.5 mb-4">
-                        {service.features.map((feature, featureIndex) => (
-                          <div key={featureIndex} className="flex items-center gap-2 text-gray-600 text-sm">
-                            <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                            <span>{feature}</span>
-                          </div>
-                        ))}
-                      </div>
-                      <Link
-                        to={service.link}
-                        className="inline-flex items-center gap-2 text-primary text-sm font-medium hover:text-primary/80 transition-colors"
-                      >
-                        Learn More
-                        <ArrowRight className="w-4 h-4" />
-                      </Link>
+                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${service.color} flex items-center justify-center mb-4`}>
+                      {service.icon}
                     </div>
+                    <h3 className="text-xl font-bold mb-3 text-dark">{service.title}</h3>
+                    <p className="text-gray-600 mb-4 text-sm">{service.description}</p>
+                    <div className="space-y-1.5 mb-4">
+                      {service.features.map((feature, featureIndex) => (
+                        <div key={featureIndex} className="flex items-center gap-2 text-gray-600 text-sm">
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                          <span>{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <Link
+                      to={service.link}
+                      className="inline-flex items-center gap-2 text-primary text-sm font-medium hover:text-primary/80 transition-colors"
+                    >
+                      Learn More
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
                   </motion.div>
                 ))}
               </div>
 
               {/* Bottom Horizontal Card */}
               <motion.div
-                className="sm:col-span-2 md:col-span-1"
+                className="sm:col-span-2"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
                 viewport={{ once: true }}
               >
-                <div className="relative p-6 bg-white rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow h-full">
+                <div className="relative p-6 bg-gradient-to-br from-primary/5 via-primary/10 to-transparent rounded-2xl border border-primary/20 hover:scale-[1.03] hover:shadow-[0_25px_50px_rgba(237,24,79,0.25)] hover:border-primary/40 transition-all duration-200 h-full">
                   <div className="flex flex-col h-full">
                     <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r from-[#60A5FA] to-[#3B82F6] flex items-center justify-center mb-4`}>
                       <Image className="w-8 h-8 text-white" />
@@ -340,36 +344,26 @@ const UIUXGraphicDesignPage: React.FC = () => {
               ].map((step, index) => (
                 <motion.div
                   key={index}
-                  className="relative flex flex-col items-center text-center"
+                  className="p-6 bg-white rounded-xl shadow-lg border border-primary/10"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  
+                  whileHover={{ 
+                    y: -15, 
+                    boxShadow: "0 25px 50px rgba(237, 24, 79, 0.25)",
+                    borderColor: "rgba(237, 24, 79, 0.4)",
+                    transition: { duration: 0.2 }
+                  }}
                 >
-                  <div className="relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-full bg-primary flex items-center justify-center mb-3 md:mb-4 shadow-lg">
-                    <div className="w-8 h-8 md:w-12 md:h-12 rounded-full bg-white flex items-center justify-center">
-                      <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                        {step.icon}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="relative z-10 bg-white p-4 md:p-6 rounded-xl shadow-lg w-full">
-                    <h3 className="text-lg md:text-xl font-bold mb-1 md:mb-2 text-dark">{step.title}</h3>
-                    <p className="text-sm md:text-base text-gray-600">{step.description}</p>
-                  </div>
-                  {index < 4 && (
-                    <div className="absolute top-6 md:top-8 left-[calc(100%+0.5rem)] md:left-[calc(100%+1rem)] w-4 md:w-8 h-1 bg-primary/20 hidden md:block">
-                      <motion.div
-                        className="w-full h-full bg-primary"
-                        initial={{ width: 0 }}
-                        whileInView={{ width: "100%" }}
-                        transition={{ duration: 0.5, delay: 0.5 }}
-                        viewport={{ once: true }}
-                        
-                      />
-                    </div>
-                  )}
+                  <motion.div 
+                    className="w-12 h-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-4"
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                  >
+                    {React.cloneElement(step.icon, { className: "w-6 h-6 text-primary" })}
+                  </motion.div>
+                  <h3 className="text-xl font-bold mb-2">{step.title}</h3>
+                  <p className="text-dark/70">{step.description}</p>
                 </motion.div>
               ))}
             </div>

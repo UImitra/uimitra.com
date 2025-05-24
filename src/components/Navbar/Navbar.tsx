@@ -421,9 +421,9 @@ const NavItem: React.FC<NavItemComponentProps> = ({
                       >
                         <div className="flex items-start gap-2">
                           <div className="w-1.5 h-1.5 rounded-full bg-primary/50 mt-2.5" />
-                          <div className="flex flex-col">
-                            <span className="font-medium text-[17px]">{menuItem.name}</span>
-                            <span className="text-[14px] text-white/60 mt-1">{menuItem.description}</span>
+                        <div className="flex flex-col">
+                          <span className="font-medium text-[17px]">{menuItem.name}</span>
+                          <span className="text-[14px] text-white/60 mt-1">{menuItem.description}</span>
                           </div>
                         </div>
                       </motion.a>
@@ -487,9 +487,9 @@ const NavItem: React.FC<NavItemComponentProps> = ({
                                 >
                                   <div className="flex items-start gap-2">
                                     <div className="w-1.5 h-1.5 rounded-full bg-primary/50 mt-2.5" />
-                                    <div className="flex flex-col">
-                                      <span className="font-medium text-[17px]">{menuItem.name}</span>
-                                      <span className="text-[14px] text-white/60 mt-1">{menuItem.description}</span>
+                                  <div className="flex flex-col">
+                                    <span className="font-medium text-[17px]">{menuItem.name}</span>
+                                    <span className="text-[14px] text-white/60 mt-1">{menuItem.description}</span>
                                     </div>
                                   </div>
                                 </motion.a>
@@ -748,10 +748,10 @@ const Navbar: React.FC = () => {
                   />
                 ))}
                 <div className="px-8 py-6 border-t border-white/10">
-                  <GetInTouchButton 
-                    isMobile 
-                    onClick={() => handleNavigation('/contact')} 
-                  />
+                <GetInTouchButton 
+                  isMobile 
+                  onClick={() => handleNavigation('/contact')} 
+                />
                 </div>
               </div>
             </motion.div>

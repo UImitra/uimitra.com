@@ -47,12 +47,30 @@ const GraphicsDesignPage: React.FC = () => {
   ];
 
   const tools = [
-    { icon: <Image />, name: "Adobe Photoshop" },
-    { icon: <PenTool />, name: "Adobe Illustrator" },
-    { icon: <Play />, name: "Adobe After Effects" },
-    { icon: <Figma />, name: "Figma" },
-    { icon: <Brush />, name: "Procreate" },
-    { icon: <Layers />, name: "Sketch" }
+    { 
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg",
+      name: "Adobe Photoshop" 
+    },
+    { 
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg",
+      name: "Adobe Illustrator" 
+    },
+    { 
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/aftereffects/aftereffects-plain.svg",
+      name: "Adobe After Effects" 
+    },
+    { 
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
+      name: "Figma" 
+    },
+    { 
+      icon: "https://cdn.worldvectorlogo.com/logos/procreate.svg",
+      name: "Procreate" 
+    },
+    { 
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sketch/sketch-original.svg",
+      name: "Sketch" 
+    }
   ];
 
   const process = [
@@ -392,12 +410,11 @@ const GraphicsDesignPage: React.FC = () => {
                   transition: { duration: 0.2 }
                 }}
               >
-                <motion.div 
-                  className="w-12 h-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-4"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                >
-                  {tool.icon}
-                </motion.div>
+                <img 
+                  src={tool.icon} 
+                  alt={tool.name} 
+                  className="w-12 h-12 object-contain mb-4"
+                />
                 <p className="font-medium text-dark/80">{tool.name}</p>
               </motion.div>
             ))}

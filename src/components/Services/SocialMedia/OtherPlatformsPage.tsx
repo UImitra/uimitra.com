@@ -162,6 +162,63 @@ const ContentCard: React.FC<ContentCardProps> = ({ title, description, icon, ite
   );
 };
 
+interface ServiceCardProps {
+  title: string;
+  description: string;
+  features: string[];
+  icon: React.ReactNode;
+  gradient: string;
+  index: number;
+}
+
+const ServiceCard: React.FC<ServiceCardProps> = ({ 
+  title, 
+  description, 
+  features,
+  icon,
+  gradient,
+  index 
+}) => {
+  return (
+    <motion.div
+      className="relative p-8 bg-white rounded-xl shadow-lg border border-primary/10 overflow-hidden"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      viewport={{ once: true }}
+      whileHover={{ y: -15, boxShadow: "0 25px 50px rgba(237, 24, 79, 0.25)", borderColor: "rgba(237, 24, 79, 0.4)", transition: { duration: 0.2 } }}
+    >
+      <div className="flex items-center gap-4">
+        <motion.div 
+          className="w-12 h-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center"
+          whileHover={{ scale: 1.1, rotate: 5 }}
+        >
+          {icon}
+        </motion.div>
+        <div>
+          <h3 className="text-2xl font-bold text-dark">{title}</h3>
+          <p className="text-dark/70 mt-1">{description}</p>
+        </div>
+      </div>
+      
+      <ul className="space-y-3 mt-6">
+        {features.map((item, idx) => (
+          <motion.li
+            key={idx}
+            className="flex items-center gap-2 text-dark/70"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: idx * 0.1 }}
+          >
+            <div className="w-2 h-2 rounded-full bg-primary" />
+            {item}
+          </motion.li>
+        ))}
+      </ul>
+    </motion.div>
+  );
+};
+
 const OtherPlatformsPage: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
@@ -297,7 +354,7 @@ const OtherPlatformsPage: React.FC = () => {
     {
       title: "Platform-Specific Strategy",
       description: "Customized growth plans",
-      icon: <Target className="w-6 h-6 text-white" />,
+      icon: <Target className="w-6 h-6" />,
       items: [
         "Platform behavior research",
         "Custom content formats",
@@ -310,7 +367,7 @@ const OtherPlatformsPage: React.FC = () => {
     {
       title: "Content Creation",
       description: "Platform-optimized content",
-      icon: <PenTool className="w-6 h-6 text-white" />,
+      icon: <PenTool className="w-6 h-6" />,
       items: [
         "Viral Pin designs",
         "Engaging Snaps",
@@ -323,7 +380,7 @@ const OtherPlatformsPage: React.FC = () => {
     {
       title: "Community Management",
       description: "Active engagement",
-      icon: <Users className="w-6 h-6 text-white" />,
+      icon: <Users className="w-6 h-6" />,
       items: [
         "Reddit moderation",
         "Quora engagement",
@@ -336,7 +393,7 @@ const OtherPlatformsPage: React.FC = () => {
     {
       title: "Paid Promotion",
       description: "Strategic advertising",
-      icon: <BarChart className="w-6 h-6 text-white" />,
+      icon: <BarChart className="w-6 h-6" />,
       items: [
         "Pinterest Ads",
         "Snapchat campaigns",
@@ -793,48 +850,27 @@ const OtherPlatformsPage: React.FC = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -15, boxShadow: "0 25px 50px rgba(237, 24, 79, 0.25)", borderColor: "rgba(237, 24, 79, 0.4)", transition: { duration: 0.2 } }}
-
-                
               >
                 <div className="absolute inset-0 bg-white rounded-2xl shadow-lg border border-primary/10 transform group-hover:scale-105 transition-transform duration-300" />
                 
                 <div className="relative p-8">
-                  <div className="flex items-center gap-6 mb-6">
-                    <motion.div 
-                      className="w-16 h-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center"
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                    >
-                      <div className="w-8 h-8">{service.icon}</div>
-                    </motion.div>
+                  <div className="flex items-center gap-4">
+                    <div className="text-primary">
+                      {service.icon}
+                    </div>
                     <div>
-                      <h3 className="text-3xl font-bold text-dark mb-2">{service.title}</h3>
-                      <div className="w-16 h-1 bg-primary/20 rounded-full" />
+                      <h3 className="text-2xl font-bold text-dark">{service.title}</h3>
+                      <p className="text-dark/70 mt-1">{service.description}</p>
                     </div>
                   </div>
-                  <p className="text-dark/70 text-lg mb-4">{service.description}</p>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
                     {service.items.map((item, idx) => (
                       <div key={idx} className="flex items-center gap-3">
                         <div className="w-2 h-2 rounded-full bg-primary" />
                         <span className="text-dark/70">{item}</span>
                       </div>
-            ))}
-          </div>
-
-                  <div className="mt-6 space-y-4">
-                    <div className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-primary" />
-                      <span className="text-dark/70">Advanced integration features</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-primary" />
-                      <span className="text-dark/70">Real-time data processing</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-primary" />
-                      <span className="text-dark/70">Custom automation workflows</span>
-                    </div>
+                    ))}
                   </div>
                 </div>
               </motion.div>
@@ -1143,192 +1179,6 @@ const OtherPlatformsPage: React.FC = () => {
                           transition={{
                             duration: 2,
                             repeat: Infinity
-                          }}
-                        />
-                      </motion.svg>
-                    )}
-                    {index === 4 && (
-                      <motion.svg
-                        viewBox="0 0 200 200"
-                        className="w-48 h-48"
-                        initial="hidden"
-                        animate="visible"
-                      >
-                        {/* Automation SVG */}
-                        <motion.path
-                          d="M60 100 C60 60, 140 60, 140 100 C140 140, 60 140, 60 100"
-                          stroke="var(--primary)"
-                          strokeWidth="2"
-                          fill="none"
-                          initial={{ pathLength: 0 }}
-                          animate={{ pathLength: 1 }}
-                          transition={{ duration: 3, repeat: Infinity }}
-                        />
-                        <motion.circle
-                          cx="100"
-                          cy="80"
-                          r="10"
-                          fill="none"
-                          stroke="var(--primary)"
-                          strokeWidth="2"
-                          animate={{ 
-                            y: [80, 120, 80],
-                            scale: [1, 1.2, 1]
-                          }}
-                          transition={{ duration: 3, repeat: Infinity }}
-                        />
-                        <motion.path
-                          d="M85 100 L115 100"
-                          stroke="var(--primary)"
-                          strokeWidth="2"
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1, rotate: 360 }}
-                          transition={{ duration: 3, repeat: Infinity }}
-                          style={{ transformOrigin: "100px 100px" }}
-                        />
-                        {[0, 90, 180, 270].map((angle, i) => {
-                          const radian = angle * (Math.PI / 180);
-                          return (
-                            <motion.circle
-                              key={i}
-                              cx={100 + 40 * Math.cos(radian)}
-                              cy={100 + 40 * Math.sin(radian)}
-                              r="4"
-                              fill="var(--primary)"
-                              animate={{
-                                scale: [1, 1.3, 1],
-                                opacity: [0.5, 1, 0.5]
-                              }}
-                              transition={{
-                                duration: 2,
-                                delay: i * 0.5,
-                                repeat: Infinity
-                              }}
-                            />
-                          );
-                        })}
-                      </motion.svg>
-                    )}
-                    {index === 5 && (
-                      <motion.svg
-                        viewBox="0 0 200 200"
-                        className="w-48 h-48"
-                        initial="hidden"
-                        animate="visible"
-                      >
-                        {/* Outer rotating circle */}
-                        <motion.circle
-                          cx="100"
-                          cy="100"
-                          r="45"
-                          stroke="var(--primary)"
-                          strokeWidth="2"
-                          fill="none"
-                          animate={{ rotate: 360 }}
-                          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                          style={{ transformOrigin: '100px 100px' }}
-                        />
-
-                        {/* Inner rotating gear */}
-                        <motion.path
-                          d="M100 70 L110 85 L125 85 L115 100 L125 115 L110 115 L100 130 L90 115 L75 115 L85 100 L75 85 L90 85 Z"
-                          stroke="var(--primary)"
-                          strokeWidth="2"
-                          fill="none"
-                          animate={{ rotate: -360 }}
-                          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                          style={{ transformOrigin: '100px 100px' }}
-                        />
-
-                        {/* Connecting lines */}
-                        {[0, 90, 180, 270].map((angle, i) => {
-                          const radian = angle * (Math.PI / 180);
-                          return (
-                            <motion.line
-                              key={i}
-                              x1={100}
-                              y1={100}
-                              x2={100 + 35 * Math.cos(radian)}
-                              y2={100 + 35 * Math.sin(radian)}
-                              stroke="var(--primary)"
-                              strokeWidth="2"
-                              initial={{ pathLength: 0 }}
-                              animate={{ pathLength: [0, 1, 0] }}
-                              transition={{ 
-                                duration: 2,
-                                delay: i * 0.5,
-                                repeat: Infinity,
-                                ease: "easeInOut"
-                              }}
-                            />
-                          );
-                        })}
-
-                        {/* Orbiting circles */}
-                        {[0, 90, 180, 270].map((angle, i) => {
-                          const radian = angle * (Math.PI / 180);
-                          return (
-                            <motion.circle
-                              key={i}
-                              cx={100 + 35 * Math.cos(radian)}
-                              cy={100 + 35 * Math.sin(radian)}
-                              r="4"
-                              fill="var(--primary)"
-                              animate={{
-                                scale: [1, 1.5, 1],
-                                opacity: [0.3, 1, 0.3]
-                              }}
-                              transition={{
-                                duration: 2,
-                                delay: i * 0.5,
-                                repeat: Infinity,
-                                ease: "easeInOut"
-                              }}
-                            />
-                          );
-                        })}
-
-                        {/* Center circle */}
-                        <motion.circle
-                          cx="100"
-                          cy="100"
-                          r="8"
-                          fill="none"
-                          stroke="var(--primary)"
-                          strokeWidth="2"
-                          animate={{
-                            scale: [1, 1.2, 1],
-                            rotate: 360
-                          }}
-                          transition={{
-                            scale: {
-                              duration: 2,
-                              repeat: Infinity,
-                              ease: "easeInOut"
-                            },
-                            rotate: {
-                              duration: 8,
-                              repeat: Infinity,
-                              ease: "linear"
-                            }
-                          }}
-                          style={{ transformOrigin: '100px 100px' }}
-                        />
-
-                        {/* Center dot */}
-                        <motion.circle
-                          cx="100"
-                          cy="100"
-                          r="3"
-                          fill="var(--primary)"
-                          animate={{
-                            scale: [1, 1.5, 1],
-                            opacity: [1, 0.5, 1]
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "easeInOut"
                           }}
                         />
                       </motion.svg>

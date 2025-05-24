@@ -110,7 +110,7 @@ const Footer: React.FC = () => {
     },
     {
       name: 'YouTube',
-      href: 'https://www.youtube.com/@uimitra',
+      href: 'https://www.youtube.com/@uimitra?sub_confirmation=1&sub_confirmation=1',
       icon: (
         <svg width="24" height="24" viewBox="0 0 576 512" fill="currentColor" className="text-primary group-hover:text-white transition-colors duration-300">
           <path d="M549.655 124.083c-6.281-23.725-24.958-42.401-48.684-48.684C465.454 64 288 64 288 64s-177.454 0-212.971 11.399c-23.726 6.283-42.403 24.959-48.684 48.684C16 159.6 16 256 16 256s0 96.4 10.345 131.917c6.281 23.725 24.958 42.401 48.684 48.684C110.546 448 288 448 288 448s177.454 0 212.971-11.399c23.726-6.283 42.403-24.959 48.684-48.684C560 352.4 560 256 560 256s0-96.4-10.345-131.917zM232 336V176l142.857 80L232 336z"/>
