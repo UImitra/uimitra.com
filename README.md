@@ -2,7 +2,7 @@
 
 ✨ **UI Meets Trust | UX Meets Mitra**
 
-![Uimitra Banner](src/assets/Uimitra.svg)
+![Uimitra Banner](public/Uimitra.jpg)
 
 ## 📌 Overview
 
