@@ -10,12 +10,21 @@ const funFacts = [
   "Did you know? Our team loves coffee almost as much as we love great design."
 ];
 
+const networkTips = [
+  "Check your internet connection and try again.",
+  "Try refreshing the page once your connection is restored.",
+  "If the problem persists, try clearing your browser cache.",
+  "Make sure you're connected to a stable network.",
+  "Try switching between WiFi and mobile data."
+];
+
 const NotFound = ({ type = "404" }: { type?: "404" | "network" }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   const isNetwork = type === "network";
   const [fact] = useState(funFacts[Math.floor(Math.random() * funFacts.length)]);
+  const [networkTip] = useState(networkTips[Math.floor(Math.random() * networkTips.length)]);
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-[#F5F7FA] via-[#ffe6ef] to-[#fbeee6] relative overflow-hidden">
@@ -27,9 +36,12 @@ const NotFound = ({ type = "404" }: { type?: "404" | "network" }) => {
       </div>
       <div className="flex flex-col items-center justify-center z-10 relative px-2 sm:px-4 md:px-8 py-8 w-full max-w-[95vw] min-h-[80vh]">
         {/* Lottie Animation with floating and gentle scale/rotate effect */}
-        <div className="sm:w-[350px] md:w-[400px] lg:w-[500px] xl:w-[600px] 2xl:w-[700px] max-w-full mb-6 sm:mb-8 drop-shadow-xl animate-float-rotate-scale">
+        <div className="sm:w-[450px] md:w-[500px] lg:w-[600px] xl:w-[700px] 2xl:w-[800px] max-w-full mb-6 sm:mb-8 drop-shadow-xl animate-float-rotate-scale">
           <DotLottieReact
-            src="https://lottie.host/d970cbd5-7388-4f94-a17b-7134b3e1fe48/7Zztss77eF.lottie"
+            src={isNetwork 
+              ? "https://lottie.host/2c2c2c2c-2c2c-2c2c-2c2c-2c2c2c2c2c2c/network-error.lottie"
+              : "https://lottie.host/d970cbd5-7388-4f94-a17b-7134b3e1fe48/7Zztss77eF.lottie"
+            }
             loop
             autoplay
           />
@@ -37,41 +49,62 @@ const NotFound = ({ type = "404" }: { type?: "404" | "network" }) => {
 
         {/* Engaging Error Text with fade/slide-in and wiggle on hover */}
         <div className="text-center mb-4 sm:mb-6 max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl animate-fadein">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-[var(--primary)] mb-2 sm:mb-4 drop-shadow animate-slidein hover:animate-wiggle cursor-pointer transition-transform">404: Page Not Found</h1>
-          <p className="text-base sm:text-lg md:text-xl text-gray-700 mb-1 sm:mb-2 animate-fadein-delay">Uh oh! You've reached the edge of the internet jungle.</p>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-[var(--primary)] mb-2 sm:mb-4 drop-shadow animate-slidein hover:animate-wiggle cursor-pointer transition-transform">
+            {isNetwork ? "Network Error" : "404: Page Not Found"}
+          </h1>
+          <p className="text-base sm:text-lg md:text-xl text-gray-700 mb-1 sm:mb-2 animate-fadein-delay">
+            {isNetwork 
+              ? "Oops! Looks like you're offline."
+              : "Uh oh! You've reached the edge of the internet jungle."
+            }
+          </p>
           <p className="text-sm sm:text-base md:text-lg text-gray-500 mb-2 sm:mb-4 animate-fadein-delay2">
-            Our playful cat couldn't find this page either. But don't worry, you can get back on track with the links below!
+            {isNetwork 
+              ? "We couldn't connect to the server. Please check your internet connection and try again."
+              : "Our playful cat couldn't find this page either. But don't worry, you can get back on track with the links below!"
+            }
           </p>
           <p className="text-xs sm:text-sm md:text-base text-gray-400 mb-4 sm:mb-6 italic animate-fadein-up">
-            {fact}
+            {isNetwork ? networkTip : fact}
           </p>
         </div>
 
         {/* Quick Links with floating/fade-in animation */}
         <div className="flex flex-wrap gap-3 sm:gap-4 md:gap-6 justify-center mb-6 sm:mb-8 animate-fadein-links">
-          <Link to="/" className="px-4 py-2 sm:px-6 sm:py-3 rounded-full bg-[var(--primary)] text-white font-semibold text-sm sm:text-base md:text-lg hover:scale-110 hover:shadow-2xl transition-all shadow-md">Home</Link>
-          <Link to="/services" className="px-4 py-2 sm:px-6 sm:py-3 rounded-full bg-white border-2 border-[var(--primary)] text-[var(--primary)] font-semibold text-sm sm:text-base md:text-lg hover:bg-[var(--primary)] hover:text-white hover:scale-110 hover:shadow-2xl transition-all shadow-md">Services</Link>
-          <Link to="/about" className="px-4 py-2 sm:px-6 sm:py-3 rounded-full bg-white border-2 border-[var(--primary)] text-[var(--primary)] font-semibold text-sm sm:text-base md:text-lg hover:bg-[var(--primary)] hover:text-white hover:scale-110 hover:shadow-2xl transition-all shadow-md">About Us</Link>
-          <Link to="/contact" className="px-4 py-2 sm:px-6 sm:py-3 rounded-full bg-white border-2 border-[var(--primary)] text-[var(--primary)] font-semibold text-sm sm:text-base md:text-lg hover:bg-[var(--primary)] hover:text-white hover:scale-110 hover:shadow-2xl transition-all shadow-md">Contact</Link>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="px-4 py-2 sm:px-6 sm:py-3 rounded-full bg-[var(--primary)] text-white font-semibold text-sm sm:text-base md:text-lg hover:scale-110 hover:shadow-2xl transition-all shadow-md"
+          >
+            {isNetwork ? "Try Again" : "Home"}
+          </button>
+          {!isNetwork && (
+            <>
+              <Link to="/services" className="px-4 py-2 sm:px-6 sm:py-3 rounded-full bg-white border-2 border-[var(--primary)] text-[var(--primary)] font-semibold text-sm sm:text-base md:text-lg hover:bg-[var(--primary)] hover:text-white hover:scale-110 hover:shadow-2xl transition-all shadow-md">Services</Link>
+              <Link to="/about" className="px-4 py-2 sm:px-6 sm:py-3 rounded-full bg-white border-2 border-[var(--primary)] text-[var(--primary)] font-semibold text-sm sm:text-base md:text-lg hover:bg-[var(--primary)] hover:text-white hover:scale-110 hover:shadow-2xl transition-all shadow-md">About Us</Link>
+              <Link to="/contact" className="px-4 py-2 sm:px-6 sm:py-3 rounded-full bg-white border-2 border-[var(--primary)] text-[var(--primary)] font-semibold text-sm sm:text-base md:text-lg hover:bg-[var(--primary)] hover:text-white hover:scale-110 hover:shadow-2xl transition-all shadow-md">Contact</Link>
+            </>
+          )}
         </div>
 
         {/* Button with bounce-in animation */}
-        <Link
-          to="/"
+        <button
+          onClick={() => window.location.reload()}
           className="inline-block px-6 sm:px-10 py-2 sm:py-3 text-white font-bold rounded-full bg-gradient-to-r from-[var(--gradient-1)] to-[var(--gradient-2)] hover:scale-110 hover:shadow-2xl transition-all text-base sm:text-xl shadow-lg animate-bounce-in"
         >
-          Take Me Home
-        </Link>
+          {isNetwork ? "Refresh Page" : "Take Me Home"}
+        </button>
 
         {/* Report a broken link */}
-        <div className="mt-6 sm:mt-8 text-center animate-fadein-delay5">
-          <a
-            href="mailto:info@uimitra.com?subject=Broken Link Report"
-            className="text-[var(--primary)] underline hover:text-[var(--gradient-2)] transition-all text-xs sm:text-sm md:text-base"
-          >
-            Report a broken link
-          </a>
-        </div>
+        {!isNetwork && (
+          <div className="mt-6 sm:mt-8 text-center animate-fadein-delay5">
+            <a
+              href="mailto:info@uimitra.com?subject=Broken Link Report"
+              className="text-[var(--primary)] underline hover:text-[var(--gradient-2)] transition-all text-xs sm:text-sm md:text-base"
+            >
+              Report a broken link
+            </a>
+          </div>
+        )}
       </div>
       {/* Custom animations */}
       <style>
