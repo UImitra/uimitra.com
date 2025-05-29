@@ -170,7 +170,14 @@ const NotFound = ({ type = "404" }: { type?: "404" | "network" }) => {
           {/* Button with bounce-in animation */}
           {isNetwork ? (
             <motion.button
-              onClick={() => window.location.reload()}
+              onClick={() => {
+                if (navigator.onLine) {
+                  window.location.reload();
+                } else {
+                  // Show a message that user is still offline
+                  alert("You're still offline. Please check your internet connection.");
+                }
+              }}
               className="inline-block px-6 sm:px-10 py-2 sm:py-3 text-white font-bold rounded-full bg-gradient-to-r from-[var(--gradient-1)] to-[var(--gradient-2)] hover:scale-110 hover:shadow-2xl transition-all text-base sm:text-xl shadow-lg animate-bounce-in"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
