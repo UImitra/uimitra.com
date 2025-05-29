@@ -368,7 +368,7 @@ const App: React.FC = () => {
             } />
             <Route path="/cookie-policy" element={<CookiePolicyPage />} />
             <Route path="/terms" element={<TermsPage />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="*" element={<NotFound/>} />
           </Routes>
         </Suspense>
       </>

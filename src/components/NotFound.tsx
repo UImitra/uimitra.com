@@ -39,7 +39,7 @@ const NotFound = ({ type = "404" }: { type?: "404" | "network" }) => {
         <div className="sm:w-[450px] md:w-[500px] lg:w-[600px] xl:w-[700px] 2xl:w-[800px] max-w-full mb-6 sm:mb-8 drop-shadow-xl animate-float-rotate-scale">
           <DotLottieReact
             src={isNetwork 
-              ? "https://lottie.host/2c2c2c2c-2c2c-2c2c-2c2c-2c2c2c2c2c2c/network-error.lottie"
+              ? "https://lottie.host/d970cbd5-7388-4f94-a17b-7134b3e1fe48/7Zztss77eF.lottie"
               : "https://lottie.host/d970cbd5-7388-4f94-a17b-7134b3e1fe48/7Zztss77eF.lottie"
             }
             loop
