@@ -10,12 +10,13 @@ import PrivacyPolicyPage from './components/Footer/policies/PrivacyPolicyPage';
 import LetsConnectPage from './components/Footer/LetsConnectPage';
 import CookiePolicyPage from './components/Footer/policies/CookiePolicyPage';
 import TermsPage from './components/Footer/policies/TermsPage';
+import NotFound from './components/NotFound';
 
 // Lazy load components
 const Hero = lazy(() => import('./components/Home/Hero'));
 const AboutPage = lazy(() => import('./components/Company/AboutPage'));
 const TeamPage = lazy(() => import('./components/Company/TeamPage'));
-const ServicesPage = lazy(() => import('./components/ServicesPage'));
+const ServicesPage = lazy(() => import('./components/Services/ServicesPage'));
 const ContactPage = lazy(() => import('./components/Contact/ContactPage'));
 const UIUXSection = lazy(() => import('./components/Services/UIUXGraphics/UIUXSection'));
 const WebDesignPage = lazy(() => import('./components/Services/UIUXGraphics/WebDesignPage'));
@@ -367,6 +368,7 @@ const App: React.FC = () => {
             } />
             <Route path="/cookie-policy" element={<CookiePolicyPage />} />
             <Route path="/terms" element={<TermsPage />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </>

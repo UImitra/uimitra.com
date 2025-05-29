@@ -3,15 +3,11 @@ import App from './App';
 
 export const router = createBrowserRouter([
   {
-    path: '*',
+    path: '/*',
     element: <App />,
   }
-], {
-  future: {
-    v7_startTransition: true,
-    v7_relativeSplatPath: true
-  }
-});
+  
+]);
 
 export default function Router() {
   return <RouterProvider router={router} />;
