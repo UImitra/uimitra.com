@@ -184,7 +184,7 @@ Our mission is to bridge the gap between technology and creativity, delivering s
 ### Social Media
 - LinkedIn: [UI Mitra](https://linkedin.com/company/uimitra)
 - Twitter: [@UIMitra](https://twitter.com/uimitra)
-- Instagram: [@ui.mitra](https://instagram.com/uimitra)
+- Instagram: [@uimitra](https://instagram.com/uimitra)
 
 ## Technical Documentation
 
