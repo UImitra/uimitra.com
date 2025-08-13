@@ -71,7 +71,8 @@ const Footer: React.FC = () => {
   const contactInfo = {
     phone: '+91 9724823602',
     email: 'info@uimitra.com',
-    address: 'E10, Green Glen Layout, Outer Ring Road, Bellandur, Bengaluru, Karnataka, India - 560103'
+   // address: 'E10, Green Glen Layout, Outer Ring Road, Bellandur, Bengaluru, Karnataka, India. - 560103'
+    address: 'Brigade International Financial Centre (BIFC), GIFT City,Gandhinagar, Gujarat, India. - 382355'
   };
 
   const footerLinks = [
