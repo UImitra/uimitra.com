@@ -248,8 +248,8 @@ const Footer: React.FC = () => {
                   <span>{contactInfo.email}</span>
                 </motion.a>
                 <motion.a
-{/*                   href="https://www.google.com/maps/search/?api=1&query=E10+Green+Glen+Layout+Outer+Ring+Road+Bellandur+Bengaluru+Karnataka+India+560103"
-                  target="_blank" */}
+                  // href="https://www.google.com/maps/search/?api=1&query=E10+Green+Glen+Layout+Outer+Ring+Road+Bellandur+Bengaluru+Karnataka+India+560103"
+                  // target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-start gap-3 text-gray-400 group hover:text-white transition-colors"
                   whileHover={{ x: 5 }}
