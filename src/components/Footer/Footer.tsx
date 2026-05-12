@@ -72,7 +72,7 @@ const Footer: React.FC = () => {
     phone: '+91 9724823602',
     email: 'info@uimitra.com',
    // address: 'E10, Green Glen Layout, Outer Ring Road, Bellandur, Bengaluru, Karnataka, India. - 560103'
-    address: 'Brigade International Financial Centre (BIFC), GIFT City,Gandhinagar, Gujarat, India. - 382355'
+    address: 'E10, Green Glen Layout, Outer Ring Road, Bellandur, Bengaluru, Karnataka, India. - 560103'
   };
 
   const footerLinks = [
@@ -248,8 +248,8 @@ const Footer: React.FC = () => {
                   <span>{contactInfo.email}</span>
                 </motion.a>
                 <motion.a
-                  // href="https://www.google.com/maps/search/?api=1&query=E10+Green+Glen+Layout+Outer+Ring+Road+Bellandur+Bengaluru+Karnataka+India+560103"
-                  // target="_blank"
+                  href="https://www.google.com/maps/search/?api=1&query=E10+Green+Glen+Layout+Outer+Ring+Road+Bellandur+Bengaluru+Karnataka+India+560103"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-start gap-3 text-gray-400 group hover:text-white transition-colors"
                   whileHover={{ x: 5 }}

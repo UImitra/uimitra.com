@@ -90,11 +90,6 @@ const ContactPage: React.FC = () => {
       city: "Bengaluru, Karnataka, India",
       icon: <Cpu className="w-8 h-8 text-primary" />,
       gradient: "from-[#ED184F]/10 to-[#893168]/10"
-    },
-    {
-      city: "Ahmedabad, Gujarat, India",
-      icon: <Factory className="w-8 h-8 text-primary" />,
-      gradient: "from-[#4158D0]/10 to-[#2D3A8C]/10"
     }
   ];
 
