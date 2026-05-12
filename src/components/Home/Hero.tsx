@@ -23,7 +23,7 @@ const Hero: React.FC = () => {
   }, [location.pathname]);
 
   const handleBookNow = () => {
-    window.open('https://outlook.office.com/owa/calendar/MeetwithTeamUimitra@yatricloud.com/bookings/', '_blank');
+    window.open('https://calendly.com/theuimitra/30min', '_blank');
   };
 
   return (

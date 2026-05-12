@@ -4,7 +4,6 @@ import { Mail, Phone, MapPin, Building2, Landmark, Circle, Square, Triangle, Bui
 import { Helmet } from 'react-helmet-async';
 import AnimatedText from '../AnimatedText';
 import FloatingParticles from '../FloatingParticles';
-import { supabase, testSupabaseConnection } from '../../lib/supabase';
 
 const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -24,17 +23,9 @@ const ContactPage: React.FC = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Test Supabase connection on component mount
-  useEffect(() => {
-    const testConnection = async () => {
-      const isConnected = await testSupabaseConnection();
-      if (!isConnected) {
-        console.error('Failed to connect to Supabase');
-        setErrorMessage('Failed to connect to the server. Please try again later.');
-      }
-    };
-    testConnection();
-  }, []);
+
+
+  const APPS_SCRIPT_URL = import.meta.env.VITE_APPS_SCRIPT_URL;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,37 +33,25 @@ const ContactPage: React.FC = () => {
     setErrorMessage('');
 
     try {
-      // Log the data being sent
-      console.log('Submitting form data:', formData);
+      const payload = {
+        ...formData,
+        pageName: 'Contact Us', // You can dynamically set this if needed
+      };
 
-      const { data, error } = await supabase
-        .from('contact_submissions')
-        .insert([
-          {
-            full_name: formData.fullName,
-            email: formData.email,
-            phone: formData.phone,
-            company_name: formData.companyName,
-            details: formData.details,
-            created_at: new Date().toISOString()
-          }
-        ])
-        .select();
+      console.log('Submitting to Apps Script:', payload);
 
-      if (error) {
-        console.error('Supabase error:', error);
-        if (error.code === '42P01') {
-          throw new Error('Database table not found. Please contact support.');
-        } else if (error.code === '23505') {
-          throw new Error('A submission with this email already exists.');
-        } else if (error.code === '42501') {
-          throw new Error('Permission denied. Please contact support.');
-        } else {
-          throw new Error(error.message || 'Failed to submit form. Please try again.');
-        }
-      }
+      const response = await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors', // Apps Script requires no-cors for simple POST or handles CORS specifically
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
 
-      console.log('Form submission successful:', data);
+      // Note: with 'no-cors', we can't read the response body, but we assume success if no error is thrown
+      // If you need to read the response, you'll need to handle CORS in Apps Script and use 'cors' mode
+      
       setFormStatus('success');
       setFormData({
         fullName: '',
@@ -82,7 +61,6 @@ const ContactPage: React.FC = () => {
         details: ''
       });
 
-      // Reset form status after 3 seconds
       setTimeout(() => {
         setFormStatus('idle');
       }, 3000);

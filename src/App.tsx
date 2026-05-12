@@ -162,13 +162,13 @@ const App: React.FC = () => {
                 <Footer />
               </>
             } />
-            <Route path="/team" element={
+            {/* <Route path="/team" element={
               <>
                 <Navbar />
                 <TeamPage />
                 <Footer />
               </>
-            } />
+            } /> */}
             <Route path="/services" element={
               <>
                 <Navbar />

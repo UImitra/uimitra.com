@@ -443,7 +443,8 @@ const AboutPage: React.FC = () => {
         </div>
 
          {/* Team Section */}
-         <div className="py-20 bg-white">
+         {/* Team Section */}
+         {/* <div className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-6 md:px-12">
             <motion.div 
               className="text-center mb-16"
@@ -522,7 +523,7 @@ const AboutPage: React.FC = () => {
               </Link>
             </motion.div>
           </div>
-        </div>
+        </div> */}
 
         {/* Methodology Section */}
         <div className="py-20 bg-white">

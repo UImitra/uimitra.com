@@ -3,7 +3,6 @@ import { motion, useInView } from 'framer-motion';
 import { Send, Phone, Mail, MapPin, Circle, Square, Triangle } from 'lucide-react';
 import AnimatedText from '../AnimatedText';
 import FAQSection from './FAQSection';
-import { supabase, testSupabaseConnection } from '../../lib/supabase';
 
 const ContactSection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -17,16 +16,9 @@ const ContactSection: React.FC = () => {
     message: ''
   });
 
-  // Test Supabase connection on component mount
-  useEffect(() => {
-    const testConnection = async () => {
-      const isConnected = await testSupabaseConnection();
-      if (!isConnected) {
-        console.error('Failed to connect to Supabase');
-      }
-    };
-    testConnection();
-  }, []);
+
+
+  const APPS_SCRIPT_URL = import.meta.env.VITE_APPS_SCRIPT_URL;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,40 +26,35 @@ const ContactSection: React.FC = () => {
     setErrorMessage('');
     
     try {
-      // Log the data being sent
-      console.log('Submitting form data:', formData);
+      const payload = {
+        fullName: formData.name,
+        email: formData.email,
+        details: formData.message,
+        pageName: 'Home - Contact Section',
+      };
 
-      const { data, error } = await supabase
-        .from('contact_submissions')
-        .insert([
-          {
-            full_name: formData.name,
-            email: formData.email,
-            details: formData.message,
-            created_at: new Date().toISOString()
-          }
-        ])
-        .select();
+      console.log('Submitting to Apps Script:', payload);
 
-      if (error) {
-        console.error('Supabase error:', error);
-        throw new Error(error.message);
-      }
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
 
-      console.log('Form submission successful:', data);
-    setFormStatus('success');
+      setFormStatus('success');
       setFormData({
         name: '',
         email: '',
         message: ''
       });
     
-    // Reset form after success
-    if (formRef.current) {
-      formRef.current.reset();
-    }
+      if (formRef.current) {
+        formRef.current.reset();
+      }
       
-      // Reset form status after 3 seconds
       setTimeout(() => {
         setFormStatus('idle');
       }, 3000);
