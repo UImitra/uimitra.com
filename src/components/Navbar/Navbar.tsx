@@ -42,11 +42,6 @@ const companyCategories: Category[] = [
         href: "/about"
       },
       // {
-      //   name: "Our Team",
-      //   description: "Meet our leadership team",
-      //   href: "/team"
-      // },
-      // {
       //   name: "Success Stories",
       //   description: "Real results from real clients",
       //   href: "/success-stories"
