@@ -3,7 +3,17 @@ function doPost(e) {
   lock.tryLock(10000);
 
   try {
-    var data = JSON.parse(e.postData.contents);
+    var data;
+    if (e.postData && e.postData.contents) {
+      try {
+        data = JSON.parse(e.postData.contents);
+      } catch (parseError) {
+        data = e.parameter;
+      }
+    } else {
+      data = e.parameter;
+    }
+    
     var parentFolderId = "1idwBJeEc3UL6WnYmnTARpYAlFzEhsPDF";
     var pageName = data.pageName || "Contact Submissions";
     

@@ -44,7 +44,7 @@ const ContactPage: React.FC = () => {
         method: 'POST',
         mode: 'no-cors', // Apps Script requires no-cors for simple POST or handles CORS specifically
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'text/plain',
         },
         body: JSON.stringify(payload),
       });
