@@ -3,7 +3,7 @@ import { Engagements } from '../components/home/Sections';
 import { Mark } from '../components/brand/Marks';
 import { Button } from '../components/ui/Button';
 import { Parallax, Reveal, ScrollWords, SplitReveal } from '../components/ui/motion';
-import { projects } from '../data/work';
+import { branded } from '../data/work';
 import { site } from '../config/site';
 import Dharmesh from '../assets/Dharmesh_uimitra.webp';
 import Dhiraj from '../assets/Dhiraj_uimitra.webp';
@@ -59,7 +59,7 @@ export default function About() {
 
       <section className="overflow-hidden bg-ink py-6">
         <div className="flex gap-4 px-4">
-          {[...projects, ...projects].slice(0, 9).map((p, i) => (
+          {[...branded, ...branded].slice(0, 9).map((p, i) => (
             <Parallax key={i} speed={i % 2 ? 0.08 : -0.08} className="shrink-0">
               <div className="grid h-40 w-40 place-items-center rounded-3xl sm:h-56 sm:w-56" style={{ background: p.theme.bg }}>
                 <Mark project={p} className="h-1/2 w-1/2" />

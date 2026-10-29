@@ -5,6 +5,7 @@ import { Page, Seo, useTone } from '../components/layout/chrome';
 import { AppIcon, BusinessCard, PhoneScreen, Poster, SocialPost } from '../components/brand/Applications';
 import { LogoSheet, Palette, TypeSpecimen, onColor } from '../components/brand/BrandKit';
 import { BrowserFrame, PhoneFrame } from '../components/brand/Frames';
+import { Film } from '../components/brand/Film';
 import { Lockup, Mark } from '../components/brand/Marks';
 import { ProductUI, Shot } from '../components/brand/ProductUI';
 import { Arrow, Button } from '../components/ui/Button';
@@ -22,7 +23,7 @@ export default function CaseStudy() {
 
 /* A case study is mostly pictures: hero, screens, identity, applications. Words are kept to labels and one paragraph. */
 function Study({ p }: { p: Project }) {
-  const { bg, fg, accent } = p.theme;
+  const { bg, fg } = p.theme;
   const darkHero = onColor(bg) === '#FFFFFF';
   const { setTone } = useTone();
   const reduce = useReducedMotion();
@@ -102,6 +103,15 @@ function Study({ p }: { p: Project }) {
         </div>
       </section>
 
+      {/* film */}
+      {p.film && (
+        <section className="bg-paper pb-24 sm:pb-36">
+          <div className="wrap">
+            <Reveal><Film p={p} /></Reveal>
+          </div>
+        </section>
+      )}
+
       {/* screens */}
       {screens.length > 0 && (
         <section className="bg-paper pb-24 sm:pb-36">
@@ -125,6 +135,62 @@ function Study({ p }: { p: Project }) {
         </section>
       )}
 
+      {/* phone screens, when there are enough for a row */}
+      {p.phones && p.phones.length > 2 && (
+        <section className="overflow-hidden py-24 sm:py-32" style={{ background: p.theme.soft }}>
+          <div className="no-scrollbar flex snap-x gap-4 overflow-x-auto px-4 pb-10 sm:gap-6 sm:px-[max(1.5rem,calc((100vw-1400px)/2))]">
+            {p.phones.map((s) => (
+              <img
+                key={s.src}
+                src={s.src}
+                alt={s.alt}
+                loading="lazy"
+                decoding="async"
+                className="w-[62vw] max-w-[260px] shrink-0 snap-center rounded-[22px] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.45)] transition-transform duration-500 hover:-translate-y-2"
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {p.logo && <Identity p={p} />}
+
+      {/* services + call to action */}
+      <section className="border-t border-ink/10 bg-paper py-12">
+        <div className="wrap flex flex-wrap items-center gap-x-8 gap-y-4">
+          {p.services.map((s) => {
+            const svc = getService(s);
+            return svc ? (
+              <Link key={s} to={`/services/${s}`} className="link-underline text-[15px] text-ink/70 hover:text-ink">{svc.name}</Link>
+            ) : null;
+          })}
+          <div className="ml-auto"><Button to="/contact" variant="ink">Start a similar project</Button></div>
+        </div>
+      </section>
+
+      {/* next */}
+      <Link to={`/work/${next.slug}`} className="group block overflow-hidden" style={{ background: next.theme.bg, color: next.theme.fg }}>
+        <div className="wrap flex min-h-[50svh] flex-col justify-between py-16 sm:py-20">
+          <p className="eyebrow opacity-60">Next project</p>
+          <div className="flex flex-wrap items-end justify-between gap-8">
+            <div className="transition-transform duration-[1s] ease-out group-hover:translate-x-4">
+              <Lockup project={next} size="xl" />
+            </div>
+            <span className="grid h-20 w-20 place-items-center rounded-full transition-transform duration-700 group-hover:rotate-45 sm:h-28 sm:w-28" style={{ background: next.theme.accent, color: onColor(next.theme.accent) }}>
+              <Arrow className="h-6 w-6" />
+            </span>
+          </div>
+        </div>
+      </Link>
+    </Page>
+  );
+}
+
+/** Logo, type, colour and the brand in use. Only for projects with a logo of ours. */
+function Identity({ p }: { p: Project }) {
+  const { bg, fg, accent } = p.theme;
+  return (
+    <>
       {/* identity */}
       <section className="bg-paper-2 py-24 sm:py-36">
         <div className="wrap">
@@ -181,35 +247,7 @@ function Study({ p }: { p: Project }) {
           </div>
         </div>
       </section>
-
-      {/* services + call to action */}
-      <section className="border-t border-ink/10 bg-paper py-12">
-        <div className="wrap flex flex-wrap items-center gap-x-8 gap-y-4">
-          {p.services.map((s) => {
-            const svc = getService(s);
-            return svc ? (
-              <Link key={s} to={`/services/${s}`} className="link-underline text-[15px] text-ink/70 hover:text-ink">{svc.name}</Link>
-            ) : null;
-          })}
-          <div className="ml-auto"><Button to="/contact" variant="ink">Start a similar project</Button></div>
-        </div>
-      </section>
-
-      {/* next */}
-      <Link to={`/work/${next.slug}`} className="group block overflow-hidden" style={{ background: next.theme.bg, color: next.theme.fg }}>
-        <div className="wrap flex min-h-[50svh] flex-col justify-between py-16 sm:py-20">
-          <p className="eyebrow opacity-60">Next project</p>
-          <div className="flex flex-wrap items-end justify-between gap-8">
-            <div className="transition-transform duration-[1s] ease-out group-hover:translate-x-4">
-              <Lockup project={next} size="xl" />
-            </div>
-            <span className="grid h-20 w-20 place-items-center rounded-full transition-transform duration-700 group-hover:rotate-45 sm:h-28 sm:w-28" style={{ background: next.theme.accent, color: onColor(next.theme.accent) }}>
-              <Arrow className="h-6 w-6" />
-            </span>
-          </div>
-        </div>
-      </Link>
-    </Page>
+    </>
   );
 }
 

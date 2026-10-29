@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { projects } from '../../data/work';
+import { branded as projects } from '../../data/work';
 import { ApplicationsSheet, LogoSheet, Palette, TypeSpecimen } from '../brand/BrandKit';
 import { Mark } from '../brand/Marks';
 import { Arrow } from '../ui/Button';

@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { Page, Seo } from '../components/layout/chrome';
 import ServiceVisual from '../components/home/ServiceVisual';
+import FilmReel from '../components/home/FilmReel';
 import { Faq } from '../components/home/Sections';
 import { BrowserFrame } from '../components/brand/Frames';
 import { Lockup } from '../components/brand/Marks';
@@ -18,6 +19,7 @@ export default function Service() {
   if (!s) return <NotFound />;
 
   const related = projects.filter((p) => p.services.includes(s.slug)).slice(0, 4);
+  const reel = related.filter((p) => p.film);
   const idx = services.indexOf(s);
   const next = services[(idx + 1) % services.length];
 
@@ -105,6 +107,8 @@ export default function Service() {
           </ol>
         </div>
       </section>
+
+      <FilmReel items={reel} title="Films we *cut.*" />
 
       {related.length > 0 && (
         <section className="bg-paper py-24 sm:py-36">

@@ -4,8 +4,8 @@
  * Logos and screenshots are the real files from each product, stored in
  * /public/work/<slug>/. `shots` are desktop screens (shown at 16:10, cropped
  * from the top), `phones` are phone screens. A project without shots falls
- * back to a code-drawn interface (`ui`), and one without a `logo` file falls
- * back to a code-drawn `mark`.
+ * back to a code-drawn interface (`ui`). A project without a `logo` is shown
+ * by its name alone, with no identity pages.
  *
  * Entries with `review: true` were written from limited public information.
  * Check the copy with the client before publishing.
@@ -13,8 +13,7 @@
 
 import type { ServiceSlug } from './services';
 
-export type MarkKey = 'siddhivinayak';
-export type UiKey = 'yatricloud' | 'siddhivinayak';
+export type UiKey = 'yatricloud';
 
 export type Swatch = { name: string; hex: string; role: string };
 export type Shot = { src: string; alt: string };
@@ -37,18 +36,21 @@ export type Project = {
   type: { display: string; displayFamily: string; text: string; textFamily: string; weight: number; note: string };
   /** Real logo files: full colour for light grounds, white for dark ones. */
   logo?: { src: string; white: string; alt: string };
+  /** The full lockup (mark and wordmark) when the brand has one as a file. */
+  lockup?: { src: string; white: string };
   /** Name split as the brand sets it, second part in `brand` colour on light grounds. */
   wordmark?: [string, string];
   brand?: string;
-  mark?: MarkKey;
   ui?: UiKey;
   campaign: { kicker: string; headline: string; cta: string }[];
   shots?: Shot[];
   phones?: Shot[];
+  /** A film we made: a short silent `loop` for previews and the full cut in `src`. */
+  film?: { title: string; src: string; loop: string; poster: string; length: string; youtube?: string };
   review?: boolean;
 };
 
-/* The Yatri Cloud family shares one mark, one blue and one type pairing. */
+/* Yatri Cloud's mark, blue and type pairing. */
 const YATRI_BLUE = '#007CFF';
 
 const yatriLogo = { src: '/work/yatri/logo.png', white: '/work/yatri/logo-white.png', alt: 'Yatri Cloud logo' };
@@ -115,212 +117,194 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'yatri-draw',
-    name: 'Yatri Draw',
-    client: 'Yatri Cloud',
-    sector: 'Productivity / Whiteboard',
-    url: 'https://draw.yatricloud.com/',
-    services: ['brand-identity', 'ui-ux-design', 'web-design'],
-    disciplines: ['Identity', 'Product UI', 'Onboarding'],
-    summary: 'A free whiteboard where shapes look hand drawn and friends draw together from a shared link.',
+    slug: 'careerspace',
+    name: 'Career Space',
+    client: 'Career Space',
+    sector: 'Education / Maths & careers',
+    url: 'https://careerspace.co.in/',
+    services: ['brand-identity', 'web-design', 'social-media'],
+    disciplines: ['Identity', 'Website', 'Workshop collateral'],
+    summary: 'A Bengaluru education company that takes students from confusion to curiosity.',
     intro:
-      'Yatri Draw is a virtual whiteboard from Yatri Cloud. Learners use it to sketch cloud architectures, plan a study week or explain a concept to a friend. Drawings stay in the browser until you export them, and a shared link opens a live session.',
+      'Career Space works across maths assessment, career guidance and teacher training. It runs Math Cafe, hands-on workshops for schools and colleges, and trains teachers to make maths something students touch and argue with.',
     brief:
-      'Whiteboard tools are judged in the first ten seconds, when someone opens a blank canvas and tries to draw a box. The canvas had to stay loose and friendly while the frame around it looked like the rest of the Yatri family.',
+      'Parents, principals and teachers all had to read the brand as serious about learning, while students had to find it exciting. One identity had to sit on a school circular and a workshop banner without changing.',
     approach: [
       {
-        title: 'The family mark on a blank page',
-        body: 'Draw carries the same traveller-in-a-cloud mark as every Yatri product. On the welcome screen it sits alone in the middle of an empty canvas, with three plain choices underneath: open a file, get help or start a live session.',
+        title: 'A rocket inside the C',
+        body: 'The mark is a C that turns into a planet, with a rocket cutting across it and four stars inside. It reads as a monogram at 24px and as an illustration on a banner.',
       },
       {
-        title: 'Quiet chrome, loud canvas',
-        body: 'Toolbars are white with hairline borders and stay out of the way. Yatri Blue shows up on the selected tool and the Share button, so the colour on screen belongs to what people draw.',
+        title: 'Night sky and one warm yellow',
+        body: 'Deep navy carries the space idea. A single sun yellow marks every action and the italic word in each headline, so the eye always lands on curiosity.',
       },
       {
-        title: 'Hints that look hand written',
-        body: 'First-time hints are drawn in the same hand-drawn style as the canvas, with arrows pointing at the toolbar and the menu. They teach the tool without a tour or a pop-up.',
+        title: 'Heavy type, plain words',
+        body: 'Headlines are set heavy and short. The body copy talks the way a good teacher does, with no exam jargon.',
       },
     ],
     facts: [
-      { label: 'Shapes', value: 'Hand drawn' },
-      { label: 'Sharing', value: 'Live sessions by link' },
-      { label: 'Storage', value: 'In your browser until you export' },
+      { label: 'Years in education', value: '10+' },
+      { label: 'Teachers trained', value: '300+' },
+      { label: 'Cities', value: '20+ across India' },
     ],
-    theme: { bg: '#FFFFFF', fg: '#171717', accent: YATRI_BLUE, soft: '#E5E5E5' },
-    palette: [blue, ink, white, canvas, hairline],
-    type: yatriType('The brand faces sit around the canvas. Inside it, text uses a hand-drawn face so diagrams stay rough and easy to change.'),
-    logo: yatriLogo,
-    wordmark: ['Yatri', 'Draw'],
-    brand: YATRI_BLUE,
-    campaign: [
-      { kicker: 'Whiteboard', headline: 'A whiteboard that feels like pen and paper.', cta: 'Open Yatri Draw' },
-      { kicker: 'Live', headline: 'Share a link and draw together.', cta: 'Start a session' },
-      { kicker: 'Private', headline: 'Your drawings stay in your browser.', cta: 'Draw something' },
-    ],
-    shots: [{ src: '/work/yatri-draw/canvas.webp', alt: 'Yatri Draw welcome screen with hand-drawn hints around the toolbar' }],
-  },
-  {
-    slug: 'yatri-school',
-    name: 'Yatri School',
-    client: 'Yatri Cloud',
-    sector: 'EdTech / School management',
-    url: 'https://school.yatricloud.com/',
-    services: ['brand-identity', 'ui-ux-design', 'web-design'],
-    disciplines: ['Identity', 'Dashboard UX', 'Parent app', 'Website'],
-    summary: 'School management for Indian schools, from attendance to fee receipts.',
-    intro:
-      'Yatri School runs the daily work of a school. Office staff and teachers handle students, classes, attendance, exams, notices and fees. Parents see attendance, fees, receipts and results on their phone and pay online through Razorpay.',
-    brief:
-      'The people using it every day are office staff on a shared desktop and parents checking a phone between other things. Neither group wants to learn software, so every screen had to be as plain as a register book, in English or Hindi.',
-    approach: [
-      {
-        title: 'One mark for the whole family',
-        body: 'School uses the Yatri traveller-in-a-cloud mark, so a parent who already knows Yatri Cloud trusts the app on day one. Each school adds its own crest beside it on report cards and receipts.',
-      },
-      {
-        title: 'One blue panel per screen',
-        body: 'Every screen opens with a solid blue header panel that greets the user and holds the main action, like Take attendance. Everything below it is white, grey and ink, so the next step is never in doubt.',
-      },
-      {
-        title: 'Large type for busy people',
-        body: 'Body text is 15 to 16px and every button is at least 44px tall. Status always comes with a word, Paid or Due, never colour alone.',
-      },
-    ],
-    facts: [
-      { label: 'Users', value: 'Office, teachers, parents' },
-      { label: 'Modules', value: 'Attendance · Exams · Timetable · Notices · Fees' },
-      { label: 'Languages', value: 'English and Hindi' },
-    ],
-    theme: { bg: '#171717', fg: '#FFFFFF', accent: YATRI_BLUE, soft: '#2A2A2A' },
-    palette: [blue, ink, white, canvas, { name: 'Paid', hex: '#19764A', role: 'Status pills, always with a word' }],
-    type: yatriType('Bricolage Grotesque for greetings and headings, Inter Tight for registers, timetables and fee tables. Both stay legible on old school desktops.'),
-    logo: yatriLogo,
-    wordmark: ['Yatri', 'School'],
-    brand: YATRI_BLUE,
-    campaign: [
-      { kicker: 'For schools', headline: 'Run your school from one simple app.', cta: 'Set up your school' },
-      { kicker: 'For parents', headline: 'Attendance, results and receipts on your phone.', cta: 'See the parent app' },
-      { kicker: 'For teachers', headline: 'Mark attendance from the classroom.', cta: 'See how it works' },
-    ],
-    shots: [
-      { src: '/work/yatri-school/dashboard.webp', alt: 'Office home screen with students, attendance, collections and overdue fees' },
-      { src: '/work/yatri-school/website.webp', alt: 'Yatri School website: run your school from one simple app' },
-      { src: '/work/yatri-school/fees.webp', alt: 'Pending fees with one-tap WhatsApp reminders' },
-      { src: '/work/yatri-school/report-card.webp', alt: 'Printable report card with the school crest' },
-      { src: '/work/yatri-school/timetable.webp', alt: 'Weekly timetable for a class' },
-      { src: '/work/yatri-school/teacher.webp', alt: 'Teacher home screen with classes and notices' },
-    ],
-    phones: [
-      { src: '/work/yatri-school/phone-parent.webp', alt: 'Parent home screen on a phone, with a Hindi switch' },
-      { src: '/work/yatri-school/phone-attendance.webp', alt: 'Marking class attendance on a phone' },
-    ],
-  },
-  {
-    slug: 'yatri-playbook',
-    name: 'Yatri Playbook',
-    client: 'Yatri Cloud',
-    sector: 'SaaS / Documentation',
-    url: 'https://playbook.yatricloud.com/',
-    services: ['brand-identity', 'ui-ux-design', 'web-design', 'motion-graphics'],
-    disciplines: ['Identity', 'Website', 'Product UI', 'Store listing'],
-    summary: 'Record a process once and get a step-by-step guide with screenshots.',
-    intro:
-      'Playbook records your clicks as you work and turns them into a step-by-step guide with screenshots. You can edit it, share a link, embed it, show it as slides or export it as PDF, Word, HTML or Markdown. Capture runs as a Chrome and Edge extension and as a desktop app for macOS and Windows.',
-    brief:
-      'Documentation tools get opened when someone is already behind on work. Playbook had to show its value in one demo: press Start, do the task, press Done, and a finished guide is waiting.',
-    approach: [
-      {
-        title: 'The demo is the hero',
-        body: 'The homepage plays the product. A supplier form fills itself in on the left while the finished guide writes itself on the right, one step at a time.',
-      },
-      {
-        title: 'No icons at all',
-        body: 'Playbook follows the Yatri system with one change: there are no icons anywhere. Navigation, buttons and status use words, which keeps guides readable for people who are new to software.',
-      },
-      {
-        title: 'Privacy said plainly',
-        body: 'Nothing is recorded until you press Start. Password and card fields are never captured, and emails or phone numbers can be blurred before upload. The store listing says this in five short lines.',
-      },
-    ],
-    facts: [
-      { label: 'Exports', value: 'PDF · Word · HTML · Markdown' },
-      { label: 'Capture', value: 'Chrome, Edge, macOS, Windows' },
-      { label: 'Price', value: 'Every feature free' },
-    ],
-    theme: { bg: '#EAF3FF', fg: '#171717', accent: YATRI_BLUE, soft: '#FFFFFF' },
-    palette: [blue, { name: 'Pressed', hex: '#0070E0', role: 'Button hover and press' }, ink, white, hairline],
-    type: yatriType('Bricolage Grotesque for the big promises, Inter Tight for every step in a guide. No icons, so the type does all the work.'),
-    logo: yatriLogo,
-    wordmark: ['Yatri', 'Playbook'],
-    brand: YATRI_BLUE,
-    campaign: [
-      { kicker: 'Press Start', headline: 'Do it once. The guide writes itself.', cta: 'Start free' },
-      { kicker: 'Extension', headline: 'Capture from your toolbar.', cta: 'Add to Chrome' },
-      { kicker: 'Privacy', headline: 'Private details stay private.', cta: 'Read how' },
-    ],
-    shots: [
-      { src: '/work/yatri-playbook/home.webp', alt: 'Playbook homepage with a guide writing itself as a form is filled in' },
-      { src: '/work/yatri-playbook/guide.webp', alt: 'Store listing: do it once, the guide writes itself' },
-      { src: '/work/yatri-playbook/capture.webp', alt: 'Store listing: capture from your toolbar in three steps' },
-      { src: '/work/yatri-playbook/privacy.webp', alt: 'Store listing: what is and is not recorded' },
-    ],
-    phones: [{ src: '/work/yatri-playbook/phone.webp', alt: 'Playbook on a phone during a capture' }],
-  },
-  {
-    slug: 'siddhivinayak-classes',
-    name: 'Siddhivinayak Classes',
-    client: 'Siddhivinayak Classes',
-    sector: 'Education / Coaching institute',
-    url: 'https://www.siddhivinayakclasses.org/',
-    services: ['brand-identity', 'web-design', 'digital-marketing'],
-    disciplines: ['Logo', 'Website', 'Admissions campaign'],
-    summary: 'A coaching institute website where parents and students find courses and enquire.',
-    intro:
-      'Siddhivinayak Classes is a coaching institute. The website is where parents and students look at courses, check the faculty and send an enquiry.',
-    brief:
-      'Parents choose a coaching class on reputation and on how organised the institute looks. Most enquiries start on a phone, often from a link shared in a family group, so the site had to load fast and make calling or messaging the office easy.',
-    approach: [
-      {
-        title: 'A monogram with a rising sun',
-        body: 'The S and V sit inside a circle with a sunrise arc behind them, in saffron and deep maroon. It works on a shop-front board, a fee receipt and a WhatsApp profile picture.',
-      },
-      {
-        title: 'Call and WhatsApp on every screen',
-        body: 'On mobile, a bar with Call and WhatsApp stays at the bottom of the page. Parents who are ready do not have to look for a contact page.',
-      },
-      {
-        title: 'Admission season assets',
-        body: 'We designed a set of posters, Instagram posts and WhatsApp-ready images in the same system, so the institute can announce new batches without a designer each time.',
-      },
-    ],
-    facts: [
-      { label: 'Audience', value: 'Students and parents' },
-      { label: 'Primary action', value: 'Call or WhatsApp' },
-      { label: 'Channels', value: 'Website, Instagram, WhatsApp' },
-    ],
-    theme: { bg: '#5E1624', fg: '#FFF6EA', accent: '#F28C28', soft: '#FBE3C4' },
+    theme: { bg: '#0A1226', fg: '#FFFFFF', accent: '#F7CB58', soft: '#1C2540' },
     palette: [
-      { name: 'Maroon', hex: '#5E1624', role: 'Primary' },
-      { name: 'Saffron', hex: '#F28C28', role: 'Accent, calls to action' },
-      { name: 'Marigold', hex: '#FBE3C4', role: 'Surfaces' },
-      { name: 'Ivory', hex: '#FFF6EA', role: 'Paper' },
-      { name: 'Slate', hex: '#2E2A28', role: 'Text' },
+      { name: 'Night', hex: '#0A1226', role: 'Primary ground' },
+      { name: 'Sun', hex: '#F7CB58', role: 'Actions and the italic word' },
+      { name: 'Paper', hex: '#F9F7F1', role: 'Reading sections' },
+      { name: 'Dusk', hex: '#141B2C', role: 'Cards on navy' },
+      { name: 'White', hex: '#FFFFFF', role: 'Text on navy' },
     ],
     type: {
-      display: 'Fraunces',
-      displayFamily: '"Fraunces Variable", serif',
+      display: 'Manrope',
+      displayFamily: '"Manrope Variable", sans-serif',
       text: 'Manrope',
       textFamily: '"Manrope Variable", sans-serif',
-      weight: 600,
-      note: 'A warm serif for headlines gives the institute some gravity. Manrope keeps timetables and fee details easy to read.',
+      weight: 800,
+      note: 'One geometric family at two weights. Extra bold for headlines, regular for long reading about workshops and programmes.',
     },
-    mark: 'siddhivinayak',
-    ui: 'siddhivinayak',
+    logo: { src: '/work/careerspace/mark.png', white: '/work/careerspace/mark-white.png', alt: 'Career Space mark' },
+    lockup: { src: '/work/careerspace/logo.png', white: '/work/careerspace/logo-white.png' },
     campaign: [
-      { kicker: 'Admissions open', headline: 'New batches start soon. Reserve a seat.', cta: 'WhatsApp the office' },
-      { kicker: 'Courses', headline: 'Find the right batch for your child.', cta: 'Book a visit' },
-      { kicker: 'Results', headline: 'Strong basics, better marks.', cta: 'See courses' },
+      { kicker: 'Math Cafe', headline: 'Maths you can touch.', cta: 'Book a workshop' },
+      { kicker: 'Career guidance', headline: 'From confusion to curiosity.', cta: 'Start a conversation' },
+      { kicker: 'Teacher training', headline: 'Teach the question, not the formula.', cta: 'See programmes' },
     ],
+    shots: [
+      { src: '/work/careerspace/home.webp', alt: 'Career Space homepage: from confusion to curiosity' },
+      { src: '/work/careerspace/math-cafe.webp', alt: 'Math Cafe, the flagship workshop' },
+      { src: '/work/careerspace/products.webp', alt: 'Assessment tools listed as numbered products' },
+      { src: '/work/careerspace/contact.webp', alt: 'Contact section in navy' },
+    ],
+    phones: [{ src: '/work/careerspace/phone.webp', alt: 'Career Space homepage on a phone' }],
+    review: true,
+  },
+  {
+    slug: 'fetchtails',
+    name: 'FetchTails',
+    client: 'FetchTails',
+    sector: 'Consumer app / Pet care',
+    url: 'https://www.fetchtails.com/',
+    services: ['brand-identity', 'ui-ux-design', 'web-design'],
+    disciplines: ['Identity', 'App UI', 'Website'],
+    summary: 'One app for grooming, vets, walks, daycare and boarding.',
+    intro:
+      'FetchTails connects pet owners with groomers, vets, trainers, walkers, daycare and boarding across India. Owners keep their pet’s records in one profile and book and pay in the app.',
+    brief:
+      'Pet care is a trust purchase. The brand had to feel warm enough for a dog owner and organised enough for a clinic listing its services.',
+    approach: [
+      {
+        title: 'T and F, stepped like a tail',
+        body: 'The monogram stacks a T and an F with soft corners and a curled foot. It sits well as an app icon and on a collar tag.',
+      },
+      {
+        title: 'Warm orange, earthy brown',
+        body: 'Apricot orange for the mark and every button, a coat-brown for the wordmark and headlines. Cream grounds keep it soft.',
+      },
+      {
+        title: 'Booking in three steps',
+        body: 'Create a profile, find a service, book and pay. The site and the app repeat the same three steps so owners know what comes next.',
+      },
+    ],
+    facts: [
+      { label: 'Services', value: 'Vet · Grooming · Walks · Daycare · Boarding' },
+      { label: 'Payments', value: 'In-app, via Razorpay' },
+      { label: 'Platforms', value: 'Android, iOS, web' },
+    ],
+    theme: { bg: '#FFF4EA', fg: '#51392A', accent: '#F09358', soft: '#FFE3CC' },
+    palette: [
+      { name: 'Apricot', hex: '#F09358', role: 'The mark and every button' },
+      { name: 'Coat', hex: '#7B5737', role: 'Wordmark and headlines' },
+      { name: 'Bark', hex: '#51392A', role: 'Footer and dark grounds' },
+      { name: 'Cream', hex: '#FFF4EA', role: 'Page ground' },
+      { name: 'Blaze', hex: '#FF7A00', role: 'Stats band' },
+    ],
+    type: {
+      display: 'Figtree',
+      displayFamily: '"Figtree Variable", sans-serif',
+      text: 'Figtree',
+      textFamily: '"Figtree Variable", sans-serif',
+      weight: 800,
+      note: 'Rounded, friendly and clear on small phone screens. Extra bold for headlines, medium for booking details.',
+    },
+    logo: { src: '/work/fetchtails/mark.png', white: '/work/fetchtails/mark-white.png', alt: 'FetchTails monogram' },
+    lockup: { src: '/work/fetchtails/logo.png', white: '/work/fetchtails/logo-white.png' },
+    campaign: [
+      { kicker: 'Pet care', headline: 'Your pet’s care, simplified.', cta: 'Download the app' },
+      { kicker: 'Grooming', headline: 'Fresh coat, zero calls.', cta: 'Book a groomer' },
+      { kicker: 'Boarding', headline: 'Going away? They’re in good paws.', cta: 'Find boarding' },
+    ],
+    shots: [
+      { src: '/work/fetchtails/home.webp', alt: 'FetchTails homepage: your pet’s care, simplified' },
+      { src: '/work/fetchtails/why.webp', alt: 'Four reasons to choose FetchTails' },
+      { src: '/work/fetchtails/how.webp', alt: 'How it works in three steps' },
+      { src: '/work/fetchtails/screens.webp', alt: 'App screens: dashboard, pet profile and booking' },
+    ],
+    phones: [{ src: '/work/fetchtails/phone.webp', alt: 'FetchTails homepage on a phone' }],
+    review: true,
+  },
+  {
+    slug: 'webxela',
+    name: 'Webxela',
+    client: 'Webxela',
+    sector: 'B2B / IT & AI engineering',
+    url: 'https://www.webxela.com/',
+    services: ['brand-identity', 'web-design', 'motion-graphics'],
+    disciplines: ['Identity', 'Website', 'Motion'],
+    summary: 'An engineering firm that builds AI agents, cloud platforms and SaaS.',
+    intro:
+      'Webxela builds AI agents, cloud and DevOps platforms, SaaS products and mobile apps for companies that need them to run without downtime.',
+    brief:
+      'Enterprise buyers compare engineering firms on proof, not adjectives. The identity had to look exact and calm, closer to a lab than an agency.',
+    approach: [
+      {
+        title: 'An x that leans forward',
+        body: 'The mark is a sharp x with a dot set above its arm, like a cursor about to move. It stands alone as an icon and sits as the x inside the lowercase wordmark.',
+      },
+      {
+        title: 'Mint, ink and nothing loud',
+        body: 'A pale mint ground and near-black ink. Mint is the only colour, so it reads as a signature rather than decoration.',
+      },
+      {
+        title: 'Grotesk headlines, mono details',
+        body: 'Large, light grotesk headlines. Specs, uptime numbers and labels in monospace, like a spec sheet.',
+      },
+    ],
+    facts: [
+      { label: 'Projects delivered', value: '120+' },
+      { label: 'Uptime', value: '99.99%' },
+      { label: 'Average MVP', value: '4 weeks' },
+    ],
+    theme: { bg: '#DBFAC4', fg: '#080808', accent: '#080808', soft: '#F2FBEA' },
+    palette: [
+      { name: 'Mint', hex: '#DBFAC4', role: 'The one colour' },
+      { name: 'Ink', hex: '#080808', role: 'Mark, text, buttons' },
+      { name: 'Paper', hex: '#FAF9F5', role: 'Reading sections' },
+      { name: 'Forest', hex: '#285718', role: 'Mint text on light' },
+      { name: 'Graphite', hex: '#1C1C1C', role: 'Dark sections' },
+    ],
+    type: {
+      display: 'Geist',
+      displayFamily: '"Geist Variable", sans-serif',
+      text: 'Geist Mono',
+      textFamily: '"Geist Mono Variable", monospace',
+      weight: 500,
+      note: 'A neutral grotesk for statements, a monospace for numbers, tags and labels. Engineers trust what looks like a spec.',
+    },
+    logo: { src: '/work/webxela/mark.svg', white: '/work/webxela/mark-white.svg', alt: 'Webxela mark' },
+    campaign: [
+      { kicker: 'AI agents', headline: 'Agents that ship, not demos.', cta: 'Book a meeting' },
+      { kicker: 'Cloud', headline: '99.99% is a design decision.', cta: 'Talk to an engineer' },
+      { kicker: 'SaaS', headline: 'MVP in four weeks.', cta: 'Start a project' },
+    ],
+    shots: [
+      { src: '/work/webxela/home.webp', alt: 'Webxela homepage: enterprise IT and AI engineering' },
+      { src: '/work/webxela/services.webp', alt: 'Service cards on the mint ground' },
+      { src: '/work/webxela/disciplines.webp', alt: 'Core disciplines with spec tags' },
+      { src: '/work/webxela/cta.webp', alt: 'Closing call to action and stats' },
+    ],
+    phones: [{ src: '/work/webxela/phone.webp', alt: 'Webxela homepage on a phone' }],
     review: true,
   },
   {
@@ -385,7 +369,150 @@ export const projects: Project[] = [
       { src: '/work/nishaan/compliance.webp', alt: 'Compliance deadlines with overdue and pending status' },
     ],
   },
+  {
+    slug: 'saarthi',
+    name: 'Saarthi',
+    client: 'Saarthi',
+    sector: 'Mobility / Ride app',
+    services: ['ui-ux-design', 'brand-identity', 'motion-graphics'],
+    disciplines: ['App UI', 'Identity', 'Walkthrough film'],
+    summary: 'A ride app where the rider names the fare and picks the captain.',
+    intro:
+      'Saarthi lets riders see a fair price for bike, auto, cab and XL, offer more or less, and choose from captains who reply with their own offers. Rides start with a 4 digit PIN and are tracked live.',
+    brief:
+      'Ride apps all look alike and riders distrust surge pricing. Saarthi had to make bargaining feel fair and quick, and make safety visible on every screen.',
+    approach: [
+      {
+        title: 'One S, one road',
+        body: 'The mark is a rounded S drawn like a road with two bends. It reads as an app icon at 29px and as a pin on a map.',
+      },
+      {
+        title: 'Lime for go',
+        body: 'An electric lime marks the fare, the route and the one button to press. Everything else is ink on a warm off-white.',
+      },
+      {
+        title: 'A walkthrough instead of a manual',
+        body: 'A 80 second film walks through the rider, captain and ops apps screen by screen, with one line of copy per step.',
+      },
+    ],
+    facts: [
+      { label: 'Apps', value: 'Rider · Captain · Ops' },
+      { label: 'Vehicles', value: 'Bike · Auto · Cab · XL' },
+      { label: 'Built with', value: 'React Native, iOS and Android' },
+    ],
+    theme: { bg: '#C8F04B', fg: '#0F0F0F', accent: '#0F0F0F', soft: '#F4F5F0' },
+    palette: [
+      { name: 'Lime', hex: '#C8F04B', role: 'Fare, route and the main button' },
+      { name: 'Ink', hex: '#0F0F0F', role: 'Mark and text' },
+      { name: 'Chalk', hex: '#F4F5F0', role: 'App background' },
+      { name: 'White', hex: '#FFFFFF', role: 'Cards and sheets' },
+      { name: 'Moss', hex: '#4A7A12', role: 'Money and confirmations' },
+    ],
+    type: {
+      display: 'Bricolage Grotesque',
+      displayFamily: '"Bricolage Grotesque Variable", sans-serif',
+      text: 'Inter Tight',
+      textFamily: '"Inter Tight Variable", sans-serif',
+      weight: 700,
+      note: 'Rounded, compact headlines that match the S. A tight text face for fares, PINs and addresses.',
+    },
+    logo: { src: '/work/saarthi/mark.png', white: '/work/saarthi/mark-white.png', alt: 'Saarthi mark' },
+    campaign: [
+      { kicker: 'Name your fare', headline: 'You set the price. Captains reply.', cta: 'Plan a ride' },
+      { kicker: 'Safety', headline: 'No PIN, no ride.', cta: 'See how' },
+      { kicker: 'Captains', headline: 'Paid every Monday.', cta: 'Drive with Saarthi' },
+    ],
+    shots: [
+      { src: '/work/saarthi/fare.webp', alt: 'Name your own fare: a fair price per vehicle, then your offer' },
+      { src: '/work/saarthi/offers.webp', alt: 'Captains send offers with price, rating and arrival time' },
+      { src: '/work/saarthi/live.webp', alt: 'Live ride with the start PIN, trip sharing and SOS' },
+      { src: '/work/saarthi/earnings.webp', alt: 'Captain earnings with a weekly payout' },
+    ],
+    phones: ['01', '02', '03', '04', '05', '06', '07', '08'].map((n) => ({ src: `/work/saarthi/phone-${n}.webp`, alt: `Saarthi Play Store screen ${n}` })),
+    film: {
+      title: 'App walkthrough',
+      src: '/work/saarthi/walkthrough.mp4',
+      loop: '/work/saarthi/walkthrough-loop.mp4',
+      poster: '/work/saarthi/walkthrough-poster.webp',
+      length: '1:20',
+    },
+  },
+  {
+    slug: 'siddhivinayak-classes',
+    name: 'SSV Classes',
+    client: 'Shree Siddhivinayak Classes',
+    sector: 'Education / Std 11 & 12 app',
+    url: 'https://www.siddhivinayakclasses.org/',
+    services: ['web-design', 'ui-ux-design', 'motion-graphics'],
+    disciplines: ['Website', 'App UI', 'Launch film'],
+    summary: 'Physics, Chemistry and Maths lessons from SSV teachers, now in an app.',
+    intro:
+      'Shree Siddhivinayak Classes teaches Standards 11 and 12 for GSEB, GUJCET and NEET. The SSV app puts each chapter’s video lessons, notes and past papers on a student’s phone, with a dashboard for the SSV team.',
+    brief:
+      'Students already trust their SSV teachers. The website and the film had to show, in under a minute, that the same lessons now live in an app, and get students to ask the office for a class code.',
+    approach: [
+      {
+        title: 'Learn it once. Learn it right.',
+        body: 'One line carries the site, the film and the store listing. It sits in deep blue with the last word in yellow.',
+      },
+      {
+        title: 'The phone is the hero',
+        body: 'Every section shows the real app on a phone, chapter by chapter, so parents see exactly what their child gets.',
+      },
+      {
+        title: 'A 68 second launch film',
+        body: 'Five beats: the class, lessons, notes and progress, doubts and class codes, and the dashboard for teachers. Cut to music, one claim per shot.',
+      },
+    ],
+    facts: [
+      { label: 'Standards', value: '11 and 12' },
+      { label: 'Exams', value: 'GSEB · GUJCET · NEET' },
+      { label: 'Subjects', value: 'Physics · Chemistry · Maths' },
+    ],
+    theme: { bg: '#0B5FE0', fg: '#FFFFFF', accent: '#FFC94A', soft: '#EEF3FB' },
+    palette: [
+      { name: 'SSV Blue', hex: '#0B5FE0', role: 'Primary ground and buttons' },
+      { name: 'Sun', hex: '#FFC94A', role: 'The last word of a headline' },
+      { name: 'Night', hex: '#0B1F4D', role: 'Teacher dashboard sections' },
+      { name: 'Mist', hex: '#EEF3FB', role: 'Page ground' },
+      { name: 'Ink', hex: '#0B1220', role: 'Text' },
+    ],
+    type: {
+      display: 'Geist',
+      displayFamily: '"Geist Variable", sans-serif',
+      text: 'Geist',
+      textFamily: '"Geist Variable", sans-serif',
+      weight: 600,
+      note: 'One clean grotesk for headlines and chapter lists, easy to read on a budget phone.',
+    },
+    campaign: [
+      { kicker: 'Std 11 & 12', headline: 'Learn it once. Learn it right.', cta: 'Get a class code' },
+      { kicker: 'Video lessons', headline: 'Your class, now an app.', cta: 'See the app' },
+      { kicker: 'Doubts', headline: 'Stuck on a concept? Just ask.', cta: 'Ask a doubt' },
+    ],
+    shots: [
+      { src: '/work/ssv/home.webp', alt: 'SSV Classes homepage: learn it once, learn it right' },
+      { src: '/work/ssv/film.webp', alt: 'The launch film embedded on the site' },
+      { src: '/work/ssv/subjects.webp', alt: 'Physics, Chemistry and Maths, chapter by chapter' },
+      { src: '/work/ssv/dashboard.webp', alt: 'Dashboard for the SSV team' },
+      { src: '/work/ssv/cta.webp', alt: 'Closing call to action in SSV blue' },
+    ],
+    phones: [{ src: '/work/ssv/phone.webp', alt: 'SSV Classes homepage on a phone' }],
+    film: {
+      title: 'App launch film',
+      src: '/work/ssv/launch-film.mp4',
+      loop: '/work/ssv/launch-loop.mp4',
+      poster: '/work/ssv/launch-poster.webp',
+      length: '1:08',
+      youtube: 'https://youtu.be/Ol2yXqqePA0',
+    },
+  },
 ];
+
+/** Projects with a logo of ours to show. */
+export const branded = projects.filter((p) => p.logo);
+
+export const films = projects.filter((p) => p.film);
 
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug);
 

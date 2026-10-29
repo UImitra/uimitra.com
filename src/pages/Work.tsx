@@ -7,6 +7,7 @@ import { Lockup } from '../components/brand/Marks';
 import { ProductUI } from '../components/brand/ProductUI';
 import { Arrow, Button } from '../components/ui/Button';
 import { Reveal, SplitReveal } from '../components/ui/motion';
+import MarkWall from '../components/home/MarkWall';
 import { services } from '../data/services';
 import { projects } from '../data/work';
 
@@ -21,7 +22,7 @@ export default function Work() {
       <Seo
         title="Work"
         path="/work"
-        description="Selected brand identities, websites and product design by UImitra: Yatri Cloud, Yatri Draw, Yatri School, Yatri Playbook and more."
+        description="Selected brand identities, websites and product design by UImitra: Yatri Cloud, Career Space, FetchTails, Webxela, Nishaan and more."
       />
       <section className="wrap pb-16 pt-36 sm:pt-44">
         <p className="eyebrow text-mute">Work · {projects.length} projects</p>
@@ -104,7 +105,9 @@ export default function Work() {
         )}
       </section>
 
-      <section className="wrap py-28 sm:py-40">
+      <MarkWall />
+
+      <section className="wrap pb-28 sm:pb-40">
         <Reveal className="flex flex-col items-start justify-between gap-8 rounded-[28px] bg-paper-2 p-8 sm:p-14 lg:flex-row lg:items-end">
           <h2 className="max-w-2xl text-display-s font-medium">Your project could be the next one on this page.</h2>
           <Button to="/contact" variant="brand" size="lg">Start a project</Button>

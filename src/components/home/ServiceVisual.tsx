@@ -1,10 +1,12 @@
 import { motion, useReducedMotion, type TargetAndTransition } from 'framer-motion';
 import type { ServiceSlug } from '../../data/services';
-import { projects } from '../../data/work';
+import { branded, getProject } from '../../data/work';
 import { AppIcon, SocialPost } from '../brand/Applications';
 import { BrowserFrame } from '../brand/Frames';
 import { Mark } from '../brand/Marks';
 import { ProductUI } from '../brand/ProductUI';
+
+const [yatri, careerspace, fetchtails, webxela, ssv] = ['yatri-cloud', 'careerspace', 'fetchtails', 'webxela', 'siddhivinayak-classes'].map((s) => getProject(s)!);
 
 const loop = { repeat: Infinity, repeatType: 'reverse' as const, ease: 'easeInOut' as const };
 
@@ -43,7 +45,7 @@ export default function ServiceVisual({ slug }: { slug: ServiceSlug }) {
     case 'brand-identity':
       return (
         <div className="grid h-full w-full grid-cols-3 gap-2 p-2 sm:gap-3">
-          {projects.slice(0, 6).map((p, i) => (
+          {branded.slice(0, 6).map((p, i) => (
             <motion.div
               key={p.slug}
               className="grid place-items-center rounded-xl"
@@ -59,10 +61,10 @@ export default function ServiceVisual({ slug }: { slug: ServiceSlug }) {
       return (
         <div className="relative h-full w-full">
           <motion.div className="absolute left-0 top-[6%] w-[88%]" {...anim({ y: [0, -8, 0] }, 5)}>
-            <BrowserFrame url={projects[2].url}><ProductUI project={projects[2]} /></BrowserFrame>
+            <BrowserFrame url={fetchtails.url}><ProductUI project={fetchtails} /></BrowserFrame>
           </motion.div>
           <motion.div className="absolute bottom-0 right-0 w-[52%]" {...anim({ y: [0, 10, 0] }, 6)}>
-            <BrowserFrame url={projects[3].url} dark><ProductUI project={projects[3]} /></BrowserFrame>
+            <BrowserFrame url={careerspace.url} dark><ProductUI project={careerspace} /></BrowserFrame>
           </motion.div>
         </div>
       );
@@ -70,24 +72,23 @@ export default function ServiceVisual({ slug }: { slug: ServiceSlug }) {
       return (
         <div className="relative h-full w-full">
           <motion.div className="absolute inset-x-0 top-[10%]" {...anim({ y: [0, -10, 0] }, 5)}>
-            <BrowserFrame url={projects[0].url}><ProductUI project={projects[0]} /></BrowserFrame>
+            <BrowserFrame url={webxela.url}><ProductUI project={webxela} /></BrowserFrame>
           </motion.div>
         </div>
       );
     case 'motion-graphics':
       return (
-        <div className="relative grid h-full w-full place-items-center overflow-hidden rounded-2xl" style={{ background: projects[3].theme.bg }}>
-          <div className="flex flex-col gap-3">
-            {[0.35, 1, 0.35].map((w, i) => (
-              <motion.span
-                key={i}
-                className="block h-10 rounded-full sm:h-14"
-                style={{ background: i === 1 ? projects[3].theme.accent : projects[3].theme.fg }}
-                initial={{ width: 40 }}
-                {...(reduce ? { animate: { width: 200 * w + 40 } } : { animate: { width: [40, 200 * w + 40, 40] }, transition: { duration: 2.4, delay: i * 0.18, repeat: Infinity, ease: [0.87, 0, 0.13, 1] } })}
-              />
-            ))}
-          </div>
+        <div className="grid h-full w-full place-items-center">
+          <video
+            src={ssv.film!.loop}
+            poster={ssv.film!.poster}
+            autoPlay={!reduce}
+            muted
+            loop
+            playsInline
+            aria-hidden
+            className="aspect-video w-full rounded-2xl object-cover shadow-[0_30px_60px_-30px_rgba(0,0,0,0.5)]"
+          />
         </div>
       );
     case 'digital-marketing':
@@ -123,10 +124,10 @@ export default function ServiceVisual({ slug }: { slug: ServiceSlug }) {
               style={{ left: `${8 + i * 19}%`, top: `${12 + (i === 1 ? -6 : 6)}%`, zIndex: i === 1 ? 2 : 1, rotate: (i - 1) * 7 }}
               {...anim({ y: [0, i === 1 ? -10 : 8, 0] }, 4 + i)}
             >
-              <SocialPost p={projects[i === 1 ? 0 : i === 0 ? 1 : 4]} index={idx} />
+              <SocialPost p={[careerspace, yatri, fetchtails][i]} index={idx} />
             </motion.div>
           ))}
-          <div className="absolute bottom-[4%] right-[4%] z-10"><AppIcon p={projects[0]} size="h-12 w-12" /></div>
+          <div className="absolute bottom-[4%] right-[4%] z-10"><AppIcon p={webxela} size="h-12 w-12" /></div>
         </div>
       );
   }

@@ -157,14 +157,15 @@ export const services: Service[] = [
   },
   {
     slug: 'motion-graphics',
-    name: 'Graphics & motion',
-    short: 'Campaign visuals, illustration, launch videos and animated logos.',
+    name: 'Video & motion',
+    short: 'Launch films, app walkthroughs, animated logos and campaign visuals.',
     headline: 'Make the brand move, then make it move people.',
     lead: 'We design the graphics and motion that carry your brand into ads, launches, decks and social feeds.',
     body: 'From an animated logo to a full launch film, we keep motion consistent with the identity: same timing, same easing, same personality. You get files sized for every placement and a motion guide so future animations match.',
     deliverables: [
+      'Launch films and app walkthroughs',
       'Logo animation',
-      'Product launch and explainer videos',
+      'Product and explainer videos',
       'Illustration and iconography',
       'Ad creatives and key visuals',
       'Pitch and sales decks',

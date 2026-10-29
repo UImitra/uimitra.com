@@ -10,8 +10,8 @@ import { Arrow, Button } from '../ui/Button';
 import { Reveal, SplitReveal } from '../ui/motion';
 
 /** Selected work as full-width cards that stick and stack while you scroll. */
-/* Lead with the projects that have the most real product screens to show. */
-const featured = ['yatri-school', 'yatri-playbook', 'nishaan', 'yatri-cloud'];
+/* Lead with the projects that have the most real screens to show. */
+const featured = ['careerspace', 'webxela', 'fetchtails', 'yatri-cloud'];
 
 export default function WorkStack({ items = featured.map((s) => projects.find((p) => p.slug === s)!) }: { items?: Project[] }) {
   const ref = useRef<HTMLDivElement>(null);

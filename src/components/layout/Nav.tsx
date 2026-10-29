@@ -10,7 +10,7 @@ import { Arrow, Button } from '../ui/Button';
 import { useTone } from './chrome';
 
 const ease = [0.22, 1, 0.36, 1] as const;
-const featured = getProject('yatri-school');
+const featured = getProject('careerspace');
 
 export default function Nav() {
   const { scrollY } = useScroll();

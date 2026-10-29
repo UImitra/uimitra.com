@@ -3,6 +3,8 @@ import Hero from '../components/home/Hero';
 import WorkStack from '../components/home/WorkStack';
 import ServicesRail from '../components/home/ServicesRail';
 import KitExplorer from '../components/home/KitExplorer';
+import MarkWall from '../components/home/MarkWall';
+import FilmReel from '../components/home/FilmReel';
 import { Engagements, Faq, Process, Statement, generalFaqs } from '../components/home/Sections';
 import { Marquee } from '../components/ui/motion';
 import { services } from '../data/services';
@@ -16,6 +18,8 @@ export default function Home() {
       />
       <Hero />
       <WorkStack />
+      <MarkWall />
+      <FilmReel />
       <Statement />
       <ServicesRail />
       <KitExplorer />

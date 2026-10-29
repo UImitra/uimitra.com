@@ -1,41 +1,5 @@
 import './fonts';
-import type { MarkKey, Project } from '../../data/work';
-
-/*
- * Code-drawn marks for projects we have no logo file for, on a 48x48 grid.
- * `fg` is the mark colour, `accent` the secondary colour.
- */
-
-type MarkProps = { fg: string; accent: string; className?: string };
-
-function SiddhivinayakMark({ fg, accent, className }: MarkProps) {
-  return (
-    <svg viewBox="0 0 48 48" className={className} fill="none" aria-hidden>
-      <circle cx="24" cy="24" r="21" stroke={fg} strokeWidth="2.5" />
-      <path d="M8 30 A16 16 0 0 1 40 30" fill={accent} />
-      {[-60, -30, 0, 30, 60].map((a) => (
-        <line
-          key={a}
-          x1={24 + Math.sin((a * Math.PI) / 180) * 19}
-          y1={30 - Math.cos((a * Math.PI) / 180) * 19}
-          x2={24 + Math.sin((a * Math.PI) / 180) * 21.5}
-          y2={30 - Math.cos((a * Math.PI) / 180) * 21.5}
-          stroke={accent}
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-      ))}
-      <text x="24" y="38.5" textAnchor="middle" fontFamily='"Fraunces Variable", serif' fontWeight="700" fontSize="13" fill={fg}>
-        SV
-      </text>
-      <line x1="10" y1="30" x2="38" y2="30" stroke={fg} strokeWidth="2" />
-    </svg>
-  );
-}
-
-const marks: Record<MarkKey, (p: MarkProps) => JSX.Element> = {
-  siddhivinayak: SiddhivinayakMark,
-};
+import type { Project } from '../../data/work';
 
 /** True when a hex colour is light enough to need dark text on top. */
 export function isLight(hex: string) {
@@ -58,17 +22,14 @@ export function readable(text: string, back: string) {
 }
 
 /**
- * The project's logo. Real logo files are used where we have them: the full
- * colour version on light grounds, the white one on dark grounds. `on` is the
- * colour the logo sits on; without it, a light `fg` is taken to mean a dark ground.
+ * The project's logo: the full colour file on light grounds, the white one on
+ * dark grounds. `on` is the colour the logo sits on; without it, a light `fg`
+ * is taken to mean a dark ground. Projects without a logo render nothing.
  */
-export function Mark({ project, fg, accent, on, className = 'h-10 w-10' }: { project: Project; fg?: string; accent?: string; on?: string; className?: string }) {
-  if (project.logo) {
-    const dark = on ? !isLight(on) : isLight(fg ?? project.theme.fg);
-    return <img src={dark ? project.logo.white : project.logo.src} alt="" aria-hidden draggable={false} className={`object-contain ${className}`} />;
-  }
-  const C = marks[project.mark ?? 'siddhivinayak'];
-  return <C fg={fg ?? project.theme.fg} accent={accent ?? project.theme.accent} className={className} />;
+export function Mark({ project, fg, on, className = 'h-10 w-10' }: { project: Project; fg?: string; accent?: string; on?: string; className?: string }) {
+  if (!project.logo) return null;
+  const dark = on ? !isLight(on) : isLight(fg ?? project.theme.fg);
+  return <img src={dark ? project.logo.white : project.logo.src} alt="" aria-hidden draggable={false} className={`object-contain ${className}`} />;
 }
 
 /** Mark plus the project name, set the way the brand sets it. */

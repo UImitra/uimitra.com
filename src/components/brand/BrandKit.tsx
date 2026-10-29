@@ -67,7 +67,11 @@ export function LogoSheet({ p }: { p: Project }) {
   return (
     <div className="grid h-full min-h-[420px] gap-2 sm:grid-cols-3 sm:grid-rows-2">
       <div className="grid min-h-[200px] place-items-center rounded-xl sm:col-span-2 sm:row-span-2" style={{ background: p.theme.bg }}>
-        <Lockup project={p} size="lg" />
+        {p.lockup ? (
+          <img src={isLight(p.theme.bg) ? p.lockup.src : p.lockup.white} alt={`${p.name} logo`} className="max-h-[55%] w-[60%] object-contain" />
+        ) : (
+          <Lockup project={p} size="lg" />
+        )}
       </div>
       <div className="grid min-h-[120px] place-items-center rounded-xl" style={{ background: p.theme.fg, boxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.06)' }}>
         <Lockup project={p} size="sm" fg={p.logo ? onColor(p.theme.fg) : p.theme.bg} />

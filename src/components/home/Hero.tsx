@@ -76,7 +76,7 @@ export default function Hero() {
             >
               <div className="flex items-start justify-between">
                 <Lockup project={p} size="sm" />
-                <AppIcon p={p} size="h-10 w-10 sm:h-12 sm:w-12" />
+                {p.logo && <AppIcon p={p} size="h-10 w-10 sm:h-12 sm:w-12" />}
               </div>
               <div className="flex items-end justify-between gap-4" style={{ color: p.theme.fg }}>
                 <p className="max-w-[230px] text-[13px] leading-snug opacity-70 sm:text-sm">{p.summary}</p>

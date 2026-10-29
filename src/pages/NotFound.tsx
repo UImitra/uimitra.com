@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Page, Seo } from '../components/layout/chrome';
 import { Button } from '../components/ui/Button';
-import { projects } from '../data/work';
+import { branded } from '../data/work';
 import { Mark } from '../components/brand/Marks';
 
 export default function NotFound() {
@@ -27,7 +27,7 @@ export default function NotFound() {
         style={{ perspective: 1200 }}
       >
         <motion.div style={{ rotateX: rx, rotateY: ry }} className="flex gap-3">
-          {projects.slice(0, 3).map((p) => (
+          {branded.slice(0, 3).map((p) => (
             <div key={p.slug} className="grid h-24 w-24 place-items-center rounded-3xl sm:h-36 sm:w-36" style={{ background: p.theme.bg }}>
               <Mark project={p} className="h-1/2 w-1/2" />
             </div>
