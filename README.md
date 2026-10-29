@@ -1,243 +1,56 @@
-# 🖥️ UI Mitra
+# UImitra website
 
-✨ **UI Meets Trust | UX Meets Mitra**
+Marketing site for UImitra, a brand and design studio in Bengaluru. UI meets trust, UX meets Mitra.
 
-![Uimitra Banner](public/Uimitra.jpg)
+Built with React 18, TypeScript, Vite, Tailwind CSS, Framer Motion and Lenis.
 
-## 📌 Overview
+## Run it
 
-UI Mitra is a cutting-edge digital agency that combines artificial intelligence with human creativity to deliver exceptional design and marketing solutions. Our platform showcases our comprehensive range of services through an immersive, interactive experience built with modern web technologies.
-
-## 🎯 Purpose & Vision
-
-Our mission is to bridge the gap between technology and creativity, delivering solutions that not only look beautiful but drive real business results. We envision a future where AI enhances human creativity rather than replacing it, enabling faster, more data-driven design and marketing decisions.
-
-## 👥 Target Audience
-
-- **Startups & Scale-ups**
-  - Tech companies needing modern, scalable design
-  - Growth-focused businesses requiring marketing expertise
-  - Innovation-driven enterprises seeking AI solutions
-
-- **Established Businesses**
-  - Companies undergoing digital transformation
-  - Brands looking to refresh their digital presence
-  - Organizations expanding their market reach
-
-- **Creative Agencies**
-  - Design firms seeking AI enhancement
-  - Marketing agencies needing technical expertise
-  - Digital consultancies wanting collaboration
-
-## 🛠️ Services We Offer
-
-### UI/UX & Graphics
-- **Professional UI/UX Design**
-  - User Interface Design
-  - Experience Optimization
-  - Wireframing & Prototyping
-  - Usability Testing
-
-- **AI-Enhanced Design**
-  - Smart Layout Generation
-  - Automated Design Testing
-  - Performance Analytics
-  - Dynamic Adaptations
-
-- **Graphics & Motion**
-  - Brand Identity Design
-  - Motion Graphics
-  - Digital Illustrations
-  - Marketing Collateral
-
-### Digital Marketing
-- **Social Media Marketing**
-  - Twitter Growth Strategy
-  - LinkedIn Business Solutions
-  - Instagram Marketing
-  - Emerging Platforms
-
-- **SEO & Content**
-  - Search Engine Optimization
-  - Content Strategy
-  - Analytics & Reporting
-  - Performance Tracking
-
-## 🧩 Unique Features
-
-### Modern Architecture
-- Component-based design
-- SEO-optimized structure
-- Responsive layouts
-- Performance-focused
-
-### Interactive Elements
-- Dynamic animations
-- AI demonstrations
-- Real-time previews
-- Interactive portfolios
-
-### User Experience
-- Intuitive navigation
-- Fast load times
-- Accessible design
-- Mobile-first approach
-
-## 💡 What Makes UI Mitra Different
-
-1. **AI Integration**
-   - AI-powered design suggestions
-   - Automated testing and optimization
-   - Data-driven decision making
-   - Smart content recommendations
-
-2. **Holistic Approach**
-   - End-to-end service integration
-   - Cross-platform consistency
-   - Brand-focused solutions
-   - Scalable frameworks
-
-3. **Innovation Focus**
-   - Emerging technology adoption
-   - Continuous improvement
-   - Research-based solutions
-   - Future-proof designs
-
-## ⚙️ Technologies We Use
-
-### Frontend Development
-- React 18 with TypeScript
-- Tailwind CSS & CSS Modules
-- Framer Motion
-- React Helmet Async
-
-### Design Tools
-- Figma
-- Adobe Creative Suite
-- Sketch
-- Motion Design Software
-
-### Marketing Tools
-- Analytics Platforms
-- SEO Tools
-- Social Media Management
-- Content Management Systems
-
-## 🚀 User Journey
-
-1. **Discovery**
-   - Browse services
-   - Explore case studies
-   - View technology stack
-
-2. **Engagement**
-   - Interactive demonstrations
-   - Service exploration
-   - Portfolio review
-
-3. **Connection**
-   - Schedule consultation
-   - Direct contact
-   - Partnership discussion
-
-## 📈 Business Impact
-
-### For Clients
-- Reduced design time by 40%
-- Increased conversion rates
-- Improved user engagement
-- Better ROI on digital investments
-
-### For Partners
-- Access to cutting-edge technology
-- Collaborative opportunities
-- Shared resource benefits
-- Market expansion
-
-## 🔐 Privacy & Security
-
-- GDPR Compliance
-- Data Protection
-- Secure Communication
-- Privacy-First Approach
-
-## 🤝 Collaboration Opportunities
-
-### For Businesses
-- Strategic partnerships
-- Joint ventures
-- Technology sharing
-- Market collaboration
-
-### For Developers
-- Open source contributions
-- Technology integration
-- Innovation projects
-- Research collaboration
-
-## 📩 Contact & Connect
-
-### Direct Contact
-- Website: [https://uimitra.com](https://uimitra.com)
-- Schedule Meeting: [Book Now](https://outlook.office.com/book/MeetwithTeamUimitra@yatricloud.com/)
-
-### Social Media
-- LinkedIn: [UI Mitra](https://linkedin.com/company/uimitra)
-- Twitter: [@UIMitra](https://twitter.com/uimitra)
-- Instagram: [@uimitra](https://instagram.com/uimitra)
-
-## Technical Documentation
-
-### Installation
 ```bash
-git clone [repository-url]
-cd uimitra
 npm install
 npm run dev
 ```
 
-### Project Structure
-```
-uimitra/
-├── src/
-│   ├── components/
-│   │   ├── Services/
-│   │   │   ├── Marketing/      # Marketing components
-│   │   │   ├── UIUXGraphics/   # Design components
-│   │   │   └── Brand/          # Brand components
-│   │   ├── Technology/         # Tech stack
-│   │   ├── Common/             # Shared components
-│   │   └── AnimatedText.tsx    # Animations
-│   ├── assets/                 # Static files
-│   ├── styles/                 # Global styles
-│   ├── App.tsx                 # Main app
-│   └── main.tsx               # Entry
-├── public/                    # Public assets
-└── package.json              # Dependencies
-```
+`npm run build` writes the production site to `dist/`. Netlify serves it as a single-page app through `public/_redirects`.
 
-### Configuration
-```env
-VITE_APP_TITLE=Uimitra
-VITE_APP_DESCRIPTION=Digital Marketing & Design Agency
-VITE_APP_URL=https://uimitra.com
+### Environment
+
+| Variable | Used by |
+| --- | --- |
+| `VITE_APPS_SCRIPT_URL` | Contact brief and newsletter. Posts to the Google Apps Script in `appscript/contact.gs`, which writes each submission to a Google Sheet. |
+
+## Where things live
+
+```
+src/
+  config/site.ts        contact details, booking link, socials, nav
+  data/work.ts          every portfolio project (copy, colours, type, campaign lines)
+  data/services.ts      the seven services, plus old URLs that redirect to them
+  data/legal.ts         privacy, terms and cookie text
+  components/
+    brand/              code-drawn brand kits: logo marks, product UI mockups,
+                        device frames, business cards, posts, posters, app icons
+    home/               home page sections
+    layout/             nav, footer, smooth scroll, cursor, page transitions, SEO
+    ui/                 buttons and motion helpers (reveals, split text, magnetic, marquee)
+  pages/                one file per route
 ```
 
-### Design System
-- Primary: #ED184F
-- Secondary: #F05A28
-- Dark: #1F2937
-- Light: #F9FAFB
+## Adding a project
 
-## License & Credits
+1. Copy an entry in `src/data/work.ts` and give it a new `slug`.
+2. Pick an existing `mark` and `ui`, or add a new mark in `components/brand/Marks.tsx` and a new screen in `components/brand/ProductUI.tsx`.
+3. Fill in the copy, palette, type and three campaign lines. The case study page, the work grid, the home page stack, the brand-kit explorer and the footer all pick it up.
+4. Add the URL to `public/sitemap.xml`.
 
-This project is licensed under the MIT License.
+Entries marked `review: true` were written from limited information and should be checked with the client.
 
-### Acknowledgments
-- [React](https://react.dev)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Framer Motion](https://www.framer.com/motion)
-- [React Helmet Async](https://github.com/staylor/react-helmet-async)
-- [Lucide Icons](https://lucide.dev)
-- [TypeScript](https://www.typescriptlang.org)
-- [Vite](https://vitejs.dev) 
+## Routes
+
+`/`, `/work`, `/work/:slug`, `/services`, `/services/:slug`, `/about`, `/contact`, `/privacy-policy`, `/terms`, `/cookie-policy`.
+
+Old URLs from the previous site (`/services/logo-design`, `/services/seo`, `/success-stories`, `/lets-connect` and others) redirect to their new pages in `src/App.tsx`.
+
+## Motion and accessibility
+
+Animations respect `prefers-reduced-motion`: smooth scrolling, the custom cursor, scroll-linked effects and the page curtain switch off, and the pinned services rail becomes a normal horizontal scroller.

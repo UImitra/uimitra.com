@@ -1,13 +1,11 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { splitVendorChunkPlugin } from 'vite'
-import { compression } from 'vite-plugin-compression2'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { compression } from 'vite-plugin-compression2';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
-    splitVendorChunkPlugin(),
     compression({
       algorithm: 'gzip',
       exclude: [/\.(br)$/, /\.(gz)$/],
@@ -21,9 +19,8 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'animation-vendor': ['framer-motion'],
-          'ui-vendor': ['lucide-react'],
+          'react-vendor': ['react', 'react-dom', 'react-router-dom', 'react-helmet-async'],
+          'motion-vendor': ['framer-motion', 'lenis'],
         },
       },
     },
@@ -37,7 +34,4 @@ export default defineConfig({
       },
     },
   },
-  optimizeDeps: {
-    exclude: ['lucide-react'],
-  },
-})
+});

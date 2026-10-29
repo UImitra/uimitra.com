@@ -1,6 +1,7 @@
 // Function to subscribe to newsletter
 export const subscribeToNewsletter = async (email: string) => {
   const APPS_SCRIPT_URL = import.meta.env.VITE_APPS_SCRIPT_URL;
+  if (!APPS_SCRIPT_URL) return { success: false, message: 'Newsletter endpoint is not configured' };
 
   try {
     const payload = {
@@ -12,8 +13,6 @@ export const subscribeToNewsletter = async (email: string) => {
       pageName: 'Newsletter Subscriptions'
     };
 
-    console.log('Submitting newsletter subscription:', payload);
-
     await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
       mode: 'no-cors',
@@ -24,11 +23,11 @@ export const subscribeToNewsletter = async (email: string) => {
     });
 
     return { success: true, message: 'Successfully subscribed to newsletter!' };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Newsletter subscription error:', error);
     return { 
       success: false, 
-      message: error.message || 'Failed to subscribe. Please try again.' 
+      message: error instanceof Error ? error.message : 'Failed to subscribe. Please try again.' 
     };
   }
 }; 
