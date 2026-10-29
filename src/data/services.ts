@@ -270,3 +270,10 @@ export const getService = (slug: string) => services.find((s) => s.slug === slug
 export const legacyServiceMap: Record<string, ServiceSlug> = Object.fromEntries(
   services.flatMap((s) => s.legacy.filter((l) => l !== s.slug).map((l) => [l, s.slug])),
 );
+
+/** How services are grouped in the header menu and on the services page. */
+export const serviceGroups: { label: string; slugs: ServiceSlug[] }[] = [
+  { label: 'Brand', slugs: ['brand-strategy', 'brand-identity'] },
+  { label: 'Digital', slugs: ['ui-ux-design', 'web-design'] },
+  { label: 'Growth', slugs: ['motion-graphics', 'social-media', 'digital-marketing'] },
+];

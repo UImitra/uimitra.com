@@ -52,7 +52,7 @@ export default function Work() {
         </div>
 
         {view === 'grid' ? (
-          <motion.div layout className="grid gap-x-6 gap-y-16 md:grid-cols-2">
+          <motion.div layout className="grid gap-x-6 gap-y-12 md:grid-cols-2">
             <AnimatePresence mode="popLayout">
               {list.map((p, i) => (
                 <motion.div
@@ -62,10 +62,9 @@ export default function Work() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.96 }}
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: i * 0.04 }}
-                  className={i % 2 === 1 ? 'md:mt-24' : ''}
                 >
                   <Link to={`/work/${p.slug}`} className="group block">
-                    <div className="relative aspect-[4/3.2] overflow-hidden rounded-[22px] sm:rounded-[28px]" style={{ background: p.theme.bg }}>
+                    <div className="relative aspect-[4/3.2] overflow-hidden rounded-[22px] sm:rounded-[28px]" style={{ background: p.theme.bg, boxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.06)' }}>
                       <div className="absolute inset-x-[7%] top-[16%] transition-transform duration-[1.1s] ease-out group-hover:-translate-y-3 group-hover:scale-[1.03]">
                         <BrowserFrame url={p.url}>
                           <ProductUI project={p} />
@@ -75,18 +74,13 @@ export default function Work() {
                         <Lockup project={p} size="sm" />
                       </div>
                     </div>
-                    <div className="mt-5 flex items-start justify-between gap-6">
-                      <div>
-                        <h2 className="text-2xl font-medium tracking-tight">{p.name}</h2>
-                        <p className="mt-1 max-w-md text-ink/60">{p.summary}</p>
-                      </div>
-                      <span className="mt-1 grid h-10 w-10 shrink-0 place-items-center rounded-full border border-ink/15 transition-all duration-500 group-hover:rotate-45 group-hover:border-brand group-hover:bg-brand group-hover:text-white">
-                        <Arrow className="h-3.5 w-3.5" />
-                      </span>
+                    <div className="mt-4 flex items-baseline justify-between gap-6">
+                      <h2 className="flex items-center gap-2 text-xl font-medium tracking-tight">
+                        {p.name}
+                        <Arrow className="h-3 w-3 opacity-0 transition-all duration-500 group-hover:rotate-45 group-hover:opacity-100" />
+                      </h2>
+                      <p className="truncate text-sm text-ink/50">{p.disciplines.slice(0, 3).join(' · ')}</p>
                     </div>
-                    <ul className="mt-4 flex flex-wrap gap-2">
-                      {p.disciplines.map((d) => <li key={d} className="rounded-full border border-ink/10 px-3 py-1 text-xs text-ink/60">{d}</li>)}
-                    </ul>
                   </Link>
                 </motion.div>
               ))}
