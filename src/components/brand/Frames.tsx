@@ -25,7 +25,7 @@ export function Scaled({ width, height, children, className = '' }: { width: num
 export function BrowserFrame({ url, children, dark = false, className = '' }: { url?: string; children: ReactNode; dark?: boolean; className?: string }) {
   return (
     <div className={`overflow-hidden rounded-[10px] shadow-[0_40px_80px_-30px_rgba(0,0,0,0.45),0_0_0_1px_rgba(0,0,0,0.08)] sm:rounded-[14px] ${className}`}>
-      <div className={`flex h-7 items-center gap-3 px-3 sm:h-9 sm:px-4 ${dark ? 'bg-[#1d1d20]' : 'bg-[#ECEAE6]'}`}>
+      <div className={`flex h-7 items-center gap-3 px-3 sm:h-9 sm:px-4 ${dark ? 'bg-[#1d1d20]' : 'bg-[#E8E8EC]'}`}>
         <div className="flex gap-1.5">
           <span className="h-2 w-2 rounded-full bg-[#FF5F57] sm:h-2.5 sm:w-2.5" />
           <span className="h-2 w-2 rounded-full bg-[#FEBC2E] sm:h-2.5 sm:w-2.5" />

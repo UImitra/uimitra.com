@@ -5,7 +5,7 @@
     { "src": "/favicon-uimitra.svg", "sizes": "any", "type": "image/svg+xml" },
     { "src": "/favicon-uimitra.jpg", "sizes": "512x512", "type": "image/jpeg" }
   ],
-  "theme_color": "#F3F0EA",
-  "background_color": "#F3F0EA",
+  "theme_color": "#FAFAFB",
+  "background_color": "#FAFAFB",
   "display": "standalone"
 }

@@ -237,7 +237,7 @@ function Study({ p }: { p: Project }) {
       </section>
 
       {/* next */}
-      <Link to={`/work/${next.slug}`} data-cursor="Next" className="group block overflow-hidden" style={{ background: next.theme.bg, color: next.theme.fg }}>
+      <Link to={`/work/${next.slug}`} className="group block overflow-hidden" style={{ background: next.theme.bg, color: next.theme.fg }}>
         <div className="wrap flex min-h-[60svh] flex-col justify-between py-16 sm:py-20">
           <p className="eyebrow opacity-60">Next project</p>
           <div className="flex flex-wrap items-end justify-between gap-8">

@@ -13,11 +13,11 @@ export default {
           3: '#26262B',
         },
         paper: {
-          DEFAULT: '#F3F0EA',
-          2: '#E9E4DA',
-          3: '#DDD6C8',
+          DEFAULT: '#FAFAFB',
+          2: '#F0F0F2',
+          3: '#E1E1E5',
         },
-        mute: '#6E6A63',
+        mute: '#6B6B73',
         brand: {
           DEFAULT: '#ED184F',
           deep: '#B5103A',

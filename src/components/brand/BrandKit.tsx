@@ -24,7 +24,6 @@ export function Palette({ p, compact = false }: { p: Project; compact?: boolean 
         <button
           key={s.hex}
           onClick={() => copy(s.hex)}
-          data-cursor="Copy"
           className={`group relative flex flex-col justify-between overflow-hidden rounded-xl p-3 text-left transition-[flex,transform] duration-500 hover:-translate-y-1 sm:p-4 ${!compact && i === 0 ? 'col-span-2 sm:col-span-1' : ''}`}
           style={{ background: s.hex, color: onColor(s.hex), boxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.06)', minHeight: compact ? 72 : 150 }}
           aria-label={`Copy ${s.name} ${s.hex}`}

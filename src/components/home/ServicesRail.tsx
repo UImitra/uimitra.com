@@ -85,7 +85,7 @@ function Panel({ s, i }: { s: Service; i: number }) {
   return (
     <Link
       to={`/services/${s.slug}`}
-      data-cursor="Explore"
+     
       className="group grid h-[62vh] w-[min(78vw,980px)] shrink-0 grid-cols-2 gap-8 rounded-[28px] bg-ink-2 p-8 transition-colors duration-700 hover:bg-ink-3 xl:p-10"
     >
       <div className="flex flex-col">

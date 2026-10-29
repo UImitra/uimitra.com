@@ -4,7 +4,7 @@ import { AnimatePresence } from 'framer-motion';
 import { HelmetProvider } from 'react-helmet-async';
 import Nav from './components/layout/Nav';
 import Footer from './components/layout/Footer';
-import { Cursor, ScrollToTop, SmoothScroll, ToneProvider } from './components/layout/chrome';
+import { ScrollToTop, SmoothScroll, ToneProvider } from './components/layout/chrome';
 import { legacyServiceMap } from './data/services';
 
 const Home = lazy(() => import('./pages/Home'));
@@ -62,7 +62,6 @@ export default function App() {
             </Suspense>
           </main>
           <Footer />
-          <Cursor />
           <div className="grain" aria-hidden />
         </SmoothScroll>
       </ToneProvider>

@@ -119,7 +119,7 @@ export default function Service() {
             <div className="mt-14 grid gap-6 md:grid-cols-2">
               {related.map((p) => (
                 <Reveal key={p.slug}>
-                  <Link to={`/work/${p.slug}`} data-cursor="View" className="group block">
+                  <Link to={`/work/${p.slug}`} className="group block">
                     <div className="relative aspect-[16/11] overflow-hidden rounded-[24px]" style={{ background: p.theme.bg }}>
                       <div className="absolute inset-x-[8%] top-[20%] transition-transform duration-[1.1s] ease-out group-hover:-translate-y-3">
                         <BrowserFrame url={p.url}><ProductUI project={p} /></BrowserFrame>
