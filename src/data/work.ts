@@ -1,10 +1,11 @@
 /*
  * Portfolio data. Every case study on the site is built from an entry here.
  *
- * To add a project: copy an entry, give it a new slug, pick a `mark` and `ui`
- * (or add new ones in components/brand), and fill in the copy. To show real
- * screenshots instead of the code-drawn interface, put the image in
- * /public/work/<slug>/ and set `shots`.
+ * Logos and screenshots are the real files from each product, stored in
+ * /public/work/<slug>/. `shots` are desktop screens (shown at 16:10, cropped
+ * from the top), `phones` are phone screens. A project without shots falls
+ * back to a code-drawn interface (`ui`), and one without a `logo` file falls
+ * back to a code-drawn `mark`.
  *
  * Entries with `review: true` were written from limited public information.
  * Check the copy with the client before publishing.
@@ -12,10 +13,11 @@
 
 import type { ServiceSlug } from './services';
 
-export type MarkKey = 'yatricloud' | 'draw' | 'school' | 'playbook' | 'siddhivinayak' | 'nishaan';
-export type UiKey = MarkKey;
+export type MarkKey = 'siddhivinayak';
+export type UiKey = 'yatricloud' | 'siddhivinayak';
 
 export type Swatch = { name: string; hex: string; role: string };
+export type Shot = { src: string; alt: string };
 
 export type Project = {
   slug: string;
@@ -32,13 +34,39 @@ export type Project = {
   facts: { label: string; value: string }[];
   theme: { bg: string; fg: string; accent: string; soft: string };
   palette: Swatch[];
-  type: { display: string; displayFamily: string; text: string; textFamily: string; note: string };
-  mark: MarkKey;
-  ui: UiKey;
+  type: { display: string; displayFamily: string; text: string; textFamily: string; weight: number; note: string };
+  /** Real logo files: full colour for light grounds, white for dark ones. */
+  logo?: { src: string; white: string; alt: string };
+  /** Name split as the brand sets it, second part in `brand` colour on light grounds. */
+  wordmark?: [string, string];
+  brand?: string;
+  mark?: MarkKey;
+  ui?: UiKey;
   campaign: { kicker: string; headline: string; cta: string }[];
-  shots?: { src: string; alt: string }[];
+  shots?: Shot[];
+  phones?: Shot[];
   review?: boolean;
 };
+
+/* The Yatri Cloud family shares one mark, one blue and one type pairing. */
+const YATRI_BLUE = '#007CFF';
+
+const yatriLogo = { src: '/work/yatri/logo.png', white: '/work/yatri/logo-white.png', alt: 'Yatri Cloud logo' };
+
+const yatriType = (note: string) => ({
+  display: 'Bricolage Grotesque',
+  displayFamily: '"Bricolage Grotesque Variable", "Inter Tight Variable", sans-serif',
+  text: 'Inter Tight',
+  textFamily: '"Inter Tight Variable", sans-serif',
+  weight: 700,
+  note,
+});
+
+const blue: Swatch = { name: 'Yatri Blue', hex: YATRI_BLUE, role: 'The one accent: main buttons, links, header panels' };
+const ink: Swatch = { name: 'Ink', hex: '#171717', role: 'Text' };
+const white: Swatch = { name: 'White', hex: '#FFFFFF', role: 'Pages and cards' };
+const canvas: Swatch = { name: 'Canvas', hex: '#FAFAFA', role: 'App background behind cards' };
+const hairline: Swatch = { name: 'Hairline', hex: '#E5E5E5', role: 'Borders and dividers' };
 
 export const projects: Project[] = [
   {
@@ -49,50 +77,40 @@ export const projects: Project[] = [
     url: 'https://www.yatricloud.com/',
     services: ['brand-identity', 'web-design', 'ui-ux-design', 'social-media'],
     disciplines: ['Identity', 'Website', 'Product UI', 'Social'],
-    summary: 'A certification platform that 50,000+ learners use to pass AWS, Azure and GCP exams.',
+    summary: 'A certification platform that 50,000+ learners use to prepare for AWS, Azure and Google Cloud exams.',
     intro:
-      'Yatri Cloud helps people get certified in AWS, Azure, GCP, DevOps, Kubernetes and Terraform. Learners get practice tests, training, community events and discounted exam vouchers in one place.',
+      'Yatri Cloud helps people get certified in AWS, Azure, Google Cloud, DevOps, Kubernetes and Terraform. Learners get free practice tests and study guides, training, community events and discounted exam vouchers in one place.',
     brief:
-      'The community had grown past 50,000 learners, which the team calls Yatris, and the old look still read like a side project. Students compare prep sites on price and trust before they pay, so the brand had to look as dependable as the exam it prepares you for.',
+      'The community had grown past 50,000 learners, who the team calls Yatris, and the brand had to keep up. Students compare prep sites on price and trust before they pay, so the site had to look as dependable as the exam it prepares you for and get people to a voucher booking fast.',
     approach: [
       {
-        title: 'A mark built from a route',
-        body: 'Yatri means traveller. The Y is drawn as two paths that meet and continue as one line to a fixed point, the certificate. It works at 16px in a browser tab and on a conference banner.',
+        title: 'A traveller inside a cloud',
+        body: 'Yatri means traveller. The mark is a person with raised arms drawn inside a cloud, in white on a solid blue disc. It holds up as a 16px favicon and on a conference banner, and every Yatri product carries it.',
       },
       {
-        title: 'Blue you can trust, orange you can see',
-        body: 'Cloud vendors own most shades of blue, so we pushed ours deeper and paired it with a sunrise orange used only for prices, vouchers and calls to action. Orange always means a deal.',
+        title: 'One blue, nothing else',
+        body: 'The canvas is white and the text is near-black. A single bright blue marks the one thing to do on each screen. Greys come from the ink at set opacities, so the whole site reads as one tonal family.',
       },
       {
-        title: 'Practice first',
-        body: 'The site leads with the practice test. A visitor can start answering questions before signing up and judge the content for themselves.',
+        title: 'Bricolage for headlines, Inter Tight for reading',
+        body: 'Headlines are set in Bricolage Grotesque with tight tracking. Long exam questions and voucher tables use Inter Tight, which stays clear at small sizes.',
       },
     ],
     facts: [
       { label: 'Learners', value: '50K+' },
+      { label: 'Rating', value: '4.8 out of 5' },
       { label: 'Tracks', value: 'AWS · Azure · GCP · DevOps · K8s · Terraform' },
-      { label: 'Stack', value: 'React, Supabase, Razorpay' },
     ],
-    theme: { bg: '#0B1B3F', fg: '#F4F7FF', accent: '#FF7A1A', soft: '#1F4DFF' },
-    palette: [
-      { name: 'Altitude', hex: '#0B1B3F', role: 'Primary, backgrounds' },
-      { name: 'Signal Blue', hex: '#1F4DFF', role: 'Links, focus, charts' },
-      { name: 'Sunrise', hex: '#FF7A1A', role: 'Prices and calls to action' },
-      { name: 'Haze', hex: '#E6ECFF', role: 'Surfaces' },
-      { name: 'Cloud', hex: '#F4F7FF', role: 'Paper' },
-    ],
-    type: {
-      display: 'Space Grotesk',
-      displayFamily: '"Space Grotesk Variable", sans-serif',
-      text: 'Geist',
-      textFamily: '"Geist Variable", sans-serif',
-      note: 'Space Grotesk has the slightly technical feel of a terminal without being hard to read. Geist handles the long question text in practice tests.',
-    },
-    mark: 'yatricloud',
+    theme: { bg: YATRI_BLUE, fg: '#FFFFFF', accent: '#171717', soft: '#FFFFFF' },
+    palette: [blue, ink, white, canvas, hairline],
+    type: yatriType('Bricolage Grotesque gives headlines a confident, slightly hand-cut feel. Inter Tight handles practice questions, prices and tables.'),
+    logo: yatriLogo,
+    wordmark: ['Yatri', 'Cloud'],
+    brand: YATRI_BLUE,
     ui: 'yatricloud',
     campaign: [
-      { kicker: 'AWS · Azure · GCP', headline: 'Practice until the real exam feels familiar.', cta: 'Start a free practice test' },
-      { kicker: 'Exam vouchers', headline: '50% off your next certification.', cta: 'Claim a voucher' },
+      { kicker: 'AWS · Azure · Google Cloud', headline: 'Get discounted certification vouchers.', cta: 'Book a slot' },
+      { kicker: 'Always free', headline: 'Practice tests and study guides stay free.', cta: 'Start a practice test' },
       { kicker: 'Community', headline: '50,000 Yatris and counting.', cta: 'Join the community' },
     ],
   },
@@ -100,56 +118,46 @@ export const projects: Project[] = [
     slug: 'yatri-draw',
     name: 'Yatri Draw',
     client: 'Yatri Cloud',
-    sector: 'Productivity / Open source',
+    sector: 'Productivity / Whiteboard',
     url: 'https://draw.yatricloud.com/',
     services: ['brand-identity', 'ui-ux-design', 'web-design'],
-    disciplines: ['Identity', 'Product UI', 'Website'],
-    summary: 'An open-source whiteboard with a hand-drawn feel and end-to-end encrypted collaboration.',
+    disciplines: ['Identity', 'Product UI', 'Onboarding'],
+    summary: 'A free whiteboard where shapes look hand drawn and friends draw together from a shared link.',
     intro:
-      'Yatri Draw is an open-source virtual whiteboard. Sketches look hand drawn, several people can work on one board at the same time, and every session is end-to-end encrypted.',
+      'Yatri Draw is a virtual whiteboard from Yatri Cloud. Learners use it to sketch cloud architectures, plan a study week or explain a concept to a friend. Drawings stay in the browser until you export them, and a shared link opens a live session.',
     brief:
-      'Whiteboard tools are judged in the first ten seconds, when someone opens a blank canvas and tries to draw a box. The identity had to carry the same loose, friendly line as the product and still make the encryption feel serious.',
+      'Whiteboard tools are judged in the first ten seconds, when someone opens a blank canvas and tries to draw a box. The canvas had to stay loose and friendly while the frame around it looked like the rest of the Yatri family.',
     approach: [
       {
-        title: 'One continuous stroke',
-        body: 'The logo is a single pen line that loops into a D. It keeps the slight wobble of a real pen, the same line quality people get on the canvas.',
+        title: 'The family mark on a blank page',
+        body: 'Draw carries the same traveller-in-a-cloud mark as every Yatri product. On the welcome screen it sits alone in the middle of an empty canvas, with three plain choices underneath: open a file, get help or start a live session.',
       },
       {
-        title: 'Calm chrome, loud canvas',
-        body: 'Toolbars sit in warm paper tones and get out of the way. Colour is saved for what people draw. Marker violet is the default stroke and highlighter yellow is for sticky notes.',
+        title: 'Quiet chrome, loud canvas',
+        body: 'Toolbars are white with hairline borders and stay out of the way. Yatri Blue shows up on the selected tool and the Share button, so the colour on screen belongs to what people draw.',
       },
       {
-        title: 'Security in plain words',
-        body: 'Instead of a wall of security badges, each shared board shows one small lock and a plain sentence: only people with this link can read it.',
+        title: 'Hints that look hand written',
+        body: 'First-time hints are drawn in the same hand-drawn style as the canvas, with arrows pointing at the toolbar and the menu. They teach the tool without a tour or a pop-up.',
       },
     ],
     facts: [
-      { label: 'Licence', value: 'Open source' },
-      { label: 'Sessions', value: 'End-to-end encrypted' },
-      { label: 'Mode', value: 'Real-time collaboration' },
+      { label: 'Shapes', value: 'Hand drawn' },
+      { label: 'Sharing', value: 'Live sessions by link' },
+      { label: 'Storage', value: 'In your browser until you export' },
     ],
-    theme: { bg: '#FFF8EC', fg: '#1E1E1E', accent: '#6C4BF4', soft: '#FFE45C' },
-    palette: [
-      { name: 'Paper', hex: '#FFF8EC', role: 'Canvas' },
-      { name: 'Graphite', hex: '#1E1E1E', role: 'Text, default line' },
-      { name: 'Marker', hex: '#6C4BF4', role: 'Brand, active tool' },
-      { name: 'Highlighter', hex: '#FFE45C', role: 'Sticky notes' },
-      { name: 'Eraser', hex: '#FF8A7A', role: 'Alerts' },
-    ],
-    type: {
-      display: 'Caveat',
-      displayFamily: '"Caveat", cursive',
-      text: 'Geist',
-      textFamily: '"Geist Variable", sans-serif',
-      note: 'Caveat appears only on the canvas and in marketing headlines. Every menu and setting uses Geist so the product never feels like a toy.',
-    },
-    mark: 'draw',
-    ui: 'draw',
+    theme: { bg: '#FFFFFF', fg: '#171717', accent: YATRI_BLUE, soft: '#E5E5E5' },
+    palette: [blue, ink, white, canvas, hairline],
+    type: yatriType('The brand faces sit around the canvas. Inside it, text uses a hand-drawn face so diagrams stay rough and easy to change.'),
+    logo: yatriLogo,
+    wordmark: ['Yatri', 'Draw'],
+    brand: YATRI_BLUE,
     campaign: [
-      { kicker: 'Open source', headline: 'Think out loud. Together.', cta: 'Open a blank board' },
-      { kicker: 'Encrypted', headline: 'Only people with the link can see it.', cta: 'Start a private board' },
-      { kicker: 'Whiteboard', headline: 'Boxes, arrows and bad handwriting welcome.', cta: 'Draw something' },
+      { kicker: 'Whiteboard', headline: 'A whiteboard that feels like pen and paper.', cta: 'Open Yatri Draw' },
+      { kicker: 'Live', headline: 'Share a link and draw together.', cta: 'Start a session' },
+      { kicker: 'Private', headline: 'Your drawings stay in your browser.', cta: 'Draw something' },
     ],
+    shots: [{ src: '/work/yatri-draw/canvas.webp', alt: 'Yatri Draw welcome screen with hand-drawn hints around the toolbar' }],
   },
   {
     slug: 'yatri-school',
@@ -158,52 +166,53 @@ export const projects: Project[] = [
     sector: 'EdTech / School management',
     url: 'https://school.yatricloud.com/',
     services: ['brand-identity', 'ui-ux-design', 'web-design'],
-    disciplines: ['Identity', 'Dashboard UX', 'Parent app'],
-    summary: 'School management software for Indian schools, from attendance to fee receipts.',
+    disciplines: ['Identity', 'Dashboard UX', 'Parent app', 'Website'],
+    summary: 'School management for Indian schools, from attendance to fee receipts.',
     intro:
-      'Yatri School runs the daily work of a school. Office staff and teachers manage students, classes, attendance, exams, notices and fees. Parents see attendance, results and receipts, and pay fees online through Razorpay.',
+      'Yatri School runs the daily work of a school. Office staff and teachers handle students, classes, attendance, exams, notices and fees. Parents see attendance, fees, receipts and results on their phone and pay online through Razorpay.',
     brief:
-      'The people using it every day are school office staff, often on a shared desktop, and parents checking on a phone between other things. Neither group wants to learn software. The product had to feel as familiar as a register book.',
+      'The people using it every day are office staff on a shared desktop and parents checking a phone between other things. Neither group wants to learn software, so every screen had to be as plain as a register book, in English or Hindi.',
     approach: [
       {
-        title: 'An arch for a school gate',
-        body: 'The mark is the arch over a school entrance with a single star inside. It reads as a school at any size and leaves room to sit on report cards and ID badges.',
+        title: 'One mark for the whole family',
+        body: 'School uses the Yatri traveller-in-a-cloud mark, so a parent who already knows Yatri Cloud trusts the app on day one. Each school adds its own crest beside it on report cards and receipts.',
       },
       {
-        title: 'Built around the morning',
-        body: 'The dashboard opens on today: who is absent, which fees are due and which notices went out. Staff reach the three tasks they do most often in one click from the home screen.',
+        title: 'One blue panel per screen',
+        body: 'Every screen opens with a solid blue header panel that greets the user and holds the main action, like Take attendance. Everything below it is white, grey and ink, so the next step is never in doubt.',
       },
       {
-        title: 'Receipts parents can trust',
-        body: 'Every online payment produces a receipt that looks like the paper one the school already issues, with the school name and logo on top. Parents get a document they already recognise.',
+        title: 'Large type for busy people',
+        body: 'Body text is 15 to 16px and every button is at least 44px tall. Status always comes with a word, Paid or Due, never colour alone.',
       },
     ],
     facts: [
       { label: 'Users', value: 'Office, teachers, parents' },
-      { label: 'Modules', value: 'Students · Attendance · Exams · Notices · Fees' },
-      { label: 'Payments', value: 'Razorpay' },
+      { label: 'Modules', value: 'Attendance · Exams · Timetable · Notices · Fees' },
+      { label: 'Languages', value: 'English and Hindi' },
     ],
-    theme: { bg: '#0F3D2E', fg: '#FBF7EE', accent: '#F5B800', soft: '#DDEBDF' },
-    palette: [
-      { name: 'Chalkboard', hex: '#0F3D2E', role: 'Primary' },
-      { name: 'Gold Star', hex: '#F5B800', role: 'Highlights, awards' },
-      { name: 'Sage', hex: '#DDEBDF', role: 'Surfaces' },
-      { name: 'Register', hex: '#FBF7EE', role: 'Paper' },
-      { name: 'Red Ink', hex: '#D64545', role: 'Absences, dues' },
-    ],
-    type: {
-      display: 'Manrope',
-      displayFamily: '"Manrope Variable", sans-serif',
-      text: 'Manrope',
-      textFamily: '"Manrope Variable", sans-serif',
-      note: 'One family with open, round letters that stay clear on cheap screens and in printed circulars.',
-    },
-    mark: 'school',
-    ui: 'school',
+    theme: { bg: '#171717', fg: '#FFFFFF', accent: YATRI_BLUE, soft: '#2A2A2A' },
+    palette: [blue, ink, white, canvas, { name: 'Paid', hex: '#19764A', role: 'Status pills, always with a word' }],
+    type: yatriType('Bricolage Grotesque for greetings and headings, Inter Tight for registers, timetables and fee tables. Both stay legible on old school desktops.'),
+    logo: yatriLogo,
+    wordmark: ['Yatri', 'School'],
+    brand: YATRI_BLUE,
     campaign: [
-      { kicker: 'For school offices', headline: 'Attendance, fees and results in one place.', cta: 'Book a school demo' },
-      { kicker: 'For parents', headline: 'Pay fees from your phone. Get the receipt instantly.', cta: 'See the parent app' },
+      { kicker: 'For schools', headline: 'Run your school from one simple app.', cta: 'Set up your school' },
+      { kicker: 'For parents', headline: 'Attendance, results and receipts on your phone.', cta: 'See the parent app' },
       { kicker: 'For teachers', headline: 'Mark attendance from the classroom.', cta: 'See how it works' },
+    ],
+    shots: [
+      { src: '/work/yatri-school/dashboard.webp', alt: 'Office home screen with students, attendance, collections and overdue fees' },
+      { src: '/work/yatri-school/website.webp', alt: 'Yatri School website: run your school from one simple app' },
+      { src: '/work/yatri-school/fees.webp', alt: 'Pending fees with one-tap WhatsApp reminders' },
+      { src: '/work/yatri-school/report-card.webp', alt: 'Printable report card with the school crest' },
+      { src: '/work/yatri-school/timetable.webp', alt: 'Weekly timetable for a class' },
+      { src: '/work/yatri-school/teacher.webp', alt: 'Teacher home screen with classes and notices' },
+    ],
+    phones: [
+      { src: '/work/yatri-school/phone-parent.webp', alt: 'Parent home screen on a phone, with a Hindi switch' },
+      { src: '/work/yatri-school/phone-attendance.webp', alt: 'Marking class attendance on a phone' },
     ],
   },
   {
@@ -211,55 +220,51 @@ export const projects: Project[] = [
     name: 'Yatri Playbook',
     client: 'Yatri Cloud',
     sector: 'SaaS / Documentation',
-    url: 'https://www.yatricloud.com/playbook',
+    url: 'https://playbook.yatricloud.com/',
     services: ['brand-identity', 'ui-ux-design', 'web-design', 'motion-graphics'],
-    disciplines: ['Identity', 'Desktop app', 'Website', 'Motion'],
+    disciplines: ['Identity', 'Website', 'Product UI', 'Store listing'],
     summary: 'Record a process once and get a step-by-step guide with screenshots.',
     intro:
-      'Playbook records a process while you do it and turns it into a step-by-step guide with screenshots. You can edit the guide, share a link, embed it, present it as slides or export it to PDF, Word, HTML or Markdown. A desktop capture app runs on macOS and Windows.',
+      'Playbook records your clicks as you work and turns them into a step-by-step guide with screenshots. You can edit it, share a link, embed it, show it as slides or export it as PDF, Word, HTML or Markdown. Capture runs as a Chrome and Edge extension and as a desktop app for macOS and Windows.',
     brief:
-      'Documentation tools get opened when someone is already behind on work. Playbook had to show its value in one demo: press record, do the task, stop, and a finished guide is waiting.',
+      'Documentation tools get opened when someone is already behind on work. Playbook had to show its value in one demo: press Start, do the task, press Done, and a finished guide is waiting.',
     approach: [
       {
-        title: 'A play button made of steps',
-        body: 'The mark is a play triangle cut into three bars of different length. It says record and it says steps, and it animates well: the bars slide in one after another when capture starts.',
+        title: 'The demo is the hero',
+        body: 'The homepage plays the product. A supplier form fills itself in on the left while the finished guide writes itself on the right, one step at a time.',
       },
       {
-        title: 'Coral means recording',
-        body: 'The interface is mostly ink and white. Signal coral appears only while recording and on the highlight ring that marks each click in a screenshot, so it always means the same thing.',
+        title: 'No icons at all',
+        body: 'Playbook follows the Yatri system with one change: there are no icons anywhere. Navigation, buttons and status use words, which keeps guides readable for people who are new to software.',
       },
       {
-        title: 'The guide is the homepage',
-        body: 'The marketing site is itself a Playbook guide. Visitors scroll through real steps, which explains the product better than a feature grid.',
+        title: 'Privacy said plainly',
+        body: 'Nothing is recorded until you press Start. Password and card fields are never captured, and emails or phone numbers can be blurred before upload. The store listing says this in five short lines.',
       },
     ],
     facts: [
       { label: 'Exports', value: 'PDF · Word · HTML · Markdown' },
-      { label: 'Desktop', value: 'macOS and Windows' },
-      { label: 'Share', value: 'Link, embed, slides' },
+      { label: 'Capture', value: 'Chrome, Edge, macOS, Windows' },
+      { label: 'Price', value: 'Every feature free' },
     ],
-    theme: { bg: '#111318', fg: '#F5F5F2', accent: '#FF5A4E', soft: '#2A2D35' },
-    palette: [
-      { name: 'Ink', hex: '#111318', role: 'Primary' },
-      { name: 'Signal Coral', hex: '#FF5A4E', role: 'Recording, highlights' },
-      { name: 'Graphite', hex: '#2A2D35', role: 'Panels' },
-      { name: 'Margin', hex: '#F5F5F2', role: 'Paper' },
-      { name: 'Done', hex: '#2BB673', role: 'Completed steps' },
-    ],
-    type: {
-      display: 'Geist',
-      displayFamily: '"Geist Variable", sans-serif',
-      text: 'Geist Mono',
-      textFamily: '"Geist Mono Variable", monospace',
-      note: 'Geist for headings and steps. Mono for step numbers, shortcuts and file names, which keeps the guides scannable.',
-    },
-    mark: 'playbook',
-    ui: 'playbook',
+    theme: { bg: '#EAF3FF', fg: '#171717', accent: YATRI_BLUE, soft: '#FFFFFF' },
+    palette: [blue, { name: 'Pressed', hex: '#0070E0', role: 'Button hover and press' }, ink, white, hairline],
+    type: yatriType('Bricolage Grotesque for the big promises, Inter Tight for every step in a guide. No icons, so the type does all the work.'),
+    logo: yatriLogo,
+    wordmark: ['Yatri', 'Playbook'],
+    brand: YATRI_BLUE,
     campaign: [
-      { kicker: 'Press record', headline: 'Do it once. Never explain it again.', cta: 'Download for Mac' },
-      { kicker: 'Export anywhere', headline: 'PDF, Word, HTML or Markdown.', cta: 'See a sample guide' },
-      { kicker: 'Desktop app', headline: 'Now on macOS and Windows.', cta: 'Get Playbook' },
+      { kicker: 'Press Start', headline: 'Do it once. The guide writes itself.', cta: 'Start free' },
+      { kicker: 'Extension', headline: 'Capture from your toolbar.', cta: 'Add to Chrome' },
+      { kicker: 'Privacy', headline: 'Private details stay private.', cta: 'Read how' },
     ],
+    shots: [
+      { src: '/work/yatri-playbook/home.webp', alt: 'Playbook homepage with a guide writing itself as a form is filled in' },
+      { src: '/work/yatri-playbook/guide.webp', alt: 'Store listing: do it once, the guide writes itself' },
+      { src: '/work/yatri-playbook/capture.webp', alt: 'Store listing: capture from your toolbar in three steps' },
+      { src: '/work/yatri-playbook/privacy.webp', alt: 'Store listing: what is and is not recorded' },
+    ],
+    phones: [{ src: '/work/yatri-playbook/phone.webp', alt: 'Playbook on a phone during a capture' }],
   },
   {
     slug: 'siddhivinayak-classes',
@@ -306,6 +311,7 @@ export const projects: Project[] = [
       displayFamily: '"Fraunces Variable", serif',
       text: 'Manrope',
       textFamily: '"Manrope Variable", sans-serif',
+      weight: 600,
       note: 'A warm serif for headlines gives the institute some gravity. Manrope keeps timetables and fee details easy to read.',
     },
     mark: 'siddhivinayak',
@@ -321,53 +327,63 @@ export const projects: Project[] = [
     slug: 'nishaan',
     name: 'Nishaan',
     client: 'Yatri Cloud',
-    sector: 'Product / Yatri Cloud family',
+    sector: 'LegalTech / Trademark watch',
     url: 'https://nishaan.yatricloud.com/',
-    services: ['brand-identity', 'ui-ux-design'],
-    disciplines: ['Naming system', 'Identity', 'Product UI'],
-    summary: 'Identity and interface for Nishaan, a product in the Yatri Cloud family.',
+    services: ['brand-identity', 'ui-ux-design', 'web-design'],
+    disciplines: ['Naming', 'Identity', 'Product UI', 'Website'],
+    summary: 'Trademark watch, opposition and compliance software for Indian IP firms.',
     intro:
-      'Nishaan is part of the Yatri Cloud family of products. The name means mark or sign in Hindi, and the identity is built on that idea.',
+      'Nishaan reads every Trade Marks Journal, flags advertised marks that conflict with a firm’s portfolio, prepares recommendation letters and Form TM-O drafts, and tracks every opposition and renewal date under the Trade Marks Act, 1999.',
     brief:
-      'A new product inside a growing family has two jobs: look like it belongs, and still be recognisable on its own. Nishaan shares the Yatri Cloud type and spacing and has its own mark and colour.',
+      'Trademark attorneys live by deadlines: four months to oppose a mark once it is advertised, then fixed windows for every reply. Missing one can lose a client’s case. The product had to put every conflict and every date in view for people who read dense legal tables all day.',
     approach: [
       {
-        title: 'A seal, pressed once',
-        body: 'The mark is a round seal with a single notch, like a stamp pressed into wax. It sits next to the other Yatri marks without looking like a sibling copy.',
+        title: 'A mark that means mark',
+        body: 'Nishaan is Hindi for mark or sign. The logo is a navy ring holding a crescent and a single dot, like a seal pressed onto a filing.',
       },
       {
-        title: 'Shared system, own colour',
-        body: 'Grid, type scale and components come from the Yatri Cloud system. Nishaan takes indigo and a warm vermilion so it can be told apart in a crowded app switcher.',
+        title: 'The Yatri system in navy',
+        body: 'Nishaan uses the Yatri Cloud design system in a navy edition. Wherever the other apps use their blue, Nishaan uses deep navy, on a cool grey canvas that lets white cards stand apart.',
+      },
+      {
+        title: 'Dense tables, calm screens',
+        body: 'Journals, oppositions and compliance dates are long tables. Each screen gets one navy header panel, navy table headers and status pills that always carry a word, like Overdue or Pending, so an attorney can scan a hundred rows quickly.',
       },
     ],
     facts: [
-      { label: 'Family', value: 'Yatri Cloud' },
-      { label: 'Name', value: 'Hindi for mark, sign' },
-      { label: 'Scope', value: 'Identity, interface' },
+      { label: 'Built for', value: 'Indian IP firms' },
+      { label: 'Reads', value: 'Every Trade Marks Journal' },
+      { label: 'Drafts', value: 'Form TM-O and letters' },
     ],
-    theme: { bg: '#1B1446', fg: '#F6F2FF', accent: '#FF5B3A', soft: '#C9BFFF' },
+    theme: { bg: '#14294B', fg: '#FFFFFF', accent: '#C8D3E9', soft: '#253F6A' },
     palette: [
-      { name: 'Indigo Ink', hex: '#1B1446', role: 'Primary' },
-      { name: 'Vermilion', hex: '#FF5B3A', role: 'The seal, actions' },
-      { name: 'Lilac', hex: '#C9BFFF', role: 'Secondary' },
-      { name: 'Parchment', hex: '#F6F2FF', role: 'Paper' },
-      { name: 'Night', hex: '#0E0B24', role: 'Text' },
+      { name: 'Navy', hex: '#14294B', role: 'The one brand colour' },
+      { name: 'Ink', hex: '#171717', role: 'Body text' },
+      { name: 'Seal', hex: '#C8D3E9', role: 'The crescent in the logo' },
+      { name: 'Canvas', hex: '#F1F4F8', role: 'App background behind cards' },
+      { name: 'White', hex: '#FFFFFF', role: 'Pages and cards' },
     ],
     type: {
-      display: 'Instrument Serif',
-      displayFamily: '"Instrument Serif", serif',
-      text: 'Geist',
-      textFamily: '"Geist Variable", sans-serif',
-      note: 'A sharp serif for the wordmark and headlines gives Nishaan a signature feel. Interface text stays in Geist, shared with Yatri Cloud.',
+      display: 'Figtree',
+      displayFamily: '"Figtree Variable", sans-serif',
+      text: 'Figtree',
+      textFamily: '"Figtree Variable", sans-serif',
+      weight: 700,
+      note: 'One family for the app, the docs and the website. Headings are bold with slightly tight tracking and big numbers go extra bold, which keeps long tables easy to scan.',
     },
-    mark: 'nishaan',
-    ui: 'nishaan',
+    logo: { src: '/work/nishaan/logo.svg', white: '/work/nishaan/logo-white.svg', alt: 'Nishaan logo' },
+    brand: '#14294B',
     campaign: [
-      { kicker: 'Yatri Cloud', headline: 'Leave your mark.', cta: 'Get early access' },
-      { kicker: 'Nishaan', headline: 'Signed, sealed, shared.', cta: 'See how it works' },
-      { kicker: 'New', headline: 'A new member of the Yatri family.', cta: 'Explore Nishaan' },
+      { kicker: 'Trade Marks Journal', headline: 'Know every conflict before the deadline.', cta: 'Request a demo' },
+      { kicker: 'Oppositions', headline: 'Every opposition date, tracked.', cta: 'See the product' },
+      { kicker: 'Letters', headline: 'Recommendation letters and TM-O drafts, prepared.', cta: 'See a sample' },
     ],
-    review: true,
+    shots: [
+      { src: '/work/nishaan/dashboard.webp', alt: 'Firm dashboard with compliance due, the latest journal and portfolio changes' },
+      { src: '/work/nishaan/journal-watch.webp', alt: 'Journal watch with days left in each opposition window' },
+      { src: '/work/nishaan/oppositions.webp', alt: 'Opposition portfolio with statutory next steps' },
+      { src: '/work/nishaan/compliance.webp', alt: 'Compliance deadlines with overdue and pending status' },
+    ],
   },
 ];
 

@@ -3,14 +3,17 @@ import { Link } from 'react-router-dom';
 import { motion, MotionValue, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { projects, type Project } from '../../data/work';
 import { BrowserFrame, PhoneFrame } from '../brand/Frames';
-import { Story } from '../brand/Applications';
+import { PhoneScreen } from '../brand/Applications';
 import { Lockup } from '../brand/Marks';
 import { ProductUI } from '../brand/ProductUI';
 import { Arrow, Button } from '../ui/Button';
 import { Reveal, SplitReveal } from '../ui/motion';
 
 /** Selected work as full-width cards that stick and stack while you scroll. */
-export default function WorkStack({ items = projects.slice(0, 4) }: { items?: Project[] }) {
+/* Lead with the projects that have the most real product screens to show. */
+const featured = ['yatri-school', 'yatri-playbook', 'nishaan', 'yatri-cloud'];
+
+export default function WorkStack({ items = featured.map((s) => projects.find((p) => p.slug === s)!) }: { items?: Project[] }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
 
@@ -55,7 +58,7 @@ function Card({ p, i, total, progress }: { p: Project; i: number; total: number;
           to={`/work/${p.slug}`}
          
           className="group grid h-full grid-rows-[auto_1fr] gap-4 p-6 sm:p-10 lg:grid-cols-12 lg:grid-rows-1 lg:gap-10 lg:p-14"
-          style={{ background: p.theme.bg, color: p.theme.fg }}
+          style={{ background: p.theme.bg, color: p.theme.fg, boxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.06)' }}
         >
           <div className="flex flex-col lg:col-span-4">
             <div className="flex items-center justify-between">
@@ -86,7 +89,7 @@ function Card({ p, i, total, progress }: { p: Project; i: number; total: number;
             </div>
             <div className="absolute bottom-0 right-0 w-[34%] max-w-[200px] rotate-[4deg] lg:hidden">
               <PhoneFrame>
-                <Story p={p} index={i % 3} />
+                <PhoneScreen p={p} index={0} />
               </PhoneFrame>
             </div>
           </div>

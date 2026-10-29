@@ -2,13 +2,11 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { Project } from '../../data/work';
 import { AppIcon, BusinessCard, SocialPost } from './Applications';
-import { Lockup, Mark } from './Marks';
+import { Lockup, Mark, isLight } from './Marks';
 
 /** Readable text colour for a given background hex. */
 export function onColor(hex: string) {
-  const n = parseInt(hex.slice(1), 16);
-  const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
-  return (r * 299 + g * 587 + b * 114) / 1000 > 150 ? '#0D0D0F' : '#FFFFFF';
+  return isLight(hex) ? '#0D0D0F' : '#FFFFFF';
 }
 
 export function Palette({ p, compact = false }: { p: Project; compact?: boolean }) {
@@ -50,8 +48,8 @@ export function TypeSpecimen({ p }: { p: Project }) {
     <div className="grid h-full gap-4 sm:grid-cols-2">
       <div className="flex flex-col justify-between rounded-xl p-5 sm:p-6" style={{ background: p.theme.fg, color: p.theme.bg }}>
         <p className="eyebrow opacity-50">Display · {p.type.display}</p>
-        <p className="text-[clamp(4rem,9vw,7rem)] leading-none" style={{ fontFamily: p.type.displayFamily, fontWeight: p.mark === 'nishaan' ? 400 : 600 }}>Aa</p>
-        <p className="text-xl leading-tight sm:text-2xl" style={{ fontFamily: p.type.displayFamily, fontWeight: p.mark === 'nishaan' ? 400 : 600 }}>{p.campaign[0].headline}</p>
+        <p className="text-[clamp(4rem,9vw,7rem)] leading-none" style={{ fontFamily: p.type.displayFamily, fontWeight: p.type.weight }}>Aa</p>
+        <p className="text-xl leading-tight sm:text-2xl" style={{ fontFamily: p.type.displayFamily, fontWeight: p.type.weight }}>{p.campaign[0].headline}</p>
       </div>
       <div className="flex flex-col justify-between gap-6 rounded-xl p-5 sm:p-6" style={{ background: p.theme.bg, color: p.theme.fg }}>
         <p className="eyebrow opacity-50">Text · {p.type.text}</p>
@@ -72,12 +70,12 @@ export function LogoSheet({ p }: { p: Project }) {
         <Lockup project={p} size="lg" />
       </div>
       <div className="grid min-h-[120px] place-items-center rounded-xl" style={{ background: p.theme.fg, boxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.06)' }}>
-        <Lockup project={p} size="sm" fg={p.theme.bg} />
+        <Lockup project={p} size="sm" fg={p.logo ? onColor(p.theme.fg) : p.theme.bg} />
       </div>
       <div className="flex min-h-[120px] items-center justify-center gap-4 rounded-xl" style={{ background: p.theme.accent }}>
-        <Mark project={p} fg={p.theme.bg} accent={p.theme.fg} className="h-12 w-12" />
-        <Mark project={p} fg={p.theme.bg} accent={p.theme.fg} className="h-7 w-7" />
-        <Mark project={p} fg={p.theme.bg} accent={p.theme.fg} className="h-4 w-4" />
+        <Mark project={p} fg={p.theme.bg} accent={p.theme.fg} on={p.theme.accent} className="h-12 w-12" />
+        <Mark project={p} fg={p.theme.bg} accent={p.theme.fg} on={p.theme.accent} className="h-7 w-7" />
+        <Mark project={p} fg={p.theme.bg} accent={p.theme.fg} on={p.theme.accent} className="h-4 w-4" />
       </div>
     </div>
   );

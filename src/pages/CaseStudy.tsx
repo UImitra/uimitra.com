@@ -2,11 +2,11 @@ import { useEffect, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { Page, Seo, useTone } from '../components/layout/chrome';
-import { AppIcon, BusinessCard, Poster, SocialPost, Story } from '../components/brand/Applications';
+import { AppIcon, BusinessCard, PhoneScreen, Poster, SocialPost } from '../components/brand/Applications';
 import { LogoSheet, Palette, TypeSpecimen, onColor } from '../components/brand/BrandKit';
 import { BrowserFrame, PhoneFrame } from '../components/brand/Frames';
 import { Lockup, Mark } from '../components/brand/Marks';
-import { ProductUI } from '../components/brand/ProductUI';
+import { ProductUI, Shot } from '../components/brand/ProductUI';
 import { Arrow, Button } from '../components/ui/Button';
 import { Parallax, Reveal, SplitReveal, ease } from '../components/ui/motion';
 import { getService } from '../data/services';
@@ -124,6 +124,40 @@ function Study({ p }: { p: Project }) {
         </div>
       </section>
 
+      {/* real screens */}
+      {(p.shots?.length ?? 0) > 1 && (
+        <section className="bg-paper pb-24 sm:pb-36">
+          <div className="wrap">
+            <div className="flex flex-wrap items-end justify-between gap-6">
+              <div>
+                <p className="eyebrow text-mute">Inside the product</p>
+                <h2 className="mt-5 text-display-m font-medium">
+                  <SplitReveal text="Real screens, *shipped.*" />
+                </h2>
+              </div>
+              <p className="max-w-sm text-sm text-ink/60">Captured from the live product. Names and numbers come from its demo data.</p>
+            </div>
+            <div className="mt-14 grid gap-x-6 gap-y-12 md:grid-cols-2 sm:gap-y-16">
+              {p.shots!.slice(1).map((s, i, all) => {
+                // with an odd count the first screen runs full width so no row is left half empty
+                const wide = all.length % 2 === 1 && i === 0;
+                const right = !wide && (all.length % 2 === 1 ? i - 1 : i) % 2 === 1;
+                return (
+                  <Reveal key={s.src} delay={right ? 0.08 : 0} className={wide ? 'md:col-span-2' : right ? 'md:translate-y-16' : ''}>
+                    <figure>
+                      <BrowserFrame url={p.url} className="transition-transform duration-700 ease-out hover:-translate-y-1.5">
+                        <Shot src={s.src} alt={s.alt} />
+                      </BrowserFrame>
+                      <figcaption className="mt-4 text-sm text-ink/60">{s.alt}</figcaption>
+                    </figure>
+                  </Reveal>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* approach chapters */}
       <section className="bg-paper pb-24 sm:pb-36">
         <div className="wrap space-y-24 sm:space-y-36">
@@ -152,7 +186,7 @@ function Study({ p }: { p: Project }) {
       <section style={{ background: accent, color: bg }} className="overflow-hidden">
         <div className="wrap grid min-h-[80svh] place-items-center py-24">
           <Parallax speed={0.12}>
-            <Mark project={p} fg={bg} accent={fg} className="h-[46vw] max-h-[460px] w-[46vw] max-w-[460px]" />
+            <Mark project={p} fg={bg} accent={fg} on={accent} className="h-[46vw] max-h-[460px] w-[46vw] max-w-[460px]" />
           </Parallax>
         </div>
       </section>
@@ -187,8 +221,8 @@ function Study({ p }: { p: Project }) {
             </Reveal>
             <Reveal className="relative flex items-center justify-center gap-4 overflow-hidden rounded-[24px] p-8 sm:gap-8 sm:p-14 lg:col-span-7">
               <div aria-hidden className="absolute inset-0" style={{ background: p.theme.soft, opacity: 0.35 }} />
-              <div className="relative w-[44%] max-w-[260px] translate-y-6"><PhoneFrame><Story p={p} index={0} /></PhoneFrame></div>
-              <div className="relative w-[44%] max-w-[260px] -translate-y-6"><PhoneFrame><Story p={p} index={2} /></PhoneFrame></div>
+              <div className="relative w-[44%] max-w-[260px] translate-y-6"><PhoneFrame><PhoneScreen p={p} index={0} /></PhoneFrame></div>
+              <div className="relative w-[44%] max-w-[260px] -translate-y-6"><PhoneFrame><PhoneScreen p={p} index={p.phones && p.phones.length > 1 ? 1 : 2} /></PhoneFrame></div>
             </Reveal>
             <Reveal delay={0.08} className="flex flex-col justify-between gap-10 rounded-[24px] bg-paper p-8 sm:p-12 lg:col-span-5">
               <div className="flex items-end gap-4">
