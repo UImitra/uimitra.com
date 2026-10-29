@@ -31,7 +31,7 @@ export default function Services() {
           <ul className="border-t border-ink/10 lg:col-span-7">
             {services.map((s, i) => (
               <li key={s.slug} className="border-b border-ink/10" onPointerEnter={() => setHover(i)}>
-                <Link to={`/services/${s.slug}`} data-cursor="Open" className="group flex items-center gap-6 py-7 sm:py-9">
+                <Link to={`/services/${s.slug}`} className="group flex items-center gap-6 py-7 sm:py-9">
                   <span className="w-8 font-mono text-xs text-mute">{String(i + 1).padStart(2, '0')}</span>
                   <span className="flex-1">
                     <span className={`block text-[clamp(1.9rem,4vw,3.4rem)] font-medium leading-none tracking-[-0.04em] transition-all duration-500 text-ink ${hover === i ? 'lg:translate-x-2' : 'lg:text-ink/35'}`}>

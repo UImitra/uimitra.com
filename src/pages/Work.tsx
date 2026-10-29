@@ -64,7 +64,7 @@ export default function Work() {
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: i * 0.04 }}
                   className={i % 2 === 1 ? 'md:mt-24' : ''}
                 >
-                  <Link to={`/work/${p.slug}`} data-cursor="View" className="group block">
+                  <Link to={`/work/${p.slug}`} className="group block">
                     <div className="relative aspect-[4/3.2] overflow-hidden rounded-[22px] sm:rounded-[28px]" style={{ background: p.theme.bg }}>
                       <div className="absolute inset-x-[7%] top-[16%] transition-transform duration-[1.1s] ease-out group-hover:-translate-y-3 group-hover:scale-[1.03]">
                         <BrowserFrame url={p.url}>

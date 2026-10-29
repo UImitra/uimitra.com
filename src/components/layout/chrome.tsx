@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
-import { motion, useMotionValue, useReducedMotion, useSpring } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { ReactLenis, useLenis } from 'lenis/react';
 import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
@@ -47,69 +47,6 @@ export function useDarkHero() {
     setTone('dark');
     return () => setTone('light');
   }, [setTone]);
-}
-
-/* ---------- cursor ---------- */
-
-export function Cursor() {
-  const reduce = useReducedMotion();
-  const [enabled, setEnabled] = useState(false);
-  const [label, setLabel] = useState<string | null>(null);
-  const [hidden, setHidden] = useState(true);
-  const x = useMotionValue(-100);
-  const y = useMotionValue(-100);
-  const sx = useSpring(x, { stiffness: 500, damping: 40, mass: 0.5 });
-  const sy = useSpring(y, { stiffness: 500, damping: 40, mass: 0.5 });
-
-  useEffect(() => {
-    const fine = window.matchMedia('(pointer: fine)').matches;
-    setEnabled(fine && !reduce);
-  }, [reduce]);
-
-  useEffect(() => {
-    if (!enabled) return;
-    const move = (e: PointerEvent) => {
-      x.set(e.clientX);
-      y.set(e.clientY);
-      setHidden(false);
-      const t = (e.target as HTMLElement | null)?.closest<HTMLElement>('[data-cursor]');
-      setLabel(t ? t.dataset.cursor || '' : null);
-    };
-    const leave = () => setHidden(true);
-    window.addEventListener('pointermove', move, { passive: true });
-    document.documentElement.addEventListener('pointerleave', leave);
-    return () => {
-      window.removeEventListener('pointermove', move);
-      document.documentElement.removeEventListener('pointerleave', leave);
-    };
-  }, [enabled, x, y]);
-
-  if (!enabled) return null;
-  const big = label !== null && label !== '';
-
-  return (
-    <motion.div
-      aria-hidden
-      className="pointer-events-none fixed left-0 top-0 z-[70]"
-      style={{ x: sx, y: sy }}
-    >
-      <motion.div
-        className={`-translate-x-1/2 -translate-y-1/2 grid place-items-center rounded-full ${big ? 'bg-brand text-white' : 'bg-white mix-blend-difference'}`}
-        animate={{ width: big ? 92 : 10, height: big ? 92 : 10, opacity: hidden ? 0 : 1 }}
-        transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-      >
-        {big && (
-          <motion.span
-            initial={{ opacity: 0, scale: 0.6 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="text-[12px] font-medium tracking-tight"
-          >
-            {label}
-          </motion.span>
-        )}
-      </motion.div>
-    </motion.div>
-  );
 }
 
 /* ---------- SEO ---------- */

@@ -70,7 +70,7 @@ export default function Hero() {
             <Link
               key={p.slug}
               to={`/work/${p.slug}`}
-              data-cursor="View"
+             
               className="group mr-4 flex h-44 w-[300px] shrink-0 flex-col justify-between rounded-2xl p-5 transition-transform duration-700 ease-out hover:-rotate-1 hover:scale-[1.02] sm:mr-5 sm:h-56 sm:w-[400px] sm:p-7"
               style={{ background: p.theme.bg }}
             >

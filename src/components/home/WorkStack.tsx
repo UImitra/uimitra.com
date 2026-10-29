@@ -53,7 +53,7 @@ function Card({ p, i, total, progress }: { p: Project; i: number; total: number;
       >
         <Link
           to={`/work/${p.slug}`}
-          data-cursor="View case"
+         
           className="group grid h-full grid-rows-[auto_1fr] gap-4 p-6 sm:p-10 lg:grid-cols-12 lg:grid-rows-1 lg:gap-10 lg:p-14"
           style={{ background: p.theme.bg, color: p.theme.fg }}
         >
